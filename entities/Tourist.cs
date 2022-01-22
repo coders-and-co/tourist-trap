@@ -13,6 +13,10 @@ public class Tourist : RigidBody2D
 
     public override void _Ready()
     {
+
+        GD.Randomize();
+
+        // save node references
         _sprites = GetNode<Node2D>("Sprites");
         _bodySprite = GetNode<AnimatedSprite>("Sprites/Body");
         _faceSprite = GetNode<AnimatedSprite>("Sprites/Face");
@@ -20,12 +24,15 @@ public class Tourist : RigidBody2D
         _bodyAccessorySprite = GetNode<AnimatedSprite>("Sprites/Body Accessory");
         _headAccessorySprite = GetNode<AnimatedSprite>("Sprites/Head Accessory");
 
-        GD.Randomize();
+        // randomize tourist
+        PickRandomFrame(_faceSprite, "happy");
+        PickRandomFrame(_outfitSprite);
+        PickRandomFrame(_bodyAccessorySprite);
+        PickRandomFrame(_headAccessorySprite);
+    }
 
-        _faceSprite.Frame = (int) GD.Randi() % _faceSprite.Frames.GetFrameCount("happy");
-        _outfitSprite.Frame = (int) GD.Randi() % _outfitSprite.Frames.GetFrameCount("default");
-        _bodyAccessorySprite.Frame = (int) GD.Randi() % _bodyAccessorySprite.Frames.GetFrameCount("default");
-        _headAccessorySprite.Frame = (int) GD.Randi() % _headAccessorySprite.Frames.GetFrameCount("default");
+    private void PickRandomFrame(AnimatedSprite sprite, string anim="default") {
+        sprite.Frame = (int) GD.Randi() % sprite.Frames.GetFrameCount(anim);
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState state)
@@ -36,13 +43,8 @@ public class Tourist : RigidBody2D
         if (_force.x > 0)
         {
             _sprites.Scale = new Vector2(-1, 1);
-            // bodySprite.FlipH = true;
-            // faceSprite.FlipH = true;
         }
-        else
-        {
-            // bodySprite.FlipH = false;
-            // faceSprite.FlipH = false;
+        else {
             _sprites.Scale = new Vector2(1, 1);
         }
     }
