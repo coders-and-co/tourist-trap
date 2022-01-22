@@ -4,13 +4,13 @@ using System;
 public class Player : KinematicBody2D
 {
     [Export] public int Speed = 4;
-    private AnimatedSprite bodySprite;
+    private AnimatedSprite _bodySprite;
     
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        bodySprite = GetNode<AnimatedSprite>("Body");
-        GD.Print(bodySprite);
+        _bodySprite = GetNode<AnimatedSprite>("Body");
+        GD.Print(_bodySprite);
     }
 
     public override void _PhysicsProcess(float delta)
@@ -19,12 +19,12 @@ public class Player : KinematicBody2D
         if (Input.IsActionPressed("ui_left"))
         {
             vel.x = -1;
-            bodySprite.FlipH = false;
+            _bodySprite.FlipH = false;
         }
         else if (Input.IsActionPressed("ui_right"))
         {
             vel.x = 1;
-            bodySprite.FlipH = true;
+            _bodySprite.FlipH = true;
         }
 
         if (Input.IsActionPressed("ui_up"))
@@ -38,11 +38,11 @@ public class Player : KinematicBody2D
 
         if (vel.LengthSquared() == 0)
         {
-            bodySprite.Play("idle");
+            _bodySprite.Play("idle");
         }
         else
         {
-            bodySprite.Play("walk");
+            _bodySprite.Play("walk");
         }
 
         MoveAndCollide(vel.Normalized() * Speed);
