@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Flag Spritesheet.png-754137cb69656ee0fd5c69b7fc140d9f.stex"
+path="res://.import/Tourist Spritesheet.png-980ef9f23d2ffdda7f915e501df1c1c6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Flag Spritesheet.png"
-dest_files=[ "res://.import/Flag Spritesheet.png-754137cb69656ee0fd5c69b7fc140d9f.stex" ]
+source_file="res://assets/sprites/Tourist Spritesheet.png"
+dest_files=[ "res://.import/Tourist Spritesheet.png-980ef9f23d2ffdda7f915e501df1c1c6.stex" ]
 
 [params]
 

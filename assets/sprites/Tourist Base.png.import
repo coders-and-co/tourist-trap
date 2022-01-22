@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Tourist Spritesheet.png-925550fd62fafb99a53ce6aaa8902417.stex"
+path="res://.import/Tourist Base.png-0092fce0696e21105a4245b818edf9b6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Tourist Spritesheet.png"
-dest_files=[ "res://.import/Tourist Spritesheet.png-925550fd62fafb99a53ce6aaa8902417.stex" ]
+source_file="res://assets/sprites/Tourist Base.png"
+dest_files=[ "res://.import/Tourist Base.png-0092fce0696e21105a4245b818edf9b6.stex" ]
 
 [params]
 
