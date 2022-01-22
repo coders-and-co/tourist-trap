@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Tourist Spritesheet.png-980ef9f23d2ffdda7f915e501df1c1c6.stex"
+path="res://.import/City Spritesheet.png-31247130381f6013062dabc217d33051.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Tourist Spritesheet.png"
-dest_files=[ "res://.import/Tourist Spritesheet.png-980ef9f23d2ffdda7f915e501df1c1c6.stex" ]
+source_file="res://assets/tiles/City Spritesheet.png"
+dest_files=[ "res://.import/City Spritesheet.png-31247130381f6013062dabc217d33051.stex" ]
 
 [params]
 
