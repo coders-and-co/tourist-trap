@@ -3,9 +3,9 @@ using System;
 
 public class Player : KinematicBody2D
 {
-    [Export] public int Speed = 4;
+    [Export] public int Speed = 240;
     private AnimatedSprite _bodySprite;
-    
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -45,7 +45,8 @@ public class Player : KinematicBody2D
             _bodySprite.Play("walk");
         }
 
-        MoveAndCollide(vel.Normalized() * Speed);
+        // MoveAndCollide(vel.Normalized() * Speed);
+        MoveAndSlide(vel.Normalized() * Speed);
 
     }
 }
