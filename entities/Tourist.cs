@@ -43,13 +43,8 @@ public class Tourist : RigidBody2D
         if (_force.x > 0)
         {
             _sprites.Scale = new Vector2(-1, 1);
-            // bodySprite.FlipH = true;
-            // faceSprite.FlipH = true;
         }
-        else
-        {
-            // bodySprite.FlipH = false;
-            // faceSprite.FlipH = false;
+        else {
             _sprites.Scale = new Vector2(1, 1);
         }
     }

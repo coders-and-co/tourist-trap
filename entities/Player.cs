@@ -16,22 +16,22 @@ public class Player : KinematicBody2D
     public override void _PhysicsProcess(float delta)
     {
         Vector2 vel = Vector2.Zero;
-        if (Input.IsActionPressed("ui_left"))
+        if (Input.IsActionPressed("move_left"))
         {
             vel.x = -1;
             _bodySprite.FlipH = false;
         }
-        else if (Input.IsActionPressed("ui_right"))
+        else if (Input.IsActionPressed("move_right"))
         {
             vel.x = 1;
             _bodySprite.FlipH = true;
         }
 
-        if (Input.IsActionPressed("ui_up"))
+        if (Input.IsActionPressed("move_up"))
         {
             vel.y = -1;
         }
-        else if (Input.IsActionPressed("ui_down"))
+        else if (Input.IsActionPressed("move_down"))
         {
             vel.y = 1;
         }
