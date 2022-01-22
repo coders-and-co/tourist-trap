@@ -29,18 +29,14 @@ script = ExtResource( 5 )
 
 [node name="Bus" type="StaticBody2D" parent="Entities"]
 position = Vector2( 832, 220.8 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="Entities/Bus"]
 position = Vector2( 0, -41 )
 texture = ExtResource( 3 )
-region_enabled = true
-region_rect = Rect2( 64, 64, 384, 192 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Entities/Bus"]
-polygon = PoolVector2Array( -142, -6, -94, -6, -94, 50, 170, 50, 170, -46, -182, -46, -182, 50, -142, 50 )
+position = Vector2( 0, 3.20001 )
+polygon = PoolVector2Array( -144, -8, -96, -8, -96, 48, 176, 48, 176, -48, -176, -48, -176, 48, -144, 48 )

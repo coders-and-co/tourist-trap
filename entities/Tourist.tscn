@@ -169,12 +169,13 @@ __meta__ = {
 [node name="Body" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 7 )
 animation = "walk"
+frame = 1
 playing = true
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 15 )
 animation = "happy"
-frame = 4
+frame = 3
 playing = true
 
 [node name="Clothes" type="AnimatedSprite" parent="Sprites"]
