@@ -16,7 +16,7 @@ script = ExtResource( 2 )
 [node name="Tourists" type="YSort" parent="Entities"]
 
 [node name="T1" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 752, 608 )
+position = Vector2( 776, 632 )
 script = ExtResource( 5 )
 
 [node name="T2" parent="Entities/Tourists" instance=ExtResource( 4 )]
@@ -25,6 +25,18 @@ script = ExtResource( 5 )
 
 [node name="T3" parent="Entities/Tourists" instance=ExtResource( 4 )]
 position = Vector2( 800, 384 )
+script = ExtResource( 5 )
+
+[node name="T4" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 848, 512 )
+script = ExtResource( 5 )
+
+[node name="T5" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 656, 376 )
+script = ExtResource( 5 )
+
+[node name="T6" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 1016, 400 )
 script = ExtResource( 5 )
 
 [node name="Bus" type="StaticBody2D" parent="Entities"]

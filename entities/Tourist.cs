@@ -6,21 +6,26 @@ public class Tourist : RigidBody2D
     private Node2D _sprites;
     private AnimatedSprite _bodySprite;
     private AnimatedSprite _faceSprite;
-    private AnimatedSprite _clothesSprite;
-    private AnimatedSprite _hatSprite;
+    private AnimatedSprite _outfitSprite;
+    private AnimatedSprite _bodyAccessorySprite;
+    private AnimatedSprite _headAccessorySprite;
     private Vector2 _force = new Vector2(50, 0);
-    
+
     public override void _Ready()
     {
         _sprites = GetNode<Node2D>("Sprites");
         _bodySprite = GetNode<AnimatedSprite>("Sprites/Body");
         _faceSprite = GetNode<AnimatedSprite>("Sprites/Face");
-        _clothesSprite = GetNode<AnimatedSprite>("Sprites/Clothes");
-        _hatSprite = GetNode<AnimatedSprite>("Sprites/Hat");
-        
+        _outfitSprite = GetNode<AnimatedSprite>("Sprites/Outfit");
+        _bodyAccessorySprite = GetNode<AnimatedSprite>("Sprites/Body Accessory");
+        _headAccessorySprite = GetNode<AnimatedSprite>("Sprites/Head Accessory");
+
+        GD.Randomize();
+
         _faceSprite.Frame = (int) GD.Randi() % _faceSprite.Frames.GetFrameCount("happy");
-        _clothesSprite.Frame = (int) GD.Randi() % _clothesSprite.Frames.GetFrameCount("default");
-        _hatSprite.Frame = (int) GD.Randi() % _hatSprite.Frames.GetFrameCount("default");
+        _outfitSprite.Frame = (int) GD.Randi() % _outfitSprite.Frames.GetFrameCount("default");
+        _bodyAccessorySprite.Frame = (int) GD.Randi() % _bodyAccessorySprite.Frames.GetFrameCount("default");
+        _headAccessorySprite.Frame = (int) GD.Randi() % _headAccessorySprite.Frames.GetFrameCount("default");
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState state)
