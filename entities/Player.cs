@@ -1,52 +1,51 @@
 using Godot;
 using System;
+using Duality.states;
+using Duality.states.player;
 
 public class Player : KinematicBody2D
 {
+    // Finite State Machine
+    public FiniteStateMachine<Player> FSM;
+    
     [Export] public int Speed = 240;
-    private AnimatedSprite _bodySprite;
+    public AnimatedSprite _bodySprite;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        // Save Node references
         _bodySprite = GetNode<AnimatedSprite>("Body");
-        GD.Print(_bodySprite);
+        // Create FSM
+        FSM = new FiniteStateMachine<Player>(this, new PlayerIdleState());
+    }
+
+    public Vector2 GetMovementVector()
+    {
+        Vector2 movement = Vector2.Zero;
+        if (Input.IsActionPressed("move_left"))
+        {
+            movement.x = -1;
+        }
+        else if (Input.IsActionPressed("move_right"))
+        {
+            movement.x = 1;
+        }
+        if (Input.IsActionPressed("move_up"))
+        {
+            movement.y = -1;
+        }
+        else if (Input.IsActionPressed("move_down"))
+        {
+            movement.y = 1;
+        }
+        return movement;
     }
 
     public override void _PhysicsProcess(float delta)
     {
-        Vector2 vel = Vector2.Zero;
-        if (Input.IsActionPressed("move_left"))
-        {
-            vel.x = -1;
-            _bodySprite.FlipH = false;
-        }
-        else if (Input.IsActionPressed("move_right"))
-        {
-            vel.x = 1;
-            _bodySprite.FlipH = true;
-        }
 
-        if (Input.IsActionPressed("move_up"))
-        {
-            vel.y = -1;
-        }
-        else if (Input.IsActionPressed("move_down"))
-        {
-            vel.y = 1;
-        }
-
-        if (vel.LengthSquared() == 0)
-        {
-            _bodySprite.Play("idle");
-        }
-        else
-        {
-            _bodySprite.Play("walk");
-        }
-
-        // MoveAndCollide(vel.Normalized() * Speed);
-        MoveAndSlide(vel.Normalized() * Speed);
-
+        FSM.Update(delta);
+        
     }
 }
