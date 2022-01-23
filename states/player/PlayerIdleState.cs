@@ -16,6 +16,10 @@ namespace Duality.states.player
 
             if (_throwTo.HasValue && RefObj.HasFlag)
                 return new PlayerThrowState(_throwTo.Value);
+            else if (Input.IsActionJustPressed("interact"))
+                return new PlayerInteractState();
+            else if (Input.IsActionJustPressed("shout"))
+                return new PlayerShoutState();
             else if (movement.LengthSquared() > 0)
                 return new PlayerWalkState();
             
