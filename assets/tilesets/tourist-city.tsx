@@ -234,4 +234,14 @@
    <object id="6" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
+ <tile id="309">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="64" height="64"/>
+  </objectgroup>
+ </tile>
+ <tile id="310">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="64" height="64"/>
+  </objectgroup>
+ </tile>
 </tileset>
