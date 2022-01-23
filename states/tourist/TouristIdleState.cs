@@ -4,10 +4,12 @@ namespace Duality.states.tourist
 {
     public class TouristIdleState : BaseState<Tourist>
     {
-        private Vector2 _meander = new Vector2(40, 0);
+        private Vector2 standStill = new Vector2(0, 0);
+        public int IdleCountDown;
         public override void OnEnter()
         {
-            RefObj.BodySprite.Play("walk");
+            RefObj.BodySprite.Play("idle");
+            IdleCountDown = (int) GD.RandRange(50,250);
         }
 
         public override BaseState<Tourist> Update(float delta)
@@ -17,13 +19,17 @@ namespace Duality.states.tourist
                 GD.Print("recognized changed state");
                 return new TouristFollowState();
             }
-            else
+            else if(IdleCountDown > 0)
             {
-                _meander = _meander.Rotated(GD.Randf() - 0.5f);
-                // RefObj.LinearVelocity = _meander;
-                RefObj.LinearVelocity = _meander.Normalized()*RefObj.Speed;
+                IdleCountDown--;
+                RefObj.LinearVelocity = standStill;
                 return null;
+            } else if (IdleCountDown == 0)
+            {
+                return new TouristMeanderState();
             }
+
+            return null;
         }
     }
 }
