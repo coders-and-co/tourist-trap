@@ -4,7 +4,7 @@
 [ext_resource path="res://Game.cs" type="Script" id=2]
 [ext_resource path="res://entities/Bus.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/Tourist.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/maps/test-arenas.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/maps/city.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -12,7 +12,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Node2D" parent="." instance=ExtResource( 5 )]
+[node name="Map" parent="." instance=ExtResource( 5 )]
 
 [node name="Entities" type="YSort" parent="."]
 __meta__ = {
@@ -31,16 +31,16 @@ __meta__ = {
 }
 
 [node name="T1" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 1312, 808 )
+position = Vector2( 992, 1120 )
 
 [node name="T2" parent="Entities/Tourists" instance=ExtResource( 4 )]
 position = Vector2( 352, 928 )
 
 [node name="T3" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 352, 1504 )
+position = Vector2( 672, 1312 )
 
 [node name="T4" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 1312, 992 )
+position = Vector2( 1312, 1120 )
 
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
-position = Vector2( 1152, 368 )
+position = Vector2( 1616, 976 )
