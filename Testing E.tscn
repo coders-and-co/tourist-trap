@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.cs" type="Script" id=2]
 [ext_resource path="res://entities/Bus.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/Tourist.tscn" type="PackedScene" id=4]
-[ext_resource path="res://entities/Flag.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -37,7 +36,17 @@ position = Vector2( 857, 894 )
 [node name="T4" parent="Entities/Tourists" instance=ExtResource( 4 )]
 position = Vector2( 1285, 785 )
 
+[node name="T5" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 1285, 785 )
+
+[node name="T6" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 1285, 785 )
+
+[node name="T7" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 1285, 785 )
+
+[node name="T8" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 1285, 785 )
+
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 928, 256 )
-
-[node name="Flag" parent="Entities" instance=ExtResource( 5 )]
