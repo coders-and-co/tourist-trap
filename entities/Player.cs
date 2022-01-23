@@ -9,13 +9,13 @@ public class Player : KinematicBody2D
     public FiniteStateMachine<Player> FSM;
     
     [Export] public int Speed = 240;
-    public AnimatedSprite _bodySprite;
+    public AnimatedSprite BodySprite;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         // Save Node references
-        _bodySprite = GetNode<AnimatedSprite>("Body");
+        BodySprite = GetNode<AnimatedSprite>("Body");
         // Create FSM
         FSM = new FiniteStateMachine<Player>(this, new PlayerIdleState());
     }

@@ -6,7 +6,7 @@ namespace Duality.states.player
     {
         public override void OnEnter()
         {
-            RefObj._bodySprite.Play("idle");
+            RefObj.BodySprite.Play("idle");
         }
 
         public override BaseState<Player> Update(float delta)

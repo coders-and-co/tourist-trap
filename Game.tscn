@@ -17,6 +17,7 @@ __meta__ = {
 }
 
 [node name="Player" parent="Entities" instance=ExtResource( 1 )]
+position = Vector2( 832, 512 )
 
 [node name="Tourists" type="YSort" parent="Entities"]
 __meta__ = {
@@ -24,22 +25,22 @@ __meta__ = {
 }
 
 [node name="T1" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 776, 632 )
+position = Vector2( 832, 648 )
 
 [node name="T2" parent="Entities/Tourists" instance=ExtResource( 4 )]
 position = Vector2( 720, 480 )
 
 [node name="T3" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 800, 384 )
+position = Vector2( 832, 384 )
 
 [node name="T4" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 848, 512 )
+position = Vector2( 1024, 576 )
 
 [node name="T5" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 656, 376 )
+position = Vector2( 704, 576 )
 
 [node name="T6" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 1016, 400 )
+position = Vector2( 960, 448 )
 
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 928, 256 )

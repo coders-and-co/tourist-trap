@@ -11,7 +11,7 @@ public class Tourist : RigidBody2D
     
     // Node References
     private Node2D _sprites;
-    private AnimatedSprite _bodySprite;
+    public AnimatedSprite BodySprite;
     private AnimatedSprite _faceSprite;
     private AnimatedSprite _outfitSprite;
     private AnimatedSprite _bodyAccessorySprite;
@@ -25,7 +25,7 @@ public class Tourist : RigidBody2D
         
         // save node references
         _sprites = GetNode<Node2D>("Sprites");
-        _bodySprite = GetNode<AnimatedSprite>("Sprites/Body");
+        BodySprite = GetNode<AnimatedSprite>("Sprites/Body");
         _faceSprite = GetNode<AnimatedSprite>("Sprites/Face");
         _outfitSprite = GetNode<AnimatedSprite>("Sprites/Outfit");
         _bodyAccessorySprite = GetNode<AnimatedSprite>("Sprites/Body Accessory");
@@ -38,19 +38,12 @@ public class Tourist : RigidBody2D
         PickRandomFrame(_headAccessorySprite);
         
         FSM = new FiniteStateMachine<Tourist>(this, new TouristIdleState());
-
     }
 
     private void PickRandomFrame(AnimatedSprite sprite, string anim="default") {
         sprite.Frame = (int) GD.Randi() % sprite.Frames.GetFrameCount(anim);
     }
     
-    public void OnStateChanged(string from, string to)
-    {
-        GD.Print("State Changed!");
-        GD.Print(from, "->", to);
-    }
-
     public override void _PhysicsProcess(float delta)
     {
         

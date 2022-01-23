@@ -6,7 +6,7 @@ namespace Duality.states.player
     {
         public override void OnEnter()
         {
-            RefObj._bodySprite.Play("walk");
+            RefObj.BodySprite.Play("walk");
         }
 
         public override BaseState<Player> Update(float delta)
@@ -20,11 +20,11 @@ namespace Duality.states.player
             {
                 if (movement.x < 0)
                 {
-                    RefObj._bodySprite.FlipH = false;
+                    RefObj.BodySprite.FlipH = false;
                 }
                 else
                 {
-                    RefObj._bodySprite.FlipH = true;
+                    RefObj.BodySprite.FlipH = true;
                 }
                 RefObj.MoveAndSlide(movement.Normalized() * RefObj.Speed);
                 return null;
