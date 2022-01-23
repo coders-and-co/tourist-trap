@@ -3,8 +3,8 @@
     {
      "export":
         {
-         "format":"tmx",
-         "target":"..\/tilesets\/test-arenas.tres.tmx"
+         "format":"Godot",
+         "target":"test-arenas.tscn"
         }
     },
  "height":40,
