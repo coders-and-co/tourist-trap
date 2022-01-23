@@ -3,19 +3,28 @@ using System;
 
 public class Flag : KinematicBody2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
 
-    // Called when the node enters the scene tree for the first time.
+    private Vector2? _target;
+    
     public override void _Ready()
     {
         
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    public override void _PhysicsProcess(float delta)
+    {
+        if (_target.HasValue)
+        {
+            Position = Position.LinearInterpolate(_target.Value, 0.2f);
+            var dist = (_target.Value - Position).Length();
+            if (dist < 1)
+                _target = null;
+        }
+    }
+
+    public void Throw(Vector2 from, Vector2 to)
+    {
+        Position = from;
+        _target = to;
+    }
 }
