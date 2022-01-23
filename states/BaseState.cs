@@ -1,8 +1,11 @@
+using Godot;
+
 namespace Duality.states
 {
     public class BaseState<T>
     {
         public T RefObj;
+        public Game Root;
 
         public BaseState()
         {
@@ -20,6 +23,11 @@ namespace Duality.states
         }
 
         public virtual void OnExit()
+        {
+            
+        }
+
+        public virtual void OnLeftClick(Vector2 position)
         {
             
         }

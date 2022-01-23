@@ -9,15 +9,45 @@ public class Player : KinematicBody2D
     public FiniteStateMachine<Player> FSM;
     
     [Export] public int Speed = 240;
+    public bool HasFlag = true;
+    
+    // Node References
+    public Node2D Sprites;
     public AnimatedSprite BodySprite;
+    public Sprite FlagSprite;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         // Save Node references
-        BodySprite = GetNode<AnimatedSprite>("Body");
+        Sprites = GetNode<Node2D>("Sprites");
+        BodySprite = GetNode<AnimatedSprite>("Sprites/Body");
+        FlagSprite = GetNode<Sprite>("Sprites/Flag");
+        
         // Create FSM
-        FSM = new FiniteStateMachine<Player>(this, new PlayerIdleState());
+        var rootNode = GetTree().Root.GetNode<Game>("Game"); 
+        FSM = new FiniteStateMachine<Player>(rootNode, this, new PlayerIdleState());
+    }
+    
+    public override void _PhysicsProcess(float delta)
+    {
+        FSM.Update(delta);
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
+        {
+            if ((ButtonList) mouseEvent.ButtonIndex == ButtonList.Left)
+                FSM.OnLeftClick(mouseEvent.Position);
+        }
+    }
+
+    public void OnAnimationFinished()
+    {
+        var anim = BodySprite.Animation;
+        if (BodySprite.Frames.GetAnimationLoop(anim) == false)
+            BodySprite.Stop();
     }
 
     public Vector2 GetMovementVector()
@@ -42,10 +72,5 @@ public class Player : KinematicBody2D
         return movement;
     }
 
-    public override void _PhysicsProcess(float delta)
-    {
 
-        FSM.Update(delta);
-        
-    }
 }

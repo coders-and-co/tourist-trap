@@ -3,6 +3,9 @@ using System;
 
 public class Game : Node2D
 {
+	
+	public static Vector2 ScaleVectorNormal = new Vector2(1, 1);
+	public static Vector2 ScaleVectorFlipped = new Vector2(-1, 1);
 
 	// private Player _player;
 

@@ -36,8 +36,9 @@ public class Tourist : RigidBody2D
         PickRandomFrame(_outfitSprite);
         PickRandomFrame(_bodyAccessorySprite);
         PickRandomFrame(_headAccessorySprite);
-        
-        FSM = new FiniteStateMachine<Tourist>(this, new TouristIdleState());
+
+        var rootNode = GetTree().Root.GetNode<Game>("Game"); 
+        FSM = new FiniteStateMachine<Tourist>(rootNode, this, new TouristIdleState());
     }
 
     private void PickRandomFrame(AnimatedSprite sprite, string anim="default") {
