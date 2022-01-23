@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.5" tiledversion="1.7.2" name="tourist-city" tilewidth="64" tileheight="64" tilecount="324" columns="18">
  <editorsettings>
-  <export target="tourist-city.tres" format="Godot"/>
+  <export target="" format="Godot"/>
  </editorsettings>
  <properties>
   <property name="projectRoot" value="../.."/>
