@@ -85,7 +85,6 @@ public class Tourist : RigidBody2D
 			if (target.ContainsKey(body.Name))
 			{
 				float potentialScore = target[body.Name] / body.Position.DistanceTo(Position);
-				GD.Print(currentScore, "   ",potentialScore);
 
 				if (potentialScore > currentScore)
 				{
