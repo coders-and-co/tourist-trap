@@ -8,16 +8,16 @@ namespace Duality.states.tourist
         public override void OnEnter()
         {
             RefObj.LinearVelocity = Vector2.Zero;
-            RefObj.BodySprite.Play("idle");
+            RefObj.BodySprite.Play("walk");
         }
 
         public override BaseState<Tourist> Update(float delta)
         {
+            //GD.Print("follow state", RefObj.PlayerToFollow);
             if (RefObj.PlayerToFollow != null)
             {
                 
-                GD.Print("position", RefObj.PlayerToFollow);
-                //RefObj.Position = RefObj.Position.LinearInterpolate(RefObj.PlayerToFollow.Position, );
+                //GD.Print("position", RefObj.PlayerToFollow);
                 Vector2 direction = RefObj.PlayerToFollow.Position - RefObj.Position;
                 RefObj.LinearVelocity = direction.Normalized()*RefObj.Speed;
             }
@@ -26,16 +26,8 @@ namespace Duality.states.tourist
                 return new TouristIdleState();
             }
 
-            //RefObj.Position = RefObj.Position.LinearInterpolate(RefObj.GlobalPosition, RefObj.PlayerToFollow, delta * 10);
             return null;
-            // if (Input.IsActionJustPressed("interact"))
-            // {
-            //     return new TouristIdleState();
-            // }
-            // else
-            // {
-            //     return null;
-            // }
+
         }
     }
 }

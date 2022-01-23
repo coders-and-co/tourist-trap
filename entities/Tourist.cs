@@ -11,7 +11,7 @@ public class Tourist : RigidBody2D
     public Node2D PlayerToFollow = null;
     
     [Export]
-    public int Speed = 40;
+    public int Speed = 80;
     
     // Node References
     private Node2D _sprites;
@@ -67,6 +67,13 @@ public class Tourist : RigidBody2D
     {
         if (body.IsInGroup("Player"))
             PlayerToFollow =  (Node2D) body;
+    }
+    
+    public void OnBodyExited(Node body)
+    {
+        if (body.IsInGroup("Player"))
+            //GD.Print("setting to null");
+            PlayerToFollow = null;
     }
     
     
