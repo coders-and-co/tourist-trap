@@ -45,8 +45,6 @@ public class Player : KinematicBody2D
         }
     }
     
-    
-
     public void OnAnimationFinished()
     {
         var anim = BodySprite.Animation;
@@ -67,6 +65,5 @@ public class Player : KinematicBody2D
             movement.y = 1;
         return movement;
     }
-
-
+    
 }
