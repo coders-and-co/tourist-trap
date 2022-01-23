@@ -8,6 +8,10 @@ public class Tourist : RigidBody2D
 {
     // Finite State Machine
     public FiniteStateMachine<Tourist> FSM;
+    public Node2D PlayerToFollow = null;
+    
+    [Export]
+    public int Speed = 40;
     
     // Node References
     private Node2D _sprites;
@@ -62,9 +66,9 @@ public class Tourist : RigidBody2D
     public void OnBodySpotted(Node body)
     {
         if (body.IsInGroup("Player"))
-        {
-            GD.Print("Spotted ", body);    
-        }
+            PlayerToFollow =  (Node2D) body;
     }
+    
+    
     
 }
