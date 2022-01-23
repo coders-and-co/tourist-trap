@@ -4,7 +4,7 @@ namespace Duality.states.player
     public class PlayerThrowState : BaseState<Player>
     {
         
-        private PackedScene _flagScene = GD.Load<PackedScene>("entities/Flag.tscn");
+        
         private Vector2 _throwTo;
 
         public PlayerThrowState(Vector2 position)
@@ -14,30 +14,22 @@ namespace Duality.states.player
         public override void OnEnter()
         {
             RefObj.BodySprite.Play("throw");
-            GD.Print("Throwing!");
-            RefObj.HasFlag = false;
-            RefObj.FlagSprite.Visible = false;
+            RefObj.FlagSprite.Visible = false; // Hide flag sprite on Player
+            // RefObj.ThrowFlag(_throwTo);
         }
         
         public override void OnExit()
         {
-            GD.Print("Throwing Done!");
-            
-            // Add Flag to scene
-            Flag flag = _flagScene.Instance<Flag>();
-            Root.GetNode("Entities").AddChild(flag);
-            // flag.Position = _throwTo;
-            flag.Throw(RefObj.Position, _throwTo);
+            RefObj.ThrowFlag(_throwTo);
+            // GD.Print("Throwing Done!");
         }
 
         public override BaseState<Player> Update(float delta)
         {
-
             if (RefObj.BodySprite.IsPlaying() == false)
                 return new PlayerIdleState();
             
             return null;
-
         }
     }
 }

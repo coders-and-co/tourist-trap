@@ -11,7 +11,11 @@ public class Player : KinematicBody2D
     [Export] public int Speed = 240;
     public bool HasFlag = true;
     
+    // Resources
+    private PackedScene _flagScene = GD.Load<PackedScene>("entities/Flag.tscn");
+    
     // Node References
+    public Game Root;
     public Node2D Sprites;
     public AnimatedSprite BodySprite;
     public Sprite FlagSprite;
@@ -25,8 +29,8 @@ public class Player : KinematicBody2D
         FlagSprite = GetNode<Sprite>("Sprites/Flag");
         
         // Create FSM
-        var rootNode = GetTree().Root.GetNode<Game>("Game"); 
-        FSM = new FiniteStateMachine<Player>(rootNode, this, new PlayerIdleState());
+        Root = GetTree().Root.GetNode<Game>("Game"); 
+        FSM = new FiniteStateMachine<Player>(Root, this, new PlayerIdleState());
     }
     
     public override void _PhysicsProcess(float delta)
@@ -65,6 +69,36 @@ public class Player : KinematicBody2D
         else if (Input.IsActionPressed("move_down"))
             movement.y = 1;
         return movement;
+    }
+
+    public void OnTouchSomething(Node body)
+    {
+        if (body.IsInGroup("Flag"))
+        {
+            var flag = (Flag) body;
+            if (!flag.Moving)
+                CollectFlag(flag);
+        }
+    }
+
+    public void ThrowFlag(Vector2 to)
+    {
+        GD.Print("Throwing flag to ", to);
+        HasFlag = false;
+        
+        // Add Flag to Game 
+        Flag flag = _flagScene.Instance<Flag>();
+        var entities = Root.GetNode<Node2D>("Entities");
+        entities.AddChild(flag);
+        // Call Throw method for flag
+        flag.Throw(Position, to);
+    }
+
+    public void CollectFlag(Flag flagNode)
+    {
+        HasFlag = true;
+        FlagSprite.Visible = true;
+        flagNode.QueueFree();
     }
     
 }

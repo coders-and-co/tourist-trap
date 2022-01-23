@@ -163,11 +163,11 @@ __meta__ = {
 }
 
 [node name="Interact" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
-collision_mask = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interact"]
 shape = SubResource( 26 )
 
 [connection signal="animation_finished" from="Sprites/Body" to="." method="OnAnimationFinished"]
+[connection signal="body_entered" from="Interact" to="." method="OnTouchSomething"]

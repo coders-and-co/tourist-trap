@@ -4,27 +4,42 @@ using System;
 public class Flag : KinematicBody2D
 {
 
+    private AnimatedSprite _flagSprite;
+    
+    public bool Moving = false; 
+    private Vector2? _origin;
     private Vector2? _target;
+    private float _dist;
+    private float _t = 0.0f;
     
     public override void _Ready()
     {
-        
+        _flagSprite = GetNode<AnimatedSprite>("AnimatedSprite");
     }
 
     public override void _PhysicsProcess(float delta)
     {
-        if (_target.HasValue)
+        if (Moving && _target.HasValue && _origin.HasValue)
         {
-            Position = Position.LinearInterpolate(_target.Value, 0.2f);
-            var dist = (_target.Value - Position).Length();
-            if (dist < 1)
-                _target = null;
+            // interpolate position along vector
+            Position = _origin.Value.LinearInterpolate(_target.Value, _t);
+            _t += 0.1f;
+
+
+            if (_t >= 1)
+            {
+                Position = _target.Value;
+                Moving = false;
+            }
         }
     }
 
     public void Throw(Vector2 from, Vector2 to)
     {
-        Position = from;
+        _origin = Position = from;
         _target = to;
+        _dist = (to - from).Length();
+        Moving = true;
+        _flagSprite.Play("boing");
     }
 }
