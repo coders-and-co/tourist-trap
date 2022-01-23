@@ -12,6 +12,8 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="City" parent="." instance=ExtResource( 6 )]
+
 [node name="Entities" type="YSort" parent="."]
 __meta__ = {
 "_edit_lock_": true
@@ -42,5 +44,3 @@ position = Vector2( 576, 1256 )
 
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 672, 659 )
-
-[node name="City" parent="Entities" instance=ExtResource( 6 )]
