@@ -16,7 +16,7 @@ namespace Duality.states.player
         {
             Vector2 movement = RefObj.GetMovementVector();
             
-            if (_throwTo.HasValue)
+            if (_throwTo.HasValue && RefObj.HasFlag)
                 return new PlayerThrowState(_throwTo.Value);
             else if (movement.LengthSquared() == 0)
                 return new PlayerIdleState();

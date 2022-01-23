@@ -15,11 +15,15 @@ namespace Duality.states.player
         {
             RefObj.BodySprite.Play("throw");
             GD.Print("Throwing!");
+            RefObj.HasFlag = false;
+            RefObj.FlagSprite.Visible = false;
         }
         
         public override void OnExit()
         {
             GD.Print("Throwing Done!");
+            
+            // Add Flag to scene
             Flag flag = _flagScene.Instance<Flag>();
             Root.GetNode("Entities").AddChild(flag);
             flag.Position = _throwTo;
