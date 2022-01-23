@@ -28,6 +28,15 @@ __meta__ = {
 [node name="T1" parent="Entities/Tourists" instance=ExtResource( 4 )]
 position = Vector2( 1161, 790 )
 
+[node name="T2" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 912, 771 )
+
+[node name="T3" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 857, 894 )
+
+[node name="T4" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 1285, 785 )
+
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 928, 256 )
 
