@@ -57,5 +57,13 @@ public class Tourist : RigidBody2D
             _sprites.Scale = new Vector2(1, 1);
         }
     }
+
+    public void OnBodySpotted(Node body)
+    {
+        if (body.IsInGroup("Player"))
+        {
+            GD.Print("Spotted ", body);    
+        }
+    }
     
 }

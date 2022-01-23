@@ -3,6 +3,7 @@
 [ext_resource path="res://assets/sprites/Bus and Misc Spritesheet.png" type="Texture" id=1]
 
 [node name="Bus" type="StaticBody2D"]
+collision_layer = 0
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -41 )

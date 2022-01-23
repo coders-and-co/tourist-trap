@@ -126,7 +126,9 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=25]
 radius = 16.0
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
 position = Vector2( 960, 496 )
 script = ExtResource( 2 )
 
@@ -134,7 +136,7 @@ script = ExtResource( 2 )
 position = Vector2( 0, -48 )
 frames = SubResource( 24 )
 animation = "shout"
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
