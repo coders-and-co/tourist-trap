@@ -103,14 +103,14 @@ public class Tourist : RigidBody2D
 		else if (body.IsInGroup("Flag"))
 			PlayerToFollow =  (Node2D) body;
 	}
-	
+
 	public void OnBodyExited(Node body)
 	{
 		if (body == PlayerToFollow)
+		{
 			PlayerToFollow = null;
 			PlayerToFollow = FindTarget();
+		}
 	}
-	
-	
 	
 }
