@@ -6,10 +6,6 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.0
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 256, 0, 64, 128 )
-
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 64, 128 )
@@ -26,17 +22,21 @@ region = Rect2( 128, 0, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 192, 0, 64, 128 )
 
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 256, 0, 64, 128 )
+
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 6 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
 } ]
 
 [sub_resource type="AtlasTexture" id=8]
@@ -194,12 +194,13 @@ __meta__ = {
 [node name="Body" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 7 )
 animation = "walk"
+frame = 2
 playing = true
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 15 )
 animation = "happy"
-frame = 3
+frame = 4
 playing = true
 
 [node name="Outfit" type="AnimatedSprite" parent="Sprites"]
