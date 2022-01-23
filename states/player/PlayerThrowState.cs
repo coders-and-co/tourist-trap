@@ -26,7 +26,8 @@ namespace Duality.states.player
             // Add Flag to scene
             Flag flag = _flagScene.Instance<Flag>();
             Root.GetNode("Entities").AddChild(flag);
-            flag.Position = _throwTo;
+            // flag.Position = _throwTo;
+            flag.Throw(RefObj.Position, _throwTo);
         }
 
         public override BaseState<Player> Update(float delta)
