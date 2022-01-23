@@ -25,7 +25,7 @@ __meta__ = {
 }
 
 [node name="T1" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 1192, 792 )
+position = Vector2( 1161, 790 )
 
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 928, 256 )
