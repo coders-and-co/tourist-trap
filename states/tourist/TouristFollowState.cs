@@ -21,6 +21,8 @@ namespace Duality.states.tourist
             }
             else
             {
+                // If there is no PlayerToFollow set, check to see if there are any others in the vicinity before going idle
+                playerToFollow = RefObj.FindTarget();
                 return new TouristIdleState();
             }
 

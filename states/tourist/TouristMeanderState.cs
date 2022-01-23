@@ -16,13 +16,11 @@ namespace Duality.states.tourist
         {
             if (RefObj.PlayerToFollow != null)
             {
-                GD.Print("recognized changed state");
                 return new TouristFollowState();
             }
             else if(MeanderCountDown > 0)
             {
                 _meander = _meander.Rotated(GD.Randf() - 0.5f);
-                // RefObj.LinearVelocity = _meander;
                 MeanderCountDown--;
                 RefObj.LinearVelocity = _meander.Normalized()*RefObj.Speed;
                 return null;
@@ -30,7 +28,6 @@ namespace Duality.states.tourist
             {
                 return new TouristIdleState();
             }
-
             return null;
         }
     }

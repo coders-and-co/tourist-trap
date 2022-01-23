@@ -16,7 +16,6 @@ namespace Duality.states.tourist
         {
             if (RefObj.PlayerToFollow != null)
             {
-                GD.Print("recognized changed state");
                 return new TouristFollowState();
             }
             else if(IdleCountDown > 0)

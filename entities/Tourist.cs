@@ -75,27 +75,23 @@ public class Tourist : RigidBody2D
 
 	public Node2D FindTarget()
 	{
-		//GD.Print("in find target");
+		float currentScore = 0;
+		if (PlayerToFollow != null)
+		{
+			currentScore = target[PlayerToFollow.Name] / PlayerToFollow.Position.DistanceTo(Position);
+		}
 		foreach (PhysicsBody2D body in _vision.GetOverlappingBodies())
 		{
 			if (target.ContainsKey(body.Name))
 			{
-				//GD.Print("contains key");
-				float currentScore = target[PlayerToFollow.Name] / PlayerToFollow.Position.DistanceTo(Position);
 				float potentialScore = target[body.Name] / body.Position.DistanceTo(Position);
-				//GD.Print(target[PlayerToFollow.Name], "   ",PlayerToFollow.Position.DistanceTo(Position));
+				GD.Print(currentScore, "   ",potentialScore);
 
 				if (potentialScore > currentScore)
 				{
-					GD.Print("score higher");
-					GD.Print(body.Name);
-					GD.Print(body.Position);
-					GD.Print(PlayerToFollow.Position);
-
 					return body;
 				}
 			}
-	
 		}
 		return PlayerToFollow;
 
@@ -109,12 +105,12 @@ public class Tourist : RigidBody2D
 			PlayerToFollow =  (Node2D) body;
 	}
 	
-	// public void OnBodyExited(Node body)
-	// {
-	// 	//if (body.IsInGroup("Player"))
-	// 		//GD.Print("setting to null");
-	// 		//PlayerToFollow = null;
-	// }
+	public void OnBodyExited(Node body)
+	{
+		if (body == PlayerToFollow)
+			PlayerToFollow = null;
+			PlayerToFollow = FindTarget();
+	}
 	
 	
 	

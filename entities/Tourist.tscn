@@ -6,10 +6,6 @@
 [sub_resource type="CircleShape2D" id=43]
 radius = 16.0
 
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 1 )
-region = Rect2( 256, 0, 64, 128 )
-
 [sub_resource type="AtlasTexture" id=45]
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 64, 128 )
@@ -26,18 +22,38 @@ region = Rect2( 128, 0, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 192, 0, 64, 128 )
 
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 1 )
+region = Rect2( 256, 0, 64, 128 )
+
 [sub_resource type="SpriteFrames" id=49]
 animations = [ {
-"frames": [ SubResource( 44 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 44 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
 } ]
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 1 )
+region = Rect2( 576, 128, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 1 )
+region = Rect2( 640, 128, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 1 )
+region = Rect2( 704, 128, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 1 )
+region = Rect2( 768, 128, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=50]
 atlas = ExtResource( 1 )
@@ -67,33 +83,17 @@ region = Rect2( 640, 0, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 704, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 1 )
-region = Rect2( 576, 128, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 1 )
-region = Rect2( 640, 128, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 1 )
-region = Rect2( 704, 128, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 1 )
-region = Rect2( 768, 128, 64, 128 )
-
 [sub_resource type="SpriteFrames" id=57]
 animations = [ {
-"frames": [ SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ) ],
-"loop": true,
-"name": "happy",
-"speed": 2.0
-}, {
 "frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ) ],
 "loop": true,
 "name": "talk",
 "speed": 12.0
+}, {
+"frames": [ SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ) ],
+"loop": true,
+"name": "happy",
+"speed": 2.0
 } ]
 
 [sub_resource type="AtlasTexture" id=58]
@@ -199,9 +199,7 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=80]
 radius = 192.0
 
-[node name="Tourist" type="RigidBody2D" groups=[
-"Tourist",
-]]
+[node name="Tourist" type="RigidBody2D" groups=["Tourist"]]
 collision_layer = 2
 collision_mask = 3
 mode = 2
@@ -246,3 +244,4 @@ collision_mask = 2
 shape = SubResource( 80 )
 
 [connection signal="body_entered" from="Vision" to="." method="OnBodySpotted"]
+[connection signal="body_exited" from="Vision" to="." method="OnBodyExited"]
