@@ -38,8 +38,10 @@ public class Player : KinematicBody2D
     {
         if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
         {
-            if ((ButtonList) mouseEvent.ButtonIndex == ButtonList.Left)
+            if ((ButtonList) mouseEvent.ButtonIndex == ButtonList.Left) {
+                GD.Print("Click at: ", mouseEvent.Position);
                 FSM.OnLeftClick(mouseEvent.Position);
+            }
         }
     }
 
