@@ -44,6 +44,8 @@ public class Player : KinematicBody2D
             }
         }
     }
+    
+    
 
     public void OnAnimationFinished()
     {
