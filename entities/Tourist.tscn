@@ -225,7 +225,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=48]
-radius = 192.0
+radius = 469.5
 
 [node name="Tourist" type="RigidBody2D" groups=[
 "Tourist",
@@ -247,13 +247,12 @@ __meta__ = {
 [node name="Body" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 7 )
 animation = "walk"
-frame = 1
 playing = true
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 19 )
 animation = "talk"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Outfit" type="AnimatedSprite" parent="Sprites"]
