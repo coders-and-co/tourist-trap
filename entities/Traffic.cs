@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
+using Godot.Collections;
 
 [Tool]
 public class Traffic : Node2D
@@ -13,42 +14,55 @@ public class Traffic : Node2D
     }
     
     private TrafficDirection _direction = TrafficDirection.Right;
-
     [Export]
     private TrafficDirection Direction
     {
         get => _direction;
         set => SetDirection(value);
     }
-    
-    private int _numberCars = 10;
-    [Export] public int NumberCars {
-        get => _numberCars;
-        set => SetNumberCars(value);
-    }
-
-    public void SetNumberCars(int num)
-    {
-        _numberCars = num;
-        SpawnCars(_direction, _numberCars);
-    }
-    
     public void SetDirection(TrafficDirection dir)
     {
         _direction = dir;
+        ClearCars();
         SpawnCars(_direction, _numberCars);
     }
-
+    
+    private int _numberCars = 5;
+    [Export (PropertyHint.Range, "1,20,")] public int NumberCars {
+        get => _numberCars;
+        set => SetNumberCars(value);
+    }
+    public void SetNumberCars(int num)
+    {
+        _numberCars = num;
+        ClearCars();
+        SpawnCars(_direction, _numberCars);
+    }
+    
     private Vector2 _respawnBoundary;
+    private Array<Node2D> _cars = new Array<Node2D>();
     
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         if (Engine.EditorHint)
         {
-            GD.Print("Hi");
+            
         }
+        
+        // ClearCars();
         SpawnCars(_direction, _numberCars);
+    }
+
+    public void ClearCars()
+    {
+        // Remove Existing cars
+        foreach (Node2D car in _cars)
+        {
+            GD.Print("Removing car: ", car);
+            car.QueueFree();
+        }
+        _cars.Clear();
     }
 
     public void SpawnCars(TrafficDirection dir, int num)
@@ -68,7 +82,7 @@ public class Traffic : Node2D
                 carPrototypeSprite.FlipH = true;
                 carPrototypeSprite.Play("running");
                 offset = new Vector2(-384, 0);
-                _respawnBoundary = new Vector2(Position + Vector2.Left * _numberCars * 384);
+                _respawnBoundary = new Vector2(Vector2.Left * _numberCars * 384);
                 break;
             case TrafficDirection.Right:
                 carScene = GD.Load<PackedScene>("entities/CarHorizontal.tscn");
@@ -77,7 +91,7 @@ public class Traffic : Node2D
                 carPrototypeSprite.FlipH = false;
                 carPrototypeSprite.Play("running");
                 offset = new Vector2(384, 0);
-                _respawnBoundary = new Vector2(Position + Vector2.Right * _numberCars * 384);
+                _respawnBoundary = new Vector2(Vector2.Right * _numberCars * 384);
                 break;
             case TrafficDirection.Up:
                 carScene = GD.Load<PackedScene>("entities/CarVertical.tscn");
@@ -85,7 +99,7 @@ public class Traffic : Node2D
                 carPrototypeSprite = carPrototype.GetNode<AnimatedSprite>("AnimatedSprite");
                 carPrototypeSprite.Play("running_up");
                 offset = new Vector2(0, -384);
-                _respawnBoundary = new Vector2(Position + Vector2.Up * _numberCars * 384);
+                _respawnBoundary = new Vector2(Vector2.Up * _numberCars * 384);
                 break;
             case TrafficDirection.Down:
                 carScene = GD.Load<PackedScene>("entities/CarVertical.tscn");
@@ -93,37 +107,35 @@ public class Traffic : Node2D
                 carPrototypeSprite = carPrototype.GetNode<AnimatedSprite>("AnimatedSprite");
                 carPrototypeSprite.Play("running_down");
                 offset = new Vector2(0, 384);
-                _respawnBoundary = new Vector2(Position + Vector2.Down * _numberCars * 384);
+                _respawnBoundary = new Vector2(Vector2.Down * _numberCars * 384);
                 break;
             default:
                 return;
-        }
-
-        // Remove Existing cars
-        foreach (Node2D car in GetChildren())
-        {
-            car.QueueFree();
         }
         
         // Add new cars        
         foreach (int value in Enumerable.Range(1, NumberCars))
         {
             var car = (Node2D) carPrototype.Duplicate();
+            GD.Print("Adding car: ", car);
             car.Position = currentPosition;
-            AddChild(car);
+            AddChild(car); // Add car to scene
+            _cars.Add(car); // Add car to internal array
             currentPosition += offset;
         }
-
-        
-
     }
 
     public override void _PhysicsProcess(float delta)
     {
+        if (Engine.EditorHint)
+        {
+            return;
+        }
+        
         foreach (Node2D car in GetChildren())
         {
             // car.Position = car.Position.LinearInterpolate()
-            Vector2 bounds;
+            // Vector2 bounds;
             switch (Direction)
             {
                 case TrafficDirection.Left:

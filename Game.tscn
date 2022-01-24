@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.cs" type="Script" id=2]
 [ext_resource path="res://entities/Bus.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/Tourist.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/maps/city.tscn" type="PackedScene" id=5]
-[ext_resource path="res://entities/Traffic.cs" type="Script" id=6]
+[ext_resource path="res://entities/TrafficFlow.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/TrafficLight.tscn" type="PackedScene" id=7]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -32,29 +33,40 @@ __meta__ = {
 }
 
 [node name="T1" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 728, 1632 )
+position = Vector2( 448, 1144 )
 
 [node name="T2" parent="Entities/Tourists" instance=ExtResource( 4 )]
 position = Vector2( 1544, 1344 )
 
 [node name="T3" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 544, 1576 )
+position = Vector2( 768, 1608 )
 
 [node name="T4" parent="Entities/Tourists" instance=ExtResource( 4 )]
 position = Vector2( 1248, 928 )
 
 [node name="Cars" type="YSort" parent="Entities"]
 
-[node name="TrafficLR" type="Node2D" parent="Entities/Cars"]
-position = Vector2( -64, 1048 )
-script = ExtResource( 6 )
-NumberCars = 6
+[node name="TrafficFlow" parent="Entities/Cars" instance=ExtResource( 6 )]
+position = Vector2( 592, 368 )
+Direction = 3
 
-[node name="TrafficLR2" type="Node2D" parent="Entities/Cars"]
-position = Vector2( 1976, 1200 )
-script = ExtResource( 6 )
-Direction = 0
-NumberCars = 6
+[node name="Lights" type="YSort" parent="Entities"]
+
+[node name="L1" parent="Entities/Lights" instance=ExtResource( 7 )]
+position = Vector2( 864, 1312 )
+
+[node name="AnimatedSprite" parent="Entities/Lights/L1" index="0"]
+position = Vector2( -32, -112 )
+animation = "east"
+
+[node name="L2" parent="Entities/Lights" instance=ExtResource( 7 )]
+position = Vector2( 480, 928 )
+
+[node name="AnimatedSprite" parent="Entities/Lights/L2" index="0"]
+animation = "west"
 
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
-position = Vector2( 656, 656 )
+position = Vector2( 1672, 1064 )
+
+[editable path="Entities/Lights/L1"]
+[editable path="Entities/Lights/L2"]
