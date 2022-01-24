@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.cs" type="Script" id=2]
 [ext_resource path="res://entities/Bus.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/Tourist.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/maps/city.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/Traffic.cs" type="Script" id=6]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -31,16 +32,29 @@ __meta__ = {
 }
 
 [node name="T1" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 992, 1120 )
+position = Vector2( 728, 1632 )
 
 [node name="T2" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 352, 928 )
+position = Vector2( 1544, 1344 )
 
 [node name="T3" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 672, 1312 )
+position = Vector2( 544, 1576 )
 
 [node name="T4" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 1312, 1120 )
+position = Vector2( 1248, 928 )
+
+[node name="Cars" type="YSort" parent="Entities"]
+
+[node name="TrafficLR" type="Node2D" parent="Entities/Cars"]
+position = Vector2( -64, 1048 )
+script = ExtResource( 6 )
+NumberCars = 6
+
+[node name="TrafficLR2" type="Node2D" parent="Entities/Cars"]
+position = Vector2( 1976, 1200 )
+script = ExtResource( 6 )
+Direction = 0
+NumberCars = 6
 
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
-position = Vector2( 1616, 976 )
+position = Vector2( 656, 656 )

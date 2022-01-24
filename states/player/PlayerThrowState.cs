@@ -3,8 +3,6 @@ namespace Duality.states.player
 {
     public class PlayerThrowState : BaseState<Player>
     {
-        
-        
         private Vector2 _throwTo;
 
         public PlayerThrowState(Vector2 position)
