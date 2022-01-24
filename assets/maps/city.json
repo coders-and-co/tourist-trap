@@ -69,9 +69,44 @@
          "width":40,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":11,
+         "name":"Objects",
+         "objects":[
+                {
+                 "height":0,
+                 "id":1,
+                 "name":"Feature",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Node2D",
+                 "visible":true,
+                 "width":0,
+                 "x":1152,
+                 "y":848
+                }, 
+                {
+                 "height":0,
+                 "id":2,
+                 "name":"Feature",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Node2D",
+                 "visible":true,
+                 "width":0,
+                 "x":1536,
+                 "y":848
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":11,
- "nextobjectid":1,
+ "nextlayerid":12,
+ "nextobjectid":3,
  "orientation":"orthogonal",
  "properties":[
         {

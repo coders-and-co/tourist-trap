@@ -40,3 +40,11 @@ cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
 format = 1
 tile_data = PoolIntArray( 589839, 0, 589832, 589841, 0, 589832, 589843, 0, 589832, 655384, 0, 458759, 655385, 0, 458760, 720913, 0, 524295, 720914, 0, 524296, 720920, 0, 524295, 720921, 0, 524296, 1572885, 0, 524295, 1572886, 0, 524296 )
 
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Feature" type="Node2D" parent="Objects"]
+position = Vector2( 1152, 848 )
+
+[node name="Feature" type="Node2D" parent="Objects"]
+position = Vector2( 1536, 848 )
+

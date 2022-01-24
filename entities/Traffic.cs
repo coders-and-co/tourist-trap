@@ -33,7 +33,6 @@ public class Traffic : Node2D
     public void SetDirection(TrafficDirection dir)
     {
         _direction = dir;
-        ClearCars();
         SpawnCars();
     }
     [Export (PropertyHint.Range, "1,10,")] public int NumberCarsAhead {
@@ -44,15 +43,23 @@ public class Traffic : Node2D
         get => _numberCarsBehind;
         set => SetNumberCarsBehind(value);
     }
+
     public void SetNumberCarsAhead(int num)
     {
-        _numberCarsAhead = num;
-        SpawnCars();
+        if (num != _numberCarsAhead)
+        {
+            _numberCarsAhead = num;
+            SpawnCars();
+        }
     }
+
     public void SetNumberCarsBehind(int num)
     {
-        _numberCarsBehind = num;
-        SpawnCars();
+        if (num != _numberCarsBehind)
+        {
+            _numberCarsBehind = num;
+            SpawnCars();
+        }
     }
 
     public Vector2 GetTrafficVector()
@@ -74,12 +81,13 @@ public class Traffic : Node2D
 
     public Vector2 GetRespawnPoint()
     {
-        return GetTrafficVector() * _numberCarsBehind * -384;
+         
+        return (GetTrafficVector() * 192) + GetTrafficVector() * _numberCarsBehind * -384;
     }
     
     public Vector2 GetDespawnPoint()
     {
-        return GetTrafficVector() * _numberCarsAhead * 384;
+        return (GetTrafficVector() * -192) + GetTrafficVector() * _numberCarsAhead * 384;
     }
     
     // Called when the node enters the scene tree for the first time.
@@ -87,22 +95,35 @@ public class Traffic : Node2D
     {
         // if (Engine.EditorHint)
         SpawnCars();
+        
+        GD.Print("respawnAt: ", GetRespawnPoint());
+        GD.Print("despawnAt: ", GetDespawnPoint());
+        
     }
+    
+    
 
     public void ClearCars()
     {
         // Remove Existing cars
         foreach (Node2D car in _cars)
         {
-            GD.Print("Removing car: ", car);
+            // GD.Print("Removing car: ", car);
             car.QueueFree();
         }
         _cars.Clear();
     }
 
+    public void DespawnCar(AnimatedSprite car)
+    {
+        // GD.Print("Despawning car ", car);
+        _cars.Remove(car);
+        car.QueueFree();
+    }
+
     public void SpawnCars()
     {
-        Vector2 spawnPos = GetRespawnPoint();
+        Vector2 spawnPos = GetDespawnPoint();
         int totalCars = _numberCarsBehind + _numberCarsAhead;
         
         ClearCars();
@@ -111,7 +132,7 @@ public class Traffic : Node2D
         foreach (int value in Enumerable.Range(1, totalCars))
         {
             SpawnCar(spawnPos);
-            spawnPos += GetTrafficVector() * 384;
+            spawnPos += GetTrafficVector() * -384;
         }
     }
 
@@ -151,56 +172,47 @@ public class Traffic : Node2D
                 return;
         }
         
-        GD.Print("Adding car: ", car);
+        // GD.Print("Adding car: ", car, position);
         car.Position = position;
         AddChild(car);
-        _cars.Add(car);
+        _cars.Insert(0, car);
     }
 
     public override void _PhysicsProcess(float delta)
     {
         if (Engine.EditorHint)
-        {
-            return;
-        }
-
-        Vector2 despawnAt = GetDespawnPoint();
-        Vector2 respawnAt = GetRespawnPoint();
+            return; // don't animate in the editor
         
-        foreach (AnimatedSprite car in _cars)
-        {
+        Vector2 respawnAt = GetRespawnPoint();
+        Vector2 despawnAt = GetDespawnPoint();
+        
+        // Lookup first and last cars
+        var end = _cars.First();
+        var front = _cars.Last();
 
+        // spawn new cars in space behind
+        if (_direction == TrafficDirection.Left && end.Position.x <= respawnAt.x - 384)
+            SpawnCar(respawnAt);
+        else if (_direction == TrafficDirection.Right && end.Position.x >= respawnAt.x + 384)
+            SpawnCar(respawnAt);
+        else if (_direction == TrafficDirection.Up && end.Position.y <= respawnAt.y - 384)
+            SpawnCar(respawnAt);
+        else if (_direction == TrafficDirection.Down && end.Position.y >= respawnAt.y + 384)
+            SpawnCar(respawnAt);
+        
+        // despawn cars at front of line;
+        if (_direction == TrafficDirection.Left && front.Position.x <= despawnAt.x)
+            DespawnCar(front);
+        else if (_direction == TrafficDirection.Right && front.Position.x >= despawnAt.x)
+            DespawnCar(front);
+        else if (_direction == TrafficDirection.Up && front.Position.y <= despawnAt.y)
+            DespawnCar(front);
+        else if (_direction == TrafficDirection.Down && front.Position.y >= despawnAt.y)
+            DespawnCar(front);
+        
+        foreach (var car in _cars)
+        {
             car.Position += GetTrafficVector() * 10;
-            
-            // car.Position = car.Position.LinearInterpolate()
-            // Vector2 bounds;
-            // switch (Direction)
-            // {
-            //     case TrafficDirection.Left:
-            //         car.Position += Vector2.Left * 10;
-            //         if (car.Position.x <= despawnAt.x)
-            //             car.QueueFree();
-            //             // car.Position = Vector2.Zero;
-            //         break;
-            //     case TrafficDirection.Right:
-            //         car.Position += Vector2.Right * 10;
-            //         if (car.Position.x >= despawnAt.x)
-            //             car.QueueFree();
-            //             // car.Position = Vector2.Zero;
-            //         break;
-            //     case TrafficDirection.Up:
-            //         car.Position += Vector2.Up * 10;
-            //         if (car.Position.y <= despawnAt.y)
-            //             car.Position = Vector2.Zero;
-            //         break;
-            //     case TrafficDirection.Down:
-            //         car.Position += Vector2.Down * 10;
-            //         if (car.Position.y >= despawnAt.y)
-            //             car.Position = Vector2.Zero;
-            //         break;
-            //     default:
-            //         return;
-            // }
         }
     }
 }
