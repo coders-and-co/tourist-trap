@@ -10,6 +10,7 @@ public class Tourist : RigidBody2D
 	// Finite State Machine
 	public FiniteStateMachine<Tourist> FSM;
 	public Node2D PlayerToFollow = null;
+	public Array<int> FeaturesPhotographed;
 	
 	[Export]
 	public int Speed = 80;
@@ -21,9 +22,10 @@ public class Tourist : RigidBody2D
 	private AnimatedSprite _outfitSprite;
 	private AnimatedSprite _bodyAccessorySprite;
 	private AnimatedSprite _headAccessorySprite;
+	public AnimatedSprite CameraSprite;
 	private Area2D _vision;
 
-	private Dictionary<string, int> target;
+	private Dictionary<string, int> _target;
 	
 	private Vector2 _force = new Vector2(50, 0);
 
@@ -38,12 +40,16 @@ public class Tourist : RigidBody2D
 		_outfitSprite = GetNode<AnimatedSprite>("Sprites/Outfit");
 		_bodyAccessorySprite = GetNode<AnimatedSprite>("Sprites/Body Accessory");
 		_headAccessorySprite = GetNode<AnimatedSprite>("Sprites/Head Accessory");
+		CameraSprite = GetNode<AnimatedSprite>("Sprites/Camera");
+
 		_vision = GetNode<Area2D>("Vision");
+		FeaturesPhotographed = new Array<int>();
 		
-		target = new Dictionary<string, int>();
+		_target = new Dictionary<string, int>();
 		
-		target.Add("Player",10);
-		target.Add("Flag",8);
+		_target.Add("Player", 10);
+		_target.Add("Flag", 8);
+		_target.Add("Feature", 60);
 
 		// randomize tourist
 		PickRandomFrame(_faceSprite, "happy");
@@ -78,13 +84,28 @@ public class Tourist : RigidBody2D
 		float currentScore = 0;
 		if (PlayerToFollow != null)
 		{
-			currentScore = target[PlayerToFollow.Name] / PlayerToFollow.Position.DistanceTo(Position);
+			currentScore = _target[PlayerToFollow.Name] / PlayerToFollow.Position.DistanceTo(Position);
 		}
-		foreach (PhysicsBody2D body in _vision.GetOverlappingBodies())
+
+		Array<Node2D> targetListArray = new Array<Node2D>();
+		
+		foreach (PhysicsBody2D body in _vision.GetOverlappingBodies()) 
+			targetListArray.Add(body);
+
+		foreach (Area2D area in _vision.GetOverlappingAreas())
 		{
-			if (target.ContainsKey(body.Name))
+			// Only consider a feature for target if it has not been photographed 
+			if (area.IsInGroup("Feature") && !FeaturesPhotographed.Contains(area.GetRid().GetId()))
 			{
-				float potentialScore = target[body.Name] / body.Position.DistanceTo(Position);
+				targetListArray.Add(area);
+			}
+		}
+		foreach (Node2D body in targetListArray)
+		{
+			
+			if (_target.ContainsKey(body.Name))
+			{
+				float potentialScore = _target[body.Name] / body.Position.DistanceTo(Position);
 
 				if (potentialScore > currentScore)
 				{
@@ -107,6 +128,16 @@ public class Tourist : RigidBody2D
 	public void OnBodyExited(Node body)
 	{
 		if (body == PlayerToFollow)
+		{
+			PlayerToFollow = null;
+			PlayerToFollow = FindTarget();
+		}
+	}
+	
+	public void OnAreaSpotted(Area2D area)
+	{
+		//FIX
+		if (area == PlayerToFollow)
 		{
 			PlayerToFollow = null;
 			PlayerToFollow = FindTarget();

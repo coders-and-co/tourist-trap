@@ -20,6 +20,7 @@ namespace Duality.states.tourist
             }
             else if(MeanderCountDown > 0)
             {
+                RefObj.PlayerToFollow = RefObj.FindTarget();
                 _meander = _meander.Rotated(GD.Randf() - 0.5f);
                 MeanderCountDown--;
                 RefObj.LinearVelocity = _meander.Normalized()*RefObj.Speed;

@@ -50,9 +50,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Flag" type="KinematicBody2D" groups=[
-"Flag",
-]]
+[node name="Flag" type="KinematicBody2D" groups=["Flag"]]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 2 )
