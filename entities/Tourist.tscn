@@ -6,6 +6,10 @@
 [sub_resource type="CircleShape2D" id=43]
 radius = 16.0
 
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 1 )
+region = Rect2( 256, 0, 64, 128 )
+
 [sub_resource type="AtlasTexture" id=45]
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 64, 128 )
@@ -22,21 +26,17 @@ region = Rect2( 128, 0, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 192, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 1 )
-region = Rect2( 256, 0, 64, 128 )
-
 [sub_resource type="SpriteFrames" id=49]
 animations = [ {
-"frames": [ SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
-"loop": true,
-"name": "walk",
-"speed": 10.0
-}, {
 "frames": [ SubResource( 44 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
 } ]
 
 [sub_resource type="AtlasTexture" id=39]
@@ -221,7 +221,7 @@ animations = [ {
 "frames": [ SubResource( 81 ), SubResource( 82 ), SubResource( 83 ), SubResource( 84 ), SubResource( 84 ), SubResource( 85 ), SubResource( 85 ), SubResource( 85 ), SubResource( 85 ), SubResource( 81 ) ],
 "loop": false,
 "name": "takePicture",
-"speed": 10.0
+"speed": 7.0
 } ]
 
 [sub_resource type="CircleShape2D" id=80]
@@ -245,13 +245,13 @@ __meta__ = {
 [node name="Body" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 49 )
 animation = "walk"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 57 )
 animation = "talk"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Outfit" type="AnimatedSprite" parent="Sprites"]
@@ -276,6 +276,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
 shape = SubResource( 80 )
 
+[connection signal="animation_finished" from="Sprites/Camera" to="." method="OnAnimationFinished"]
 [connection signal="area_entered" from="Vision" to="." method="OnAreaSpotted"]
 [connection signal="body_entered" from="Vision" to="." method="OnBodySpotted"]
 [connection signal="body_exited" from="Vision" to="." method="OnBodyExited"]

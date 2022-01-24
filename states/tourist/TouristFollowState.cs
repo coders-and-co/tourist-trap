@@ -15,9 +15,10 @@ namespace Duality.states.tourist
             if (RefObj.PlayerToFollow != null)
             {
                 RefObj.PlayerToFollow = RefObj.FindTarget();
-                if ((RefObj.PlayerToFollow.Name == "Feature") &&
+                if ((RefObj.PlayerToFollow.IsInGroup("Feature")) &&
                     RefObj.PlayerToFollow.Position.DistanceTo(RefObj.Position) < 10)
                 {
+                    GD.Print("take pic");
                     return new TouristTakePictureState();
                 }
 

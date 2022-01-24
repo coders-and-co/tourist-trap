@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Duality.states;
 using Duality.states.player;
 using Duality.states.tourist;
@@ -84,33 +86,33 @@ public class Tourist : RigidBody2D
 		float currentScore = 0;
 		if (PlayerToFollow != null)
 		{
-			currentScore = _target[PlayerToFollow.Name] / PlayerToFollow.Position.DistanceTo(Position);
+			String name = FindGroup(PlayerToFollow);
+			currentScore = _target[name] / PlayerToFollow.Position.DistanceTo(Position);
 		}
 
 		Array<Node2D> targetListArray = new Array<Node2D>();
 		
+		// Get overlapping bodies
 		foreach (PhysicsBody2D body in _vision.GetOverlappingBodies()) 
 			targetListArray.Add(body);
 
+		// Area check
 		foreach (Area2D area in _vision.GetOverlappingAreas())
 		{
 			// Only consider a feature for target if it has not been photographed 
 			if (area.IsInGroup("Feature") && !FeaturesPhotographed.Contains(area.GetRid().GetId()))
-			{
 				targetListArray.Add(area);
-			}
 		}
+		
+		// Body check
 		foreach (Node2D body in targetListArray)
 		{
-			
-			if (_target.ContainsKey(body.Name))
+			String name = FindGroup(body);
+			if (name.Length > 0)
 			{
-				float potentialScore = _target[body.Name] / body.Position.DistanceTo(Position);
-
+				float potentialScore = _target[name] / body.Position.DistanceTo(Position);
 				if (potentialScore > currentScore)
-				{
 					return body;
-				}
 			}
 		}
 		return PlayerToFollow;
@@ -136,7 +138,6 @@ public class Tourist : RigidBody2D
 	
 	public void OnAreaSpotted(Area2D area)
 	{
-		//FIX
 		if (area == PlayerToFollow)
 		{
 			PlayerToFollow = null;
@@ -144,4 +145,27 @@ public class Tourist : RigidBody2D
 		}
 	}
 	
+	public void OnAnimationFinished()
+	{
+		var anim = CameraSprite.Animation;
+		if (CameraSprite.Frames.GetAnimationLoop(anim) == false)
+		{
+			GD.Print("Stopping camera");
+			CameraSprite.Stop();
+		}
+	}
+
+	public string FindGroup(Node2D body)
+	{
+		if (body.IsInGroup("Player"))
+			return "Player";
+		else if (body.IsInGroup("Flag"))
+			return "Flag";
+		else if (body.IsInGroup("Feature"))
+			return "Feature";
+		else 
+			return "";
+	}
+	
+
 }
