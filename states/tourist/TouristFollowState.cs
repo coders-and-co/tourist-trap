@@ -42,6 +42,10 @@ namespace Duality.states.tourist
 
         public override BaseState<Tourist> Update(float delta)
         {
+            // Check if the target has been disposed (such as the flag)
+            if (!IsInstanceValid(_target))
+                _target = null;
+            
             // Look for targets every 1.0 seconds
             if(_timer <= 0 || _target == null) {
                 var t = RefObj.FindTarget(); 

@@ -249,12 +249,13 @@ position = Vector2( 0, -48 )
 [node name="Body" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 7 )
 animation = "walk"
+frame = 2
 playing = true
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 19 )
 animation = "excite"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Outfit" type="AnimatedSprite" parent="Sprites"]
@@ -272,6 +273,7 @@ frame = 1
 visible = false
 frames = SubResource( 47 )
 animation = "take_picture"
+frame = 9
 
 [node name="Point" type="Sprite" parent="Sprites"]
 visible = false
