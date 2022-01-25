@@ -7,6 +7,7 @@ namespace Duality.states.tourist
         private float _timer;
         private Node2D _target = null;
         private bool _pointing;
+        private float _speed;
         public override string GetName() { return "Follow"; }
         public TouristFollowState(Node2D target)
         {
@@ -22,11 +23,13 @@ namespace Duality.states.tourist
             _pointing = _target.IsInGroup("Feature") || _target.IsInGroup("Bus");
             if (_pointing)
             {
+                _speed = RefObj.Speed * 2.0f;
                 RefObj.FaceSprite.Play("excite");
                 RefObj.PointSprite.Visible = true;
             }
             else
             {
+                _speed = RefObj.Speed * 1.5f;
                 RefObj.PointSprite.Visible = false;
             }
         }
@@ -39,13 +42,13 @@ namespace Duality.states.tourist
 
         public override BaseState<Tourist> Update(float delta)
         {
-            // Look for targets
+            // Look for targets every 1.0 seconds
             if(_timer <= 0 || _target == null) {
                 var t = RefObj.FindTarget(); 
                 if (t == null)
                     return new TouristIdleState(); // Lost target
                 if (t != _target)
-                    return new TouristFollowState(t);
+                    return new TouristFollowState(t); // New target
                 _timer = 1.0f;
             }
             
@@ -71,7 +74,7 @@ namespace Duality.states.tourist
             // Follow the thing!
             _timer -= delta;
             Vector2 direction = _target.Position - RefObj.Position;
-            RefObj.LinearVelocity = direction.Normalized() * RefObj.Speed * 1.5f;
+            RefObj.LinearVelocity = direction.Normalized() * +_speed;
             return null;
         }
     }
