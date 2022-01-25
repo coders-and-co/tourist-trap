@@ -11,8 +11,18 @@ namespace Duality.states.tourist
         {
             _timer = GD.Randf() * 3.0f + 1.0f; // 1 to 4s
             RefObj.BodySprite.Play("idle");
-            RefObj.FaceSprite.Play("talk");
+            switch (GD.Randi() % 2 + 1)
+            {
+                case 1:
+                    RefObj.FaceSprite.Play("talk");
+                    break;
+                case 2:
+                    RefObj.FaceSprite.Play("default");
+                    break;
+            }
+            
             RefObj.LinearVelocity = Vector2.Zero;
+            
         }
 
         public override void OnExit()

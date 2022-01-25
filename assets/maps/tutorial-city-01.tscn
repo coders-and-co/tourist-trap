@@ -132,3 +132,12 @@ position = Vector2( 2912, 1600 )
 [node name="Feature" type="Node2D" parent="Objects"]
 position = Vector2( 2528, 1752 )
 
+[node name="Feature" type="Node2D" parent="Objects"]
+position = Vector2( 3648, 776 )
+
+[node name="Feature" type="Node2D" parent="Objects"]
+position = Vector2( 3744, 776 )
+
+[node name="Feature" type="Node2D" parent="Objects"]
+position = Vector2( 3840, 776 )
+

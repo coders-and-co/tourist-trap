@@ -14,6 +14,7 @@ public class Tourist : RigidBody2D, IAttractive
 	public AnimatedSprite BodySprite;
 	public AnimatedSprite FaceSprite;
 	public AnimatedSprite CameraSprite;
+	public Sprite PointSprite;
 	public Area2D Vision;
 	public Label Label;
 	
@@ -47,6 +48,7 @@ public class Tourist : RigidBody2D, IAttractive
 		BodySprite = GetNode<AnimatedSprite>("Sprites/Body");
 		FaceSprite = GetNode<AnimatedSprite>("Sprites/Face");
 		CameraSprite = GetNode<AnimatedSprite>("Sprites/Camera");
+		PointSprite = GetNode<Sprite>("Sprites/Point");
 		var outfitSprite = GetNode<AnimatedSprite>("Sprites/Outfit");
 		var bodyAccessorySprite = GetNode<AnimatedSprite>("Sprites/Body Accessory");
 		var headAccessorySprite = GetNode<AnimatedSprite>("Sprites/Head Accessory");
@@ -64,7 +66,13 @@ public class Tourist : RigidBody2D, IAttractive
 	public void PickRandomFrame(AnimatedSprite sprite, string anim="default") {
 		sprite.Frame = (int) GD.Randi() % sprite.Frames.GetFrameCount(anim);
 	}
-	
+
+
+	// public override void _IntegrateForces(Physics2DDirectBodyState state)
+	// {
+	// 	StateMachine.Update(delta);
+	// }
+
 	public override void _PhysicsProcess(float delta)
 	{
 		
@@ -76,6 +84,10 @@ public class Tourist : RigidBody2D, IAttractive
 			Sprites.Scale = new Vector2(-1, 1);
 		else if (LinearVelocity.x < -5)
 			Sprites.Scale = new Vector2(1, 1);
+		
+		// if(LinearVelocity.LengthSquared() > 0)
+		// 	BodySprite.Play("walk");
+		
 	}
 	
 	public string FindGroup(Node2D body)
@@ -124,6 +136,7 @@ public class Tourist : RigidBody2D, IAttractive
 				// calculate potential score!
 				var dist = t.Position.DistanceTo(Position);
 				
+				// ignore player/flag if close by
 				if ((group == "Player" || group == "Flag") && dist <= 64)
 					continue;
 				

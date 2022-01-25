@@ -18,9 +18,15 @@ namespace Duality.states.tourist
             RefObj.LinearVelocity = Vector2.Zero;
             RefObj.FeaturesPhotographed.Add((int) _target.GetInstanceId());
             RefObj.BodySprite.Play("idle");
+            RefObj.CameraSprite.Visible = true;
             RefObj.CameraSprite.Play("take_picture");
             RefObj.CameraSprite.Frame = 0;
             RefObj.CameraSprite.Connect("animation_finished", this, "Done");
+        }
+
+        public override void OnExit()
+        {
+            RefObj.CameraSprite.Visible = false;
         }
 
         public override BaseState<Tourist> Update(float delta)
