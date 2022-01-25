@@ -6,7 +6,7 @@ namespace Duality.states.tourist
     {
         private float _timer;
         private Node2D _target = null;
-        private bool _pointing;
+        private bool _excited;
         private float _speed;
         public override string GetName() { return "Follow"; }
         public TouristFollowState(Node2D target)
@@ -16,20 +16,20 @@ namespace Duality.states.tourist
         
         public override void OnEnter()
         {
-            _timer = 1.0f;
+            _timer = RefObj.FollowPollingInterval;
             RefObj.LinearVelocity = Vector2.Zero;
             RefObj.BodySprite.Play("walk");
             RefObj.PointSprite.Visible = true;
-            _pointing = _target.IsInGroup("Feature") || _target.IsInGroup("Bus");
-            if (_pointing)
+            _excited = _target.IsInGroup("Feature") || _target.IsInGroup("Bus");
+            if (_excited)
             {
-                _speed = RefObj.Speed * 2.0f;
+                _speed = RefObj.SpeedFollowExcited;
                 RefObj.FaceSprite.Play("excite");
                 RefObj.PointSprite.Visible = true;
             }
             else
             {
-                _speed = RefObj.Speed * 1.5f;
+                _speed = RefObj.SpeedFollow;
                 RefObj.PointSprite.Visible = false;
             }
         }
@@ -46,39 +46,41 @@ namespace Duality.states.tourist
             if (!IsInstanceValid(_target))
                 _target = null;
             
-            // Look for targets every 1.0 seconds
+            // Poll for targets every so often
             if(_timer <= 0 || _target == null) {
                 var t = RefObj.FindTarget(); 
                 if (t == null)
                     return new TouristIdleState(); // Lost target
                 if (t != _target)
                     return new TouristFollowState(t); // New target
-                _timer = 1.0f;
+                _timer = RefObj.FollowPollingInterval;
             }
             
-            if (_pointing)
-            {
-                Vector2 d = RefObj.Position - _target.Position;
-                if (RefObj.Sprites.Scale.x < 0)
-                    RefObj.PointSprite.Rotation = d.Reflect(Vector2.Up).Angle() - Mathf.Pi / 4;
-                else
-                    RefObj.PointSprite.Rotation = d.Angle() - Mathf.Pi / 4;
-            }
+            // Calculate delta vector and distance
+            Vector2 d = _target.Position - RefObj.Position;
+            var dist = d.Length();
             
-            
-            var dist = RefObj.Position.DistanceTo(_target.Position);
-            // Reached the target
+            // Check if reached the target
             if (dist <= 192 && _target.IsInGroup("Bus"))
-                return new TouristTakePictureState(_target); // Take a pic of target
-            else if (dist <= 64 && _target.IsInGroup("Feature"))
-                return new TouristTakePictureState(_target); // Take a pic of target
+                return new TouristTakePictureState(_target); // Take a pic of bus
+            else if (dist <= 128 && _target.IsInGroup("Feature"))
+                return new TouristTakePictureState(_target); // Take a pic of feature
             else if (dist <= 64)
                 return new TouristIdleState();
-
+            
+            // Point towards target if excited
+            if (_excited)
+            {
+                var opp = d * -1;
+                if (RefObj.Sprites.Scale.x < 0)
+                    RefObj.PointSprite.Rotation = opp.Reflect(Vector2.Up).Angle() - Mathf.Pi / 4;
+                else
+                    RefObj.PointSprite.Rotation = opp.Angle() - Mathf.Pi / 4;
+            }
+            
             // Follow the thing!
             _timer -= delta;
-            Vector2 direction = _target.Position - RefObj.Position;
-            RefObj.LinearVelocity = direction.Normalized() * +_speed;
+            RefObj.LinearVelocity = d.Normalized() * _speed;
             return null;
         }
     }

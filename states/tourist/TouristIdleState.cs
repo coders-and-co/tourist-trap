@@ -9,8 +9,8 @@ namespace Duality.states.tourist
         
         public override void OnEnter()
         {
-            _timer = GD.Randf() * 3.0f + 1.0f; // 1 to 4s
-            RefObj.BodySprite.Play("idle");
+            _timer = GD.Randf() * 2.0f + 1.0f; // 1 to 3s
+            // Randomly talk or smile
             switch (GD.Randi() % 2 + 1)
             {
                 case 1:
@@ -20,9 +20,8 @@ namespace Duality.states.tourist
                     RefObj.FaceSprite.Play("default");
                     break;
             }
-            
+            RefObj.BodySprite.Play("idle");
             RefObj.LinearVelocity = Vector2.Zero;
-            
         }
 
         public override void OnExit()
@@ -35,7 +34,8 @@ namespace Duality.states.tourist
         {
             if (_timer <= 0)
             {
-                Node2D target = RefObj.FindTarget(); // Look for targets
+                // Look for targets at end of idle
+                Node2D target = RefObj.FindTarget(); 
                 if (target != null)
                     return new TouristFollowState(target);
                 else

@@ -21,7 +21,7 @@ namespace Duality.states.tourist
             RefObj.CameraSprite.Visible = true;
             RefObj.CameraSprite.Play("take_picture");
             RefObj.CameraSprite.Frame = 0;
-            RefObj.CameraSprite.Connect("animation_finished", this, "Done");
+            RefObj.CameraSprite.Connect("animation_finished", this, "Done", null, (uint) ConnectFlags.Oneshot);
         }
 
         public override void OnExit()

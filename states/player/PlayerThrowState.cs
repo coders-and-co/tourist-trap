@@ -14,7 +14,7 @@ namespace Duality.states.player
         {
             RefObj.FlagSprite.Visible = false; // Hide flag sprite on Player
             RefObj.BodySprite.Play("throw");
-            RefObj.BodySprite.Connect("animation_finished", this, "Done");
+            RefObj.BodySprite.Connect("animation_finished", this, "Done", null, (uint) ConnectFlags.Oneshot);
         }
         
         public override void OnExit()

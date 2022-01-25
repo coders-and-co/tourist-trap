@@ -22,8 +22,11 @@ public class Tourist : RigidBody2D, IAttractive
 	public FiniteStateMachine<Tourist> StateMachine;
 	public Array<int> FeaturesPhotographed = new Array<int>();
 	
-	[Export]
-	public int Speed = 80;
+	[Export] public int Speed = 100;
+	[Export] public int SpeedFollow = 150;
+	[Export] public int SpeedFollowExcited = 200;
+
+	public float FollowPollingInterval = 1.0f;
 
 	// Target attraction values 
 	private readonly Dictionary<string, int> _target = new Dictionary<string, int>()

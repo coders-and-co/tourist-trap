@@ -9,22 +9,18 @@ namespace Duality.states.tourist
         public override string GetName() { return "Meander"; }
         public override void OnEnter()
         {
-            _timer = GD.Randf() * 2.0f + 2.0f; // 2 to 4s
+            _timer = GD.Randf() * 2.0f + 1.0f; // 1 to 3s
+            // Randomize meander vector
             _meander = new Vector2(RefObj.Speed, 0);
-            _meander = _meander.Rotated(GD.Randf() * Mathf.Pi * 2); // Rotate meander vector
+            _meander = _meander.Rotated(GD.Randf() * Mathf.Pi * 2); 
             RefObj.BodySprite.Play("walk");
-            RefObj.LinearVelocity = _meander;
             RefObj.Vision.Connect("body_entered", this, "Spotted");
             RefObj.Vision.Connect("area_entered", this, "Spotted");
         }
 
         public void Spotted(Node2D thing) // Area2D or PhysicsBody2D
         {
-            Node2D target = RefObj.FindTarget(); // Look for targets
-            if (target != null)
-            {
-                _timer = 0;
-            }
+            _timer = 0;
         }
 
         public override BaseState<Tourist> Update(float delta)
@@ -37,10 +33,9 @@ namespace Duality.states.tourist
                 else
                     return new TouristIdleState();
             }
-            // _meander = _meander.Rotated(GD.Randf() * 0.2f - 0.1f); // Rotate meander vector
+            
             _meander = _meander.Rotated(GD.Randf() * 0.2f - 0.1f); // add warble
             RefObj.LinearVelocity = _meander;
-            
             _timer -= delta;
             return null;
         }

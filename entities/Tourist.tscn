@@ -231,7 +231,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=48]
-radius = 256.0
+radius = 315.0
 
 [node name="Tourist" type="RigidBody2D" groups=["Tourist"]]
 collision_layer = 2
@@ -249,13 +249,12 @@ position = Vector2( 0, -48 )
 [node name="Body" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 7 )
 animation = "walk"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 19 )
 animation = "excite"
-frame = 2
 playing = true
 
 [node name="Outfit" type="AnimatedSprite" parent="Sprites"]
@@ -283,7 +282,6 @@ texture = ExtResource( 2 )
 offset = Vector2( -13, -13 )
 
 [node name="Vision" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 

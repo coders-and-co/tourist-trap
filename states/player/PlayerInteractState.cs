@@ -9,7 +9,7 @@ namespace Duality.states.player
         {
             GD.Print("Interact!");
             RefObj.BodySprite.Play("interact");
-            RefObj.BodySprite.Connect("animation_finished", this, "Done");
+            RefObj.BodySprite.Connect("animation_finished", this, "Done", null, (uint) ConnectFlags.Oneshot);
         }
         
         public override void OnExit()
