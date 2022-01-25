@@ -15,6 +15,7 @@ public class Tourist : RigidBody2D
 	public AnimatedSprite FaceSprite;
 	public AnimatedSprite CameraSprite;
 	public Area2D Vision;
+	public Label Label;
 	
 	// Finite State Machine
 	public FiniteStateMachine<Tourist> FSM;
@@ -37,6 +38,7 @@ public class Tourist : RigidBody2D
 		GD.Randomize();
 		
 		// lookup node references
+		Label = GetNode<Label>("Label");
 		Vision = GetNode<Area2D>("Vision");
 		Sprites = GetNode<Node2D>("Sprites");
 		BodySprite = GetNode<AnimatedSprite>("Sprites/Body");
@@ -64,6 +66,7 @@ public class Tourist : RigidBody2D
 	{
 		
 		FSM.Update(delta);
+		Label.Text = FSM.CurrentState.GetName();
 		
 		// Flip sprites if moving right
 		if (LinearVelocity.x > 2)

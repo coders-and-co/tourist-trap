@@ -231,7 +231,7 @@ radius = 256.0
 collision_layer = 2
 collision_mask = 3
 mode = 2
-linear_damp = 10.0
+linear_damp = 20.0
 script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -246,12 +246,13 @@ __meta__ = {
 [node name="Body" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 7 )
 animation = "walk"
+frame = 3
 playing = true
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 19 )
 animation = "talk"
-frame = 1
+frame = 3
 playing = true
 
 [node name="Outfit" type="AnimatedSprite" parent="Sprites"]
@@ -275,3 +276,14 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
 shape = SubResource( 48 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -24.0
+margin_top = -88.0
+margin_right = 24.0
+margin_bottom = -74.0
+text = "Idle"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

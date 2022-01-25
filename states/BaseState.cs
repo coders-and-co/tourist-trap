@@ -6,6 +6,8 @@ namespace Duality.states
     {
         public T RefObj;
         public Game Root;
+        public virtual string GetName() { return "BaseState"; }
+        
 
         public BaseState()
         {
@@ -16,6 +18,8 @@ namespace Duality.states
         // {
         //     RefObj = refObj;
         // }
+
+        
         
         public virtual void OnEnter()
         {

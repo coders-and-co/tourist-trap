@@ -6,6 +6,7 @@ namespace Duality.states.tourist
     {
         private int _timer;
         private Vector2 _meander;
+        public override string GetName() { return "Meander"; }
         public override void OnEnter()
         {
             _timer = (int) GD.RandRange(100, 350);

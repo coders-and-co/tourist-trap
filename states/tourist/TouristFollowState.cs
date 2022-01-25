@@ -5,6 +5,7 @@ namespace Duality.states.tourist
     public class TouristFollowState : BaseState<Tourist>
     {
         private Node2D _target = null;
+        public override string GetName() { return "Follow"; }
         public TouristFollowState(Node2D target)
         {
             _target = target;

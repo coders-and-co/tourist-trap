@@ -5,6 +5,7 @@ namespace Duality.states.tourist
     public class TouristIdleState : BaseState<Tourist>
     {
         private int _timer;
+        public override string GetName() { return "Idle"; }
         
         public override void OnEnter()
         {
