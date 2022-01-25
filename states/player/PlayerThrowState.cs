@@ -3,6 +3,7 @@ namespace Duality.states.player
 {
     public class PlayerThrowState : BaseState<Player>
     {
+        private bool _done;
         private Vector2 _throwTo;
 
         public PlayerThrowState(Vector2 position)
@@ -11,9 +12,9 @@ namespace Duality.states.player
         }
         public override void OnEnter()
         {
-            RefObj.BodySprite.Play("throw");
             RefObj.FlagSprite.Visible = false; // Hide flag sprite on Player
-            // RefObj.ThrowFlag(_throwTo);
+            RefObj.BodySprite.Play("throw");
+            RefObj.BodySprite.Connect("animation_finished", this, "Done");
         }
         
         public override void OnExit()
@@ -24,10 +25,11 @@ namespace Duality.states.player
 
         public override BaseState<Player> Update(float delta)
         {
-            if (RefObj.BodySprite.IsPlaying() == false)
+            if (_done)
                 return new PlayerIdleState();
-            
             return null;
         }
+        
+        public void Done() { _done = true; }
     }
 }

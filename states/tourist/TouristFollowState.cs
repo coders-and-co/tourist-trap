@@ -27,7 +27,7 @@ namespace Duality.states.tourist
             var dist = _target.Position.DistanceTo(RefObj.Position);
             
             // Reached the target
-            if (dist <= 128 && _target.IsInGroup("Bus"))
+            if (dist <= 192 && _target.IsInGroup("Bus"))
                 return new TouristTakePictureState(_target); // Take a pic of target
             else if (dist <= 64 && _target.IsInGroup("Feature"))
                 return new TouristTakePictureState(_target); // Take a pic of target
@@ -36,7 +36,8 @@ namespace Duality.states.tourist
 
             // Follow the thing!
             Vector2 direction = _target.Position - RefObj.Position;
-            RefObj.LinearVelocity = direction.Normalized() * RefObj.Speed;
+            direction = direction.Rotated(GD.Randf() * 0.2f - 0.1f); // add warble
+            RefObj.LinearVelocity = direction.Normalized() * RefObj.Speed * 1.5f;
             return null;
         }
     }

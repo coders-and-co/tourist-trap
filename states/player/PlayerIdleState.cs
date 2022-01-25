@@ -12,6 +12,7 @@ namespace Duality.states.player
 
         public override BaseState<Player> Update(float delta)
         {
+            // calculate movement vector
             Vector2 movement = RefObj.GetMovementVector();
 
             if (_throwTo.HasValue && RefObj.HasFlag)

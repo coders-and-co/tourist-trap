@@ -4,19 +4,15 @@ namespace Duality.states
 {
     public class FiniteStateMachine<T>
     {
-        public Game Root;
-        public T RefObj;
+        // public Game Root;
+        private readonly T RefObj;
         public BaseState<T> CurrentState;
         
-        public FiniteStateMachine(Game rootNode, T refObj, BaseState<T> defaultState)
+        public FiniteStateMachine(T refObj, BaseState<T> defaultState)
         {
             GD.Print("Creating FSM for ", refObj);
-
-            Root = rootNode;
             RefObj = refObj;
-            
             CurrentState = defaultState;
-            CurrentState.Root = Root;
             CurrentState.RefObj = RefObj;
             CurrentState.OnEnter();
         }
@@ -33,7 +29,6 @@ namespace Duality.states
             {
                 CurrentState.OnExit();
                 CurrentState = nextState;
-                CurrentState.Root = Root;
                 CurrentState.RefObj = RefObj;
                 CurrentState.OnEnter();
             }

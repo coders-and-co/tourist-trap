@@ -6,18 +6,13 @@ namespace Duality.states.tourist
     public class TouristTakePictureState : BaseState<Tourist>
     {
         private bool _done = false;
-        private Node2D _target;
+        private readonly Node2D _target;
         public override string GetName() { return "TakePicture"; }
         public TouristTakePictureState(Node2D target)
         {
             _target = target;
         }
         
-        public void Done()
-        {
-            _done = true;
-        }
-
         public override void OnEnter()
         {
             RefObj.LinearVelocity = Vector2.Zero;
@@ -35,5 +30,8 @@ namespace Duality.states.tourist
             // Wait for camera animation to finish
             return null;
         }
+        
+        public void Done() { _done = true; }
+        
     }
 }

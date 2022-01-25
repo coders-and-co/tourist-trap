@@ -4,12 +4,12 @@ namespace Duality.states.tourist
 {
     public class TouristIdleState : BaseState<Tourist>
     {
-        private int _timer;
+        private float _timer;
         public override string GetName() { return "Idle"; }
         
         public override void OnEnter()
         {
-            _timer = (int) GD.RandRange(50, 250);
+            _timer = GD.Randf() * 3.0f + 1.0f; // 1 to 4s
             RefObj.BodySprite.Play("idle");
             RefObj.FaceSprite.Play("talk");
             RefObj.LinearVelocity = Vector2.Zero;
@@ -23,7 +23,7 @@ namespace Duality.states.tourist
 
         public override BaseState<Tourist> Update(float delta)
         {
-            if (_timer == 0)
+            if (_timer <= 0)
             {
                 Node2D target = RefObj.FindTarget(); // Look for targets
                 if (target != null)
@@ -31,7 +31,7 @@ namespace Duality.states.tourist
                 else
                     return new TouristMeanderState();
             }
-            _timer -= 1;
+            _timer -= delta;
             return null;
         }
     }

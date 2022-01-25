@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Flag : KinematicBody2D
+public class Flag : KinematicBody2D, IAttractive
 {
 
     private AnimatedSprite _flagSprite;
@@ -11,6 +11,8 @@ public class Flag : KinematicBody2D
     private Vector2? _target;
     private float _dist;
     private float _t = 0.0f;
+    
+    public float GetBaseAttraction() { return 8; }
     
     public override void _Ready()
     {

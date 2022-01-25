@@ -7,10 +7,10 @@ using Duality.states.player;
 using Duality.states.tourist;
 using Godot.Collections;
 
-public class Tourist : RigidBody2D
+public class Tourist : RigidBody2D, IAttractive
 {
 	// Node References
-	private Node2D Sprites;
+	public Node2D Sprites;
 	public AnimatedSprite BodySprite;
 	public AnimatedSprite FaceSprite;
 	public AnimatedSprite CameraSprite;
@@ -18,7 +18,7 @@ public class Tourist : RigidBody2D
 	public Label Label;
 	
 	// Finite State Machine
-	public FiniteStateMachine<Tourist> FSM;
+	public FiniteStateMachine<Tourist> StateMachine;
 	public Array<int> FeaturesPhotographed = new Array<int>();
 	
 	[Export]
@@ -27,11 +27,14 @@ public class Tourist : RigidBody2D
 	// Target attraction values 
 	private readonly Dictionary<string, int> _target = new Dictionary<string, int>()
 	{
-		{"Player", 10},
-		{"Bus", 30},
+		// {"Tourist", 4},
 		{"Flag", 8},
+		{"Player", 12},
+		{"Bus", 24},
 		{"Feature", 60}
 	};
+
+	public float GetBaseAttraction() { return 4; }
 	
 	public override void _Ready()
 	{
@@ -54,8 +57,8 @@ public class Tourist : RigidBody2D
 		PickRandomFrame(bodyAccessorySprite);
 		PickRandomFrame(headAccessorySprite);
 
-		var rootNode = GetTree().Root.GetNode<Game>("Game"); 
-		FSM = new FiniteStateMachine<Tourist>(rootNode, this, new TouristIdleState());
+		// var rootNode = GetTree().Root.GetNode<Game>("Game"); 
+		StateMachine = new FiniteStateMachine<Tourist>(this, new TouristIdleState());
 	}
 
 	public void PickRandomFrame(AnimatedSprite sprite, string anim="default") {
@@ -65,13 +68,13 @@ public class Tourist : RigidBody2D
 	public override void _PhysicsProcess(float delta)
 	{
 		
-		FSM.Update(delta);
-		Label.Text = FSM.CurrentState.GetName();
+		StateMachine.Update(delta);
+		Label.Text = StateMachine.CurrentState.GetName();
 		
 		// Flip sprites if moving right
-		if (LinearVelocity.x > 2)
+		if (LinearVelocity.x > 5)
 			Sprites.Scale = new Vector2(-1, 1);
-		else if (LinearVelocity.x < 2)
+		else if (LinearVelocity.x < -5)
 			Sprites.Scale = new Vector2(1, 1);
 	}
 	
@@ -79,6 +82,8 @@ public class Tourist : RigidBody2D
 	{
 		if (body.IsInGroup("Player"))
 			return "Player";
+		// else if (body.IsInGroup("Tourist"))
+		// 	return "Tourist";
 		else if (body.IsInGroup("Flag"))
 			return "Flag";
 		else if (body.IsInGroup("Feature"))
@@ -96,9 +101,11 @@ public class Tourist : RigidBody2D
 		float currentScore = 0;
 		
 		// Get overlapping bodies
-		foreach (PhysicsBody2D body in Vision.GetOverlappingBodies())
+		foreach (PhysicsBody2D body in Vision.GetOverlappingBodies()) {
+			// typeof(IAttractive).IsAssignableFrom()
 			if (!FeaturesPhotographed.Contains((int) body.GetInstanceId()))
 				targetList.Add(body);
+		}
 
 		// Area check
 		foreach (Area2D area in Vision.GetOverlappingAreas())
@@ -111,12 +118,16 @@ public class Tourist : RigidBody2D
 		// Compare targets
 		foreach (Node2D t in targetList)
 		{
-			String name = FindGroup(t);
-			if (name != "")
+			String group = FindGroup(t);
+			if (group != "")
 			{
 				// calculate potential score!
-				var dist = t.Position.DistanceTo(Position);;
-				float potentialScore = _target[name] / dist;
+				var dist = t.Position.DistanceTo(Position);
+				
+				if ((group == "Player" || group == "Flag") && dist <= 64)
+					continue;
+				
+				float potentialScore = _target[group] / dist;
 				if (potentialScore > currentScore)
 				{
 					currentTarget = t;

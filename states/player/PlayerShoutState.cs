@@ -3,12 +3,13 @@ namespace Duality.states.player
 {
     public class PlayerShoutState : BaseState<Player>
     {
+        private bool _done;
         
         public override void OnEnter()
         {
-            RefObj.BodySprite.Play("shout");
             GD.Print("Shout!");
-            
+            RefObj.BodySprite.Play("shout");
+            RefObj.BodySprite.Connect("animation_finished", this, "Done");
         }
         
         public override void OnExit()
@@ -18,9 +19,11 @@ namespace Duality.states.player
 
         public override BaseState<Player> Update(float delta)
         {
-            if (RefObj.BodySprite.IsPlaying() == false)
+            if (_done)
                 return new PlayerIdleState();
             return null;
         }
+        
+        public void Done() { _done = true; }
     }
 }

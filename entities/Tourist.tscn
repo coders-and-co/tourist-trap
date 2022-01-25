@@ -252,7 +252,7 @@ playing = true
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 19 )
 animation = "talk"
-frame = 3
+frame = 1
 playing = true
 
 [node name="Outfit" type="AnimatedSprite" parent="Sprites"]
@@ -271,6 +271,7 @@ frames = SubResource( 47 )
 animation = "take_picture"
 
 [node name="Vision" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
