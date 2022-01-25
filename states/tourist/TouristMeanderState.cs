@@ -4,31 +4,29 @@ namespace Duality.states.tourist
 {
     public class TouristMeanderState : BaseState<Tourist>
     {
-        private Vector2 _meander = new Vector2(40, 0);
-        public int MeanderCountDown;
+        private int _timer;
+        private Vector2 _meander;
         public override void OnEnter()
         {
+            _timer = (int) GD.RandRange(100, 350);
+            _meander = new Vector2(RefObj.Speed, 0);
             RefObj.BodySprite.Play("walk");
-            MeanderCountDown = (int) GD.RandRange(100,350);
+            RefObj.LinearVelocity = _meander;
         }
 
         public override BaseState<Tourist> Update(float delta)
         {
-            if (RefObj.PlayerToFollow != null)
+            if (_timer == 0)
             {
-                return new TouristFollowState();
+                Node2D target = RefObj.FindTarget(); // Look for targets
+                if (target != null)
+                    return new TouristFollowState(target);
+                else
+                    return new TouristIdleState();
             }
-            else if(MeanderCountDown > 0)
-            {
-                RefObj.PlayerToFollow = RefObj.FindTarget();
-                _meander = _meander.Rotated(GD.Randf() - 0.5f);
-                MeanderCountDown--;
-                RefObj.LinearVelocity = _meander.Normalized()*RefObj.Speed;
-                return null;
-            }  else if (MeanderCountDown == 0)
-            {
-                return new TouristIdleState();
-            }
+            _meander = _meander.Rotated(GD.Randf() - 0.5f); // Rotate meander vector
+            RefObj.LinearVelocity = _meander; // _meander.Normalized() * RefObj.Speed;
+            _timer -= 1;
             return null;
         }
     }

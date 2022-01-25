@@ -5,26 +5,33 @@ namespace Duality.states.tourist
 {
     public class TouristTakePictureState : BaseState<Tourist>
     {
+        private bool _done = false;
+        private Node2D _target;
+        public TouristTakePictureState(Node2D target)
+        {
+            _target = target;
+        }
+        
+        public void Done()
+        {
+            _done = true;
+        }
+
         public override void OnEnter()
         {
-            RefObj.CameraSprite.Frame = 0;
-
-            RefObj.CameraSprite.Play("takePicture");
             RefObj.LinearVelocity = Vector2.Zero;
-            Area2D play = (Area2D) RefObj.PlayerToFollow;
-            RefObj.FeaturesPhotographed.Add(play.GetRid().GetId());
-            
+            RefObj.FeaturesPhotographed.Add((int) _target.GetInstanceId());
+            RefObj.BodySprite.Play("idle");
+            RefObj.CameraSprite.Play("take_picture");
+            RefObj.CameraSprite.Frame = 0;
+            RefObj.CameraSprite.Connect("animation_finished", this, "Done");
         }
 
         public override BaseState<Tourist> Update(float delta)
         {
-            if (!RefObj.CameraSprite.IsPlaying())
-            {
-                RefObj.PlayerToFollow = null;
-                RefObj.FindTarget();
-                return new TouristIdleState();   
-            }
-
+            if (_done)
+                return new TouristIdleState();
+            // Wait for camera animation to finish
             return null;
         }
     }

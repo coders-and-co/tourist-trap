@@ -2,7 +2,7 @@ using Godot;
 
 namespace Duality.states
 {
-    public class BaseState<T>
+    public class BaseState<T> : Godot.Object
     {
         public T RefObj;
         public Game Root;

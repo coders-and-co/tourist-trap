@@ -4,30 +4,33 @@ namespace Duality.states.tourist
 {
     public class TouristIdleState : BaseState<Tourist>
     {
-        private Vector2 standStill = new Vector2(0, 0);
-        public int IdleCountDown;
+        private int _timer;
+        
         public override void OnEnter()
         {
+            _timer = (int) GD.RandRange(50, 250);
             RefObj.BodySprite.Play("idle");
-            IdleCountDown = (int) GD.RandRange(50,250);
+            RefObj.FaceSprite.Play("talk");
+            RefObj.LinearVelocity = Vector2.Zero;
+        }
+
+        public override void OnExit()
+        {
+            RefObj.FaceSprite.Play("default");
+            RefObj.PickRandomFrame(RefObj.FaceSprite);
         }
 
         public override BaseState<Tourist> Update(float delta)
         {
-            if (RefObj.PlayerToFollow != null)
+            if (_timer == 0)
             {
-                return new TouristFollowState();
+                Node2D target = RefObj.FindTarget(); // Look for targets
+                if (target != null)
+                    return new TouristFollowState(target);
+                else
+                    return new TouristMeanderState();
             }
-            else if(IdleCountDown > 0)
-            {
-                IdleCountDown--;
-                RefObj.LinearVelocity = standStill;
-                return null;
-            } else if (IdleCountDown == 0)
-            {
-                return new TouristMeanderState();
-            }
-
+            _timer -= 1;
             return null;
         }
     }
