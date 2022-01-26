@@ -32,15 +32,16 @@ public class Tourist : RigidBody2D
 	[Export] public int Speed = 75;
 	[Export] public int SpeedFollow = 175;
 	[Export] public int SpeedFollowExcited = 250;
+	[Export] public float VisionRadius = 512;
 	[Export] public float FollowPollingInterval = 1;
 	[Export] public float ComfortDistance = 192;
 	[Export] public float MinFollowScore = 20;
+	[Export] public float MaxStopFollowScore = 50;
 	
 	
 	public override void _Ready()
 	{
 		// lookup node references
-		Vision = GetNode<Area2D>("Vision");
 		Sprites = GetNode<Node2D>("Sprites");
 		BodySprite = GetNode<AnimatedSprite>("Sprites/Body");
 		FaceSprite = GetNode<AnimatedSprite>("Sprites/Face");
@@ -48,6 +49,15 @@ public class Tourist : RigidBody2D
 		PointSprite = GetNode<Sprite>("Sprites/Point");
 		Audio = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
 		
+		// Create vision area
+		Vision = new Area2D();
+		Vision.AddChild(new CollisionShape2D());
+		Vision.GetChild<CollisionShape2D>(0).Shape = new CircleShape2D();
+		((CircleShape2D) Vision.GetChild<CollisionShape2D>(0).Shape).Radius = VisionRadius;
+		Vision.CollisionLayer = 0;
+		Vision.CollisionMask = 2;
+		AddChild(Vision);
+
 		// randomize tourist outfit
 		PickRandomFrame(GetNode<AnimatedSprite>("Sprites/Outfit"));
 		PickRandomFrame(GetNode<AnimatedSprite>("Sprites/Body Accessory"));
@@ -100,30 +110,22 @@ public class Tourist : RigidBody2D
 		switch (t)
 		{
 			case IEntity entity:
-				return entity.Influence;
+				return entity.Influence; // 50
 			case Flag flag:
-				return 5;
+				return 40;
 			case var bus when bus.IsInGroup("Bus"):
-				return 16;
+				return 60;
 			case var feature when feature.IsInGroup("Feature"):
-				return 32;
+				return 100;
 			default:
 				return 0;
 		}
 	}
 	public float GetScore(Node2D t)
 	{
-		var dist = t.Position.DistanceTo(Position);
-		// switch (t) 
-		// {
-		// 	case Player player:
-		// 	case Flag flag: 
-		// 		// ignore player/flag if close by
-		// 		if (dist <= 96)
-		// 			return GetInfluence(t) / dist / dist * 1000;;
-		// 		break;
-		// }
-		return GetInfluence(t) / dist * 1000;
+		var inf = GetInfluence(t);
+		var d = t.Position.DistanceTo(Position);
+		return Mathf.Max(0, inf - (d * d) / (5000));
 	}
 	
 	public void TargetSpotted(Node2D target)
