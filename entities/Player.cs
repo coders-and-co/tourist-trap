@@ -71,16 +71,15 @@ public class Player : KinematicBody2D, IEntity
         return movement;
     }
 
-    public void OnTouchSomething(Node body)
-    {
-        GD.Print("TOUCH ", body);
-        if (body.IsInGroup("Flag"))
-        {
-            var flag = (Flag) body;
-            if (!flag.Moving)
-                CollectFlag(flag);
-        }
-    }
+	public void OnTouchSomething(Node body)
+	{
+		if (body.IsInGroup("Flag"))
+		{
+			var flag = (Flag) body;
+			if (!flag.Moving)
+				CollectFlag(flag);
+		}
+	}
 
     public void Shout()
     {
