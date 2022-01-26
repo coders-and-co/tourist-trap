@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/talk_2_p.mp3-305d38ad75d95ee6d62384f6cdd643aa.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/Processed sfx/talk_2_p.mp3"
+dest_files=[ "res://.import/talk_2_p.mp3-305d38ad75d95ee6d62384f6cdd643aa.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
