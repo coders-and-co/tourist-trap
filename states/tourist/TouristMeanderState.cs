@@ -10,7 +10,6 @@ namespace Duality.states.tourist
         public override void OnEnter()
         {
             _timer = GD.Randf() * 2.0f + 1.0f; // 1 to 3s
-            // Randomize meander vector
             _meander = new Vector2(RefObj.Speed, 0);
             _meander = _meander.Rotated(GD.Randf() * Mathf.Pi * 2); 
             RefObj.BodySprite.Play("walk");

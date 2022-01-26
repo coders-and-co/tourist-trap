@@ -10,6 +10,7 @@ public class Player : KinematicBody2D
     public Node2D Sprites;
     public AnimatedSprite BodySprite;
     public Sprite FlagSprite;
+    public AudioStreamPlayer2D Audio;
     
     // State variables
     public FiniteStateMachine<Player> StateMachine;
@@ -24,6 +25,7 @@ public class Player : KinematicBody2D
         Sprites = GetNode<Node2D>("Sprites");
         BodySprite = GetNode<AnimatedSprite>("Sprites/Body");
         FlagSprite = GetNode<Sprite>("Sprites/Flag");
+        Audio = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
         
         // create state machine
         StateMachine = new FiniteStateMachine<Player>(this, new PlayerIdleState());

@@ -4,11 +4,13 @@ namespace Duality.states.tourist
 {
     public class TouristFollowState : BaseState<Tourist>
     {
+        public override string GetName() { return "Follow"; }
+        
         private float _timer;
         private Node2D _target = null;
         private bool _excited;
         private float _speed;
-        public override string GetName() { return "Follow"; }
+
         public TouristFollowState(Node2D target)
         {
             _target = target;
@@ -27,20 +29,32 @@ namespace Duality.states.tourist
         public override void OnEnter()
         {
             _timer = RefObj.FollowPollingInterval;
+            _speed = RefObj.SpeedFollow;
             RefObj.LinearVelocity = Vector2.Zero;
             RefObj.BodySprite.Play("walk");
-            RefObj.PointSprite.Visible = true;
+            
             _excited = _target.IsInGroup("Feature") || _target.IsInGroup("Bus");
             if (_excited)
             {
                 _speed = RefObj.SpeedFollowExcited;
-                RefObj.FaceSprite.Play("excite");
                 RefObj.PointSprite.Visible = true;
-            }
-            else
-            {
-                _speed = RefObj.SpeedFollow;
-                RefObj.PointSprite.Visible = false;
+                RefObj.FaceSprite.Play("excite");
+                switch (GD.Randi() % 3 + 1)
+                {
+                    case 1:
+                        RefObj.FaceSprite.Frame = 0;
+                        RefObj.Audio.Stream = GD.Load<AudioStream>("res://assets/sfx/Processed sfx/ooo_1_p.mp3");
+                        break;
+                    case 2:
+                        RefObj.FaceSprite.Frame = 1;
+                        RefObj.Audio.Stream = GD.Load<AudioStream>("res://assets/sfx/Processed sfx/ooo_2_p.mp3");
+                        break;
+                    case 3:
+                        RefObj.FaceSprite.Frame = 2;
+                        RefObj.Audio.Stream = GD.Load<AudioStream>("res://assets/sfx/Processed sfx/ooo_3_p.mp3");
+                        break;
+                }
+                RefObj.Audio.Play();
             }
         }
 

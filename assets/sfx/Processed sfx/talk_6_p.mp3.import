@@ -11,5 +11,5 @@ dest_files=[ "res://.import/talk_6_p.mp3-92bc7fe1428621ed77205138138ba115.mp3str
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

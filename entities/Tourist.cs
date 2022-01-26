@@ -16,6 +16,7 @@ public class Tourist : RigidBody2D
 	public AnimatedSprite CameraSprite;
 	public Sprite PointSprite;
 	public Area2D Vision;
+	public AudioStreamPlayer2D Audio;
 	
 	// State variables
 	private bool _debug;
@@ -30,9 +31,9 @@ public class Tourist : RigidBody2D
 		get { return _debug; }
 		set { SetDebug(value); }
 	}
-	[Export] public int Speed = 100;
-	[Export] public int SpeedFollow = 150;
-	[Export] public int SpeedFollowExcited = 200;
+	[Export] public int Speed = 75;
+	[Export] public int SpeedFollow = 175;
+	[Export] public int SpeedFollowExcited = 250;
 	[Export] public float FollowPollingInterval = 1.0f;
 
 	// Target attraction values 
@@ -72,6 +73,7 @@ public class Tourist : RigidBody2D
 		FaceSprite = GetNode<AnimatedSprite>("Sprites/Face");
 		CameraSprite = GetNode<AnimatedSprite>("Sprites/Camera");
 		PointSprite = GetNode<Sprite>("Sprites/Point");
+		Audio = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
 		
 		// randomize tourist outfit
 		PickRandomFrame(GetNode<AnimatedSprite>("Sprites/Outfit"));
@@ -175,8 +177,13 @@ public class Tourist : RigidBody2D
 			var score = GetPotentialScoreFor(target);
 			Targets.UpdatePriority(target, score * -1);
 		}
-		// return the best score from Targets
-		return Targets.First;
+		
+		// return the best score from Targets (or null if the best score is zero)
+		if (GetPotentialScoreFor(Targets.First) != 0)
+			return Targets.First;
+		else
+			return null;
+
 	}
 
 }

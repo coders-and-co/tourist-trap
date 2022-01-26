@@ -5,9 +5,9 @@ namespace Duality.states.tourist
 {
     public class TouristTakePictureState : BaseState<Tourist>
     {
+        public override string GetName() { return "TakePicture"; }
         private bool _done = false;
         private readonly Node2D _target;
-        public override string GetName() { return "TakePicture"; }
         public TouristTakePictureState(Node2D target)
         {
             _target = target;
