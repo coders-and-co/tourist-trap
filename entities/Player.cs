@@ -3,29 +3,29 @@ using System;
 using Duality.states;
 using Duality.states.player;
 
-public class Player : KinematicBody2D, IAttractive
+public class Player : KinematicBody2D
 {
+    // Resources and nodes
     private PackedScene _flagScene = GD.Load<PackedScene>("entities/Flag.tscn");
     public Node2D Sprites;
     public AnimatedSprite BodySprite;
     public Sprite FlagSprite;
     
-    // Finite State Machine
+    // State variables
     public FiniteStateMachine<Player> StateMachine;
-    
-    [Export] public int Speed = 240;
     public bool HasFlag = true;
-
-    public float GetBaseAttraction() { return 10; }
+    
+    // Tunables
+    [Export] public int Speed = 240;
     
     public override void _Ready()
     {
-        // lookup references
+        // lookup node references
         Sprites = GetNode<Node2D>("Sprites");
         BodySprite = GetNode<AnimatedSprite>("Sprites/Body");
         FlagSprite = GetNode<Sprite>("Sprites/Flag");
         
-        // Create FSM
+        // create state machine
         StateMachine = new FiniteStateMachine<Player>(this, new PlayerIdleState());
     }
     
