@@ -85,6 +85,22 @@ region = Rect2( 576, 128, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 640, 128, 64, 128 )
 
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 576, 128, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=70]
+atlas = ExtResource( 1 )
+region = Rect2( 768, 128, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 640, 128, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=71]
+atlas = ExtResource( 1 )
+region = Rect2( 512, 128, 64, 128 )
+
 [sub_resource type="AtlasTexture" id=60]
 atlas = ExtResource( 1 )
 region = Rect2( 576, 128, 64, 128 )
@@ -124,34 +140,6 @@ region = Rect2( 704, 128, 64, 128 )
 [sub_resource type="AtlasTexture" id=69]
 atlas = ExtResource( 1 )
 region = Rect2( 768, 128, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=50]
-atlas = ExtResource( 1 )
-region = Rect2( 448, 0, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=51]
-atlas = ExtResource( 1 )
-region = Rect2( 576, 0, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=52]
-atlas = ExtResource( 1 )
-region = Rect2( 640, 0, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 576, 128, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=70]
-atlas = ExtResource( 1 )
-region = Rect2( 768, 128, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 640, 128, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=71]
-atlas = ExtResource( 1 )
-region = Rect2( 512, 128, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=72]
 atlas = ExtResource( 1 )
@@ -225,6 +213,18 @@ region = Rect2( 640, 128, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 832, 128, 64, 128 )
 
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 1 )
+region = Rect2( 448, 0, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 1 )
+region = Rect2( 576, 0, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 1 )
+region = Rect2( 640, 0, 64, 128 )
+
 [sub_resource type="AtlasTexture" id=90]
 atlas = ExtResource( 1 )
 region = Rect2( 576, 128, 64, 128 )
@@ -265,19 +265,14 @@ animations = [ {
 "name": "talk 5",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 62 ), SubResource( 63 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ) ],
-"loop": false,
-"name": "talk 6",
-"speed": 12.0
-}, {
-"frames": [ SubResource( 50 ), SubResource( 51 ), SubResource( 52 ) ],
-"loop": true,
-"name": "excite",
-"speed": 0.5
-}, {
 "frames": [ SubResource( 8 ), SubResource( 70 ), SubResource( 9 ), SubResource( 9 ), SubResource( 70 ), SubResource( 71 ), SubResource( 70 ), SubResource( 70 ) ],
 "loop": true,
 "name": "talk",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 62 ), SubResource( 63 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ) ],
+"loop": false,
+"name": "talk 6",
 "speed": 12.0
 }, {
 "frames": [ SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ), SubResource( 78 ), SubResource( 79 ), SubResource( 80 ), SubResource( 81 ), SubResource( 81 ), SubResource( 82 ), SubResource( 83 ), SubResource( 84 ) ],
@@ -289,6 +284,11 @@ animations = [ {
 "loop": true,
 "name": "talk 2",
 "speed": 12.0
+}, {
+"frames": [ SubResource( 50 ), SubResource( 51 ), SubResource( 52 ) ],
+"loop": true,
+"name": "excite",
+"speed": 0.5
 }, {
 "frames": [ SubResource( 90 ), SubResource( 91 ), SubResource( 92 ), SubResource( 93 ), SubResource( 93 ), SubResource( 91 ), SubResource( 94 ), SubResource( 94 ), SubResource( 95 ), SubResource( 96 ) ],
 "loop": true,
@@ -454,7 +454,6 @@ position = Vector2( 0, -48 )
 [node name="Body" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 7 )
 animation = "walk"
-frame = 3
 playing = true
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
