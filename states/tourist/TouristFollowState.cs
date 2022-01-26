@@ -7,52 +7,41 @@ namespace Duality.states.tourist
         public override string GetName() { return "Follow"; }
         
         private float _timer;
-        private Node2D _target = null;
+        private readonly Node2D _target;
+        private float _score;
         private bool _excited;
         private float _speed;
-        private Vector2 _lastPos;
 
-        public TouristFollowState(Node2D target)
+        public TouristFollowState(Node2D target, float score)
         {
             _target = target;
+            _score = score;
         }
 
-        public override string GetDebugState() { return _target.Name; }
-        public Node2D GetDebugTarget() { return _target; }
+        public override string GetDebugState() { return IsInstanceValid(_target) ? $"{_target.Name}" : ""; } //  ({_score:N0})
+        public Node2D? GetDebugTarget() { return _target; }
         
         public override void OnEnter()
         {
             _timer = RefObj.FollowPollingInterval;
-            _speed = RefObj.SpeedFollow;
             _excited = _target.IsInGroup("Feature") || _target.IsInGroup("Bus");
-
-            if (!_excited)
+            
+            if (_excited)
             {
-                RefObj.LinearVelocity = Vector2.Zero;
-                RefObj.BodySprite.Play("walk");
-            }
-            else
-            {
-                _speed = RefObj.SpeedFollowExcited;
-                RefObj.PointSprite.Visible = true;
                 RefObj.FaceSprite.Play("excite");
-                switch (GD.Randi() % 3 + 1)
+                RefObj.PointSprite.Visible = true;
+                RefObj.FaceSprite.Frame = (int) GD.Randi() % 3; // 0 to 2 
+                RefObj.Audio.Stream = RefObj.FaceSprite.Frame switch
                 {
-                    case 1:
-                        RefObj.FaceSprite.Frame = 0;
-                        RefObj.Audio.Stream = GD.Load<AudioStream>("res://assets/sfx/Processed sfx/ooo_1_p.mp3");
-                        break;
-                    case 2:
-                        RefObj.FaceSprite.Frame = 1;
-                        RefObj.Audio.Stream = GD.Load<AudioStream>("res://assets/sfx/Processed sfx/ooo_2_p.mp3");
-                        break;
-                    case 3:
-                        RefObj.FaceSprite.Frame = 2;
-                        RefObj.Audio.Stream = GD.Load<AudioStream>("res://assets/sfx/Processed sfx/ooo_3_p.mp3");
-                        break;
-                }
+                    0 => GD.Load<AudioStream>("res://assets/sfx/Processed sfx/ooo_1_p.mp3"),
+                    1 => GD.Load<AudioStream>("res://assets/sfx/Processed sfx/ooo_2_p.mp3"),
+                    2 => GD.Load<AudioStream>("res://assets/sfx/Processed sfx/ooo_3_p.mp3"),
+                    _ => null
+                };
                 RefObj.Audio.Play();
             }
+            
+            RefObj.BodySprite.Play("walk");
         }
 
         public override void OnExit()
@@ -61,55 +50,66 @@ namespace Duality.states.tourist
             RefObj.PointSprite.Visible = false;
         }
 
-        public override BaseState<Tourist> Update(float delta)
+        public override BaseState<Tourist>? Update(float delta)
         {
-            // Check if the target has been disposed (such as the flag)
+            // check if the target has been disposed (such as the flag)
             if (!IsInstanceValid(_target))
-                _target = null;
+                return new TouristIdleState();
             
-            // Poll for targets every so often
-            if(_timer <= 0 || _target == null) {
+            // scan for targets when timer expires
+            if(_timer <= 0) {
                 var (t, score) = RefObj.FindTarget();
-                if (t == null || score < 20)
-                    return new TouristIdleState(); // Lost target
+                // check for lost target
+                if (t is null || score == 0)
+                    return new TouristIdleState();
+                // check for new target
                 if (t != _target)
-                    return new TouristFollowState(t); // New target
-                _timer = RefObj.FollowPollingInterval;
+                    return new TouristFollowState(t, score);
+                _score = score; // update score
+                _timer = RefObj.FollowPollingInterval; // reset timer
             }
             
-            // float actualSpeed = (RefObj.Position - _lastPos).Length();
-            // _lastPos = RefObj.Position;
-            // if (actualSpeed < 1)
-            // {
-            //     return new TouristIdleState();
-            // }
-            
-            // Calculate delta vector and distance
+            // calculate delta vector and distance
             Vector2 d = _target.Position - RefObj.Position;
             var dist = d.Length();
             
-            // Check if reached the target
-            if (dist <= 192 && _target.IsInGroup("Bus"))
-                return new TouristTakePictureState(_target); // Take a pic of bus
-            else if (dist <= 128 && _target.IsInGroup("Feature"))
-                return new TouristTakePictureState(_target); // Take a pic of feature
-            else if (dist <= 64)
-                return new TouristIdleState();
+            // check if reached the target
+            switch (_target)
+            {
+                case var b when b.IsInGroup("Bus") && dist <= RefObj.ComfortDistance * 1.5f:
+                    return new TouristTakePictureState(b);
+                case var f when f.IsInGroup("Feature") && dist <= RefObj.ComfortDistance:
+                    return new TouristTakePictureState(f);
+                case var t when dist <= RefObj.ComfortDistance / 3:
+                    return new TouristIdleState();    
+            }
             
             // Point towards target if excited
             if (_excited)
+                PointAt(d);
+            
+            // Adjust speed based on target score
+            _speed = _score switch
             {
-                var opp = d * -1;
-                if (RefObj.Sprites.Scale.x < 0)
-                    RefObj.PointSprite.Rotation = opp.Reflect(Vector2.Up).Angle() - Mathf.Pi / 4;
-                else
-                    RefObj.PointSprite.Rotation = opp.Angle() - Mathf.Pi / 4;
-            }
+                var s when s >= 100 => RefObj.SpeedFollowExcited * 1.5f,
+                var s when s >= 50 || _excited => RefObj.SpeedFollowExcited,
+                var s when s >= 25 => RefObj.SpeedFollow,
+                _ => RefObj.Speed,
+            };
             
             // Follow the thing!
             _timer -= delta;
             RefObj.LinearVelocity = d.Normalized() * _speed;
             return null;
+        }
+
+        private void PointAt(Vector2 d)
+        {
+            var opp = d * -1;
+            if (RefObj.Sprites.Scale.x < 0)
+                RefObj.PointSprite.Rotation = opp.Reflect(Vector2.Up).Angle() - Mathf.Pi / 4;
+            else
+                RefObj.PointSprite.Rotation = opp.Angle() - Mathf.Pi / 4;
         }
     }
 }

@@ -8,9 +8,9 @@ namespace Duality.states
         public virtual string GetName() { return "BaseState"; }
         public virtual string GetDebugState() { return ""; }
         
-        public BaseState()
+        protected BaseState()
         {
-            RefObj = default(T);
+            RefObj = default(T)!;
         }
         
         public virtual void OnEnter() { }
@@ -19,7 +19,7 @@ namespace Duality.states
 
         public virtual void OnLeftClick(Vector2 position) { }
 
-        public virtual BaseState<T> Update(float delta) {
+        public virtual BaseState<T>? Update(float delta) {
             return null;
         }
     }

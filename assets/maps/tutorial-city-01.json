@@ -206,6 +206,12 @@
          "id":23,
          "name":"BLOCKS 2",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"z_index",
+                 "type":"int",
+                 "value":10
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":70,
@@ -218,6 +224,12 @@
          "id":29,
          "name":"TUBE",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"z_index",
+                 "type":"string",
+                 "value":"10"
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":70,
@@ -250,8 +262,8 @@
                  "type":"Node2D",
                  "visible":true,
                  "width":0,
-                 "x":2632,
-                 "y":1600
+                 "x":2368,
+                 "y":2688
                 }, 
                 {
                  "height":0,
@@ -262,8 +274,8 @@
                  "type":"Node2D",
                  "visible":true,
                  "width":0,
-                 "x":2728,
-                 "y":1672
+                 "x":1120,
+                 "y":2096
                 }, 
                 {
                  "height":0,
@@ -274,7 +286,7 @@
                  "type":"Node2D",
                  "visible":true,
                  "width":0,
-                 "x":2912,
+                 "x":2880,
                  "y":1600
                 }, 
                 {
@@ -286,8 +298,8 @@
                  "type":"Node2D",
                  "visible":true,
                  "width":0,
-                 "x":2528,
-                 "y":1752
+                 "x":1312,
+                 "y":2664
                 }, 
                 {
                  "height":0,
@@ -324,6 +336,54 @@
                  "width":0,
                  "x":3840,
                  "y":776
+                }, 
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"Feature",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Node2D",
+                 "visible":true,
+                 "width":0,
+                 "x":416,
+                 "y":2736
+                }, 
+                {
+                 "height":0,
+                 "id":9,
+                 "name":"Feature",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Node2D",
+                 "visible":true,
+                 "width":0,
+                 "x":1448,
+                 "y":3520
+                }, 
+                {
+                 "height":0,
+                 "id":10,
+                 "name":"Feature",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Node2D",
+                 "visible":true,
+                 "width":0,
+                 "x":2816,
+                 "y":2688
+                }, 
+                {
+                 "height":0,
+                 "id":11,
+                 "name":"Feature",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Node2D",
+                 "visible":true,
+                 "width":0,
+                 "x":3264,
+                 "y":2688
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -332,7 +392,7 @@
          "y":0
         }],
  "nextlayerid":33,
- "nextobjectid":8,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "properties":[
         {

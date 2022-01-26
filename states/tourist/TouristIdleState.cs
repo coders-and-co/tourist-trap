@@ -9,7 +9,7 @@ namespace Duality.states.tourist
         
         public override void OnEnter()
         {
-            _timer = GD.Randf() * 1.0f + 1.0f; // 1 to 2s
+            _timer = (float) GD.RandRange(1, 2); // 1 to 2 seconds
             RefObj.LinearVelocity = Vector2.Zero;
             RefObj.BodySprite.Play("idle");
             RefObj.FaceSprite.Play("default");
@@ -22,15 +22,15 @@ namespace Duality.states.tourist
             // RefObj.PickRandomFrame(RefObj.FaceSprite);
         }
 
-        public override BaseState<Tourist> Update(float delta)
+        public override BaseState<Tourist>? Update(float delta)
         {
             if (_timer <= 0)
             {
                 // Look for targets at end of idle
                 var (target, score) = RefObj.FindTarget(); 
-                if (target != null && score > 20)
-                    return new TouristFollowState(target);
-                else if (GD.Randf() > 0.6667f)
+                if (target != null && score > RefObj.MinFollowScore && target.Position.DistanceTo(RefObj.Position) > RefObj.ComfortDistance)
+                    return new TouristFollowState(target, score);
+                else if (GD.Randf() > 0.75)
                     return new TouristTalkState();
                 else
                     return new TouristMeanderState();

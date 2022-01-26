@@ -32,7 +32,9 @@ public class Tourist : RigidBody2D
 	[Export] public int Speed = 75;
 	[Export] public int SpeedFollow = 175;
 	[Export] public int SpeedFollowExcited = 250;
-	[Export] public float FollowPollingInterval = 1; 
+	[Export] public float FollowPollingInterval = 1;
+	[Export] public float ComfortDistance = 192;
+	[Export] public float MinFollowScore = 20;
 	
 	
 	public override void _Ready()
@@ -112,15 +114,15 @@ public class Tourist : RigidBody2D
 	public float GetScore(Node2D t)
 	{
 		var dist = t.Position.DistanceTo(Position);
-		switch (t) 
-		{
-			case Player player:
-			case Flag flag: 
-				// ignore player/flag if close by
-				if (dist <= 96)
-					return 0;
-				break;
-		}
+		// switch (t) 
+		// {
+		// 	case Player player:
+		// 	case Flag flag: 
+		// 		// ignore player/flag if close by
+		// 		if (dist <= 96)
+		// 			return GetInfluence(t) / dist / dist * 1000;;
+		// 		break;
+		// }
 		return GetInfluence(t) / dist * 1000;
 	}
 	
@@ -161,7 +163,6 @@ public class Tourist : RigidBody2D
 		FeaturesPhotographed.Add(target.GetInstanceId());
 		Targets.TryRemove(target);
 	}
-
 	
 	public (Node2D?, float) FindTarget()
 	{

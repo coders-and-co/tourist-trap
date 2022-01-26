@@ -36,14 +36,10 @@ namespace Duality.states.player
             // GD.Print("Shout Done!");
         }
 
-        public override BaseState<Player> Update(float delta)
+        public override BaseState<Player>? Update(float delta)
         {
             if (_done)
                 return new PlayerIdleState();
-
-
-            
-            // _influenceCircle.Radius = 
             return null;
         }
         

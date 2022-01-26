@@ -90,6 +90,9 @@ public class Player : KinematicBody2D, IEntity
         GetTree().Root.AddChild(tween);
         // AddChild(tween);
         tween.InterpolateProperty(inf, "shape:radius", 32, 256, 1.0f);
+        tween.InterpolateProperty(this, "Influence", 8, 32, 1.0f);
+        tween.InterpolateProperty(inf, "shape:radius", 256, 32, 5.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 2.5f);
+        tween.InterpolateProperty(this, "Influence", 32, 8, 5.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 2.5f);
         tween.Start();
         // tween.Connect()
         // inf.Radius = 
