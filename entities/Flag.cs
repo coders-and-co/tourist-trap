@@ -31,7 +31,7 @@ public class Flag : KinematicBody2D
         }
     }
 
-    public void Throw(Vector2 from, Vector2 to)
+    public void FlyBetween(Vector2 from, Vector2 to)
     {
         _origin = Position = from;
         _target = to;

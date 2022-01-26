@@ -16,8 +16,7 @@ public class TouristDebug : Node2D
     
     public override void _Ready()
     {
-        Tourist = GetParent<Tourist>();
-        // GetNode<Node2D>("Debug").Visible = true;
+        Tourist = (Tourist) GetParent();
         DebugLabel = GetNode<Label>("PanelContainer/Label");
         DebugFont = new Label().GetFont("");
     }
@@ -37,11 +36,11 @@ public class TouristDebug : Node2D
         // Draw vision circle
         var circle = (CircleShape2D) Tourist.Vision.GetChild<CollisionShape2D>(0).Shape;
         // DrawCircle(Vector2.Zero, circle.Radius, DarkAlpha);
-        // DrawArc(Vector2.Zero, circle.Radius, 0, Mathf.Pi * 2, 40, LightAlpha, 0.5f, true);
+        DrawArc(Vector2.Zero, circle.Radius, 0, Mathf.Pi * 2, 40, LightAlpha, 0.5f, true);
 		
         foreach (var t in Tourist.Targets)
         {
-            var score = Tourist.Targets.GetPriority(t) * -1;
+            var score = Tourist.Targets.GetPriority(t) * -1; // Tourist.GetScore(t));
             var dv = t.Position - Tourist.Position;
             var dist = dv.Length();
             var endPos = dv.Clamped(dist - 4);
@@ -50,8 +49,6 @@ public class TouristDebug : Node2D
             var lineColor = Secondary;
             var textColor = Colors.White;
             
-            // var badgeColor = Black;
-			
             if (stateType == typeof(TouristFollowState))
             {
                 var followState = (TouristFollowState) state;

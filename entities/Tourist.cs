@@ -1,11 +1,9 @@
 using Godot;
-using System;
 using Duality.states;
 using Duality.states.tourist;
 using Godot.Collections;
 using Collections = System.Collections.Generic;
 using Priority_Queue;
-using Object = Godot.Object;
 
 public class Tourist : RigidBody2D
 {
@@ -22,48 +20,21 @@ public class Tourist : RigidBody2D
 	private bool _debug;
 	public FiniteStateMachine<Tourist> StateMachine;
 	public Array<ulong> FeaturesPhotographed = new Array<ulong>();
-	public SimplePriorityQueue<Node2D, float> Targets = new SimplePriorityQueue<Node2D, float>();
+	public SimplePriorityQueue<Node2D, float> Targets;
 
 	// Tunables
 	[Export]
 	public bool Debug
 	{
-		get { return _debug; }
-		set { SetDebug(value); }
+		get => _debug;
+		set => SetDebug(value);
 	}
 	[Export] public int Speed = 75;
 	[Export] public int SpeedFollow = 175;
 	[Export] public int SpeedFollowExcited = 250;
-	[Export] public float FollowPollingInterval = 1.0f;
-
-	// Target attraction values 
-	private readonly Dictionary<string, int> _target = new Dictionary<string, int>()
-	{
-		// {"Tourist", 4},
-		{"Flag", 5000},
-		{"Player", 8000},
-		{"Bus", 16000},
-		{"Feature", 32000}
-	};
-
-	private void SetDebug(bool debug)
-	{
-		_debug = debug;
-		GetNode<TouristDebug>("Debug").Visible = debug;
-	}
-
-	public override void _Input(InputEvent @event)
-	{
-		// bail out unless it's a key down event
-		if (!(@event is InputEventKey key) || !key.Pressed) return;
-		switch ((KeyList) key.Scancode)
-		{
-			case KeyList.Tab:
-				Debug = !Debug; // turn tourist debug on/off
-				break;
-		}
-	}
-
+	[Export] public float FollowPollingInterval = 1; 
+	
+	
 	public override void _Ready()
 	{
 		// lookup node references
@@ -82,6 +53,7 @@ public class Tourist : RigidBody2D
 		
 		// create state machine
 		StateMachine = new FiniteStateMachine<Tourist>(this, new TouristIdleState());
+		Targets = new SimplePriorityQueue<Node2D, float>();
 
 		// connect signals
 		Vision.Connect("body_entered", this, "TargetSpotted");
@@ -94,6 +66,23 @@ public class Tourist : RigidBody2D
 		sprite.Frame = (int) GD.Randi() % sprite.Frames.GetFrameCount(anim);
 	}
 	
+	private void SetDebug(bool debug)
+	{
+		_debug = debug;
+		GetNode<TouristDebug>("Debug").Visible = debug;
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey key && key.Pressed)
+			switch ((KeyList) key.Scancode)
+			{
+				case KeyList.Tab:
+					Debug = !Debug; // turn tourist debug on/off
+					break;
+			}
+	}
+	
 	public override void _PhysicsProcess(float delta)
 	{
 		StateMachine.Update(delta);
@@ -104,42 +93,66 @@ public class Tourist : RigidBody2D
 			Sprites.Scale = new Vector2(1, 1);
 	}
 	
-	public string FindGroup(Node2D body)
+	private float GetInfluence(Node2D t)
 	{
-		if (body.IsInGroup("Player"))
-			return "Player";
-		// else if (body.IsInGroup("Tourist"))
-		// 	return "Tourist";
-		else if (body.IsInGroup("Flag"))
-			return "Flag";
-		else if (body.IsInGroup("Feature"))
-			return "Feature";
-		else if (body.IsInGroup("Bus"))
-			return "Bus";
-		else 
-			return "";
+		switch (t)
+		{
+			case IEntity entity:
+				return entity.Influence;
+			case Flag flag:
+				return 5;
+			case var bus when bus.IsInGroup("Bus"):
+				return 16;
+			case var feature when feature.IsInGroup("Feature"):
+				return 32;
+			default:
+				return 0;
+		}
 	}
-
-
+	public float GetScore(Node2D t)
+	{
+		var dist = t.Position.DistanceTo(Position);
+		switch (t) 
+		{
+			case Player player:
+			case Flag flag: 
+				// ignore player/flag if close by
+				if (dist <= 96)
+					return 0;
+				break;
+		}
+		return GetInfluence(t) / dist * 1000;
+	}
+	
 	public void TargetSpotted(Node2D target)
 	{
 		// Don't re-add any objects that we've photographed
 		if (FeaturesPhotographed.Contains(target.GetInstanceId()))
 			return;
-			
-		switch (FindGroup(target))
+		
+		if (target.Name == "Influence")
+			target = target.GetParent<Node2D>();
+		
+		switch (target)
 		{
-			case "Player":
-			case "Flag":
-			case "Bus":
-			case "Feature":
-				Targets.EnqueueWithoutDuplicates(target, GetPotentialScoreFor(target) * -1);
+			case Player _:
+			case Flag _: 
+			case var feature when feature.IsInGroup("Feature"): 
+			case var bus when bus.IsInGroup("Bus"):
+				var score = GetScore(target) * -1;
+				Targets.EnqueueWithoutDuplicates(target, score);
+				// GD.Print($"Adding {target.Name} at {score}!");
+				break;
+			default:
+				GD.Print("Ignoring ", target.Name);
 				break;
 		}
 	}
-	
-	public void TargetLost(Node2D target) 
+
+	public void TargetLost(Node2D target)
 	{
+		if (target.Name == "Influence")
+			target = target.GetParent<Node2D>();
 		Targets.TryRemove(target);
 	}
 
@@ -149,41 +162,20 @@ public class Tourist : RigidBody2D
 		Targets.TryRemove(target);
 	}
 
-	public float GetPotentialScoreFor(Node2D t)
-	{
-		var group = FindGroup(t);
-		var dist = t.Position.DistanceTo(Position);
-
-		switch (FindGroup(t))
-		{
-			case "Player":
-			case "Flag":
-				// ignore player/flag if close by
-				if (dist <= 64)
-					return 0;
-				break;
-		}
-		return _target[group] / dist;
-	}
 	
-	public Node2D FindTarget()
+	public (Node2D?, float) FindTarget()
 	{
 		if (Targets.Count == 0)
-			return null;
+			return (null, 0);
 		
-		// recalculate the scores in the priority queue before we return the best
-		foreach (var target in Targets)
-		{
-			var score = GetPotentialScoreFor(target);
-			Targets.UpdatePriority(target, score * -1);
-		}
-		
-		// return the best score from Targets (or null if the best score is zero)
-		if (GetPotentialScoreFor(Targets.First) != 0)
-			return Targets.First;
-		else
-			return null;
+		foreach(var t in Targets)
+			Targets.UpdatePriority(t, GetScore(t) * -1);
 
+		var score = GetScore(Targets.First);
+		if (score != 0)
+			return (Targets.First, score);
+		else
+			return (null, 0);
 	}
 
 }

@@ -3,10 +3,12 @@ using System;
 using Duality.states;
 using Duality.states.player;
 
-public class Player : KinematicBody2D
+public class Player : KinematicBody2D, IEntity
 {
     // Resources and nodes
     private PackedScene _flagScene = GD.Load<PackedScene>("entities/Flag.tscn");
+    public Area2D InfluenceArea;
+    public Area2D InteractArea;
     public Node2D Sprites;
     public AnimatedSprite BodySprite;
     public Sprite FlagSprite;
@@ -18,10 +20,14 @@ public class Player : KinematicBody2D
     
     // Tunables
     [Export] public int Speed = 240;
+    [Export] public int Influence = 8;
+    int IEntity.Influence { get => Influence; }
     
     public override void _Ready()
     {
         // lookup node references
+        InfluenceArea = GetNode<Area2D>("Influence");
+        InteractArea = GetNode<Area2D>("Interact");
         Sprites = GetNode<Node2D>("Sprites");
         BodySprite = GetNode<AnimatedSprite>("Sprites/Body");
         FlagSprite = GetNode<Sprite>("Sprites/Flag");
@@ -29,6 +35,10 @@ public class Player : KinematicBody2D
         
         // create state machine
         StateMachine = new FiniteStateMachine<Player>(this, new PlayerIdleState());
+
+        // signals
+        InteractArea.Connect("body_entered", this, "OnTouchSomething");
+        InteractArea.Connect("area_entered", this, "OnTouchSomething");
     }
     
     public override void _PhysicsProcess(float delta)
@@ -63,12 +73,28 @@ public class Player : KinematicBody2D
 
     public void OnTouchSomething(Node body)
     {
+        GD.Print("TOUCH ", body);
         if (body.IsInGroup("Flag"))
         {
             var flag = (Flag) body;
             if (!flag.Moving)
                 CollectFlag(flag);
         }
+    }
+
+    public void Shout()
+    {
+        var inf = InfluenceArea.GetChild<CollisionShape2D>(0); // .Shape;
+        // GD.Print("Current radius: ", inf.Radius);
+        // inf.Radius = 256;
+        Tween tween = new Tween();
+        GetTree().Root.AddChild(tween);
+        // AddChild(tween);
+        tween.InterpolateProperty(inf, "shape:radius", 32, 256, 1.0f);
+        tween.Start();
+        // tween.Connect()
+        // inf.Radius = 
+        // EmitSignal(nameof(PlayerShout), this);
     }
 
     public void ThrowFlag(Vector2 to)
@@ -81,7 +107,7 @@ public class Player : KinematicBody2D
         var entities = GetTree().Root.GetNode<Node2D>("Game/Entities");
         entities.AddChild(flag);
         // Call Throw method for flag
-        flag.Throw(Position, to);
+        flag.FlyBetween(Position, to);
     }
 
     public void CollectFlag(Flag flagNode)

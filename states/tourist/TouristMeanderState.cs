@@ -26,8 +26,8 @@ namespace Duality.states.tourist
         {
             if (_timer <= 0)
             {
-                Node2D target = RefObj.FindTarget(); // Look for targets
-                if (target != null)
+                var (target, score) = RefObj.FindTarget(); 
+                if (target != null && score > 20)
                     return new TouristFollowState(target);
                 else
                     return new TouristIdleState();

@@ -10,31 +10,28 @@ namespace Duality.states.tourist
         private Node2D _target = null;
         private bool _excited;
         private float _speed;
+        private Vector2 _lastPos;
 
         public TouristFollowState(Node2D target)
         {
             _target = target;
         }
 
-        public override string GetDebugState()
-        {
-            return _target.Name;
-        }
-
-        public Node2D GetDebugTarget()
-        {
-            return _target;
-        }
+        public override string GetDebugState() { return _target.Name; }
+        public Node2D GetDebugTarget() { return _target; }
         
         public override void OnEnter()
         {
             _timer = RefObj.FollowPollingInterval;
             _speed = RefObj.SpeedFollow;
-            RefObj.LinearVelocity = Vector2.Zero;
-            RefObj.BodySprite.Play("walk");
-            
             _excited = _target.IsInGroup("Feature") || _target.IsInGroup("Bus");
-            if (_excited)
+
+            if (!_excited)
+            {
+                RefObj.LinearVelocity = Vector2.Zero;
+                RefObj.BodySprite.Play("walk");
+            }
+            else
             {
                 _speed = RefObj.SpeedFollowExcited;
                 RefObj.PointSprite.Visible = true;
@@ -72,13 +69,20 @@ namespace Duality.states.tourist
             
             // Poll for targets every so often
             if(_timer <= 0 || _target == null) {
-                var t = RefObj.FindTarget(); 
-                if (t == null)
+                var (t, score) = RefObj.FindTarget();
+                if (t == null || score < 20)
                     return new TouristIdleState(); // Lost target
                 if (t != _target)
                     return new TouristFollowState(t); // New target
                 _timer = RefObj.FollowPollingInterval;
             }
+            
+            // float actualSpeed = (RefObj.Position - _lastPos).Length();
+            // _lastPos = RefObj.Position;
+            // if (actualSpeed < 1)
+            // {
+            //     return new TouristIdleState();
+            // }
             
             // Calculate delta vector and distance
             Vector2 d = _target.Position - RefObj.Position;

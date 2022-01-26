@@ -37,13 +37,13 @@ __meta__ = {
 position = Vector2( 800, 3880 )
 
 [node name="T2" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 856, 3880 )
+position = Vector2( 840, 3928 )
 
 [node name="T3" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 824, 3936 )
+position = Vector2( 880, 3872 )
 
 [node name="T4" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 880, 3944 )
+position = Vector2( 760, 3936 )
 
 [node name="Cars" type="YSort" parent="Entities"]
 

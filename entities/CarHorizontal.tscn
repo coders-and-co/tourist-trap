@@ -5,30 +5,6 @@
 [ext_resource path="res://assets/sprites/Black Car Hori.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/White Car Hori.png" type="Texture" id=4]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 3 )
-region = Rect2( 320, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 3 )
-region = Rect2( 640, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 320, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 640, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 320, 128 )
-
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 4 )
 region = Rect2( 320, 0, 320, 128 )
@@ -45,24 +21,53 @@ region = Rect2( 320, 0, 320, 128 )
 atlas = ExtResource( 2 )
 region = Rect2( 640, 0, 320, 128 )
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 320, 128 )
-
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 320, 128 )
 
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 640, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 320, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 640, 0, 320, 128 )
+
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
-"name": "running_black",
+"name": "running_white",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 3 ) ],
-"loop": false,
-"name": "parked_blue",
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "running_red",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 12 ) ],
+"loop": true,
+"name": "parked_black",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 4 ), SubResource( 5 ) ],
@@ -75,24 +80,19 @@ animations = [ {
 "name": "parked_white",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
-"loop": true,
-"name": "running_white",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 9 ), SubResource( 10 ) ],
-"loop": true,
-"name": "running_red",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 11 ) ],
 "loop": true,
 "name": "parked_red",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 12 ) ],
+"frames": [ SubResource( 3 ) ],
+"loop": false,
+"name": "parked_blue",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
 "loop": true,
-"name": "parked_black",
+"name": "running_black",
 "speed": 5.0
 } ]
 

@@ -4,9 +4,13 @@ namespace Duality.states.player
     public class PlayerShoutState : BaseState<Player>
     {
         private bool _done;
+        // private CircleShape2D _influenceCircle;
+        // private Tween _tween = new Tween();
         
         public override void OnEnter()
         {
+            // _influenceCircle = (CircleShape2D) RefObj.InfluenceArea.GetChild<CollisionShape2D>(0).Shape;
+            
             switch (GD.Randi() % 3 + 1)
             {
                 case 1:
@@ -23,17 +27,23 @@ namespace Duality.states.player
             RefObj.Audio.Play();
             RefObj.BodySprite.Play("shout");
             RefObj.BodySprite.Connect("animation_finished", this, "Done", null, (uint) ConnectFlags.Oneshot);
+            RefObj.Shout();
         }
         
         public override void OnExit()
         {
-            GD.Print("Shout Done!");
+            // RefObj.Shout();
+            // GD.Print("Shout Done!");
         }
 
         public override BaseState<Player> Update(float delta)
         {
             if (_done)
                 return new PlayerIdleState();
+
+
+            
+            // _influenceCircle.Radius = 
             return null;
         }
         

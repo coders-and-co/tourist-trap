@@ -27,10 +27,10 @@ namespace Duality.states.tourist
             if (_timer <= 0)
             {
                 // Look for targets at end of idle
-                Node2D target = RefObj.FindTarget(); 
-                if (target != null)
+                var (target, score) = RefObj.FindTarget(); 
+                if (target != null && score > 20)
                     return new TouristFollowState(target);
-                else if (GD.Randf() > 0.5f)
+                else if (GD.Randf() > 0.6667f)
                     return new TouristTalkState();
                 else
                     return new TouristMeanderState();

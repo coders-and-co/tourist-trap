@@ -12,14 +12,16 @@ namespace Duality.states
         {
             GD.Print("Creating FSM for ", refObj);
             RefObj = refObj;
-            CurrentState = defaultState;
-            CurrentState.RefObj = RefObj;
-            CurrentState.OnEnter();
+            ChangeState(defaultState);
         }
 
-        public void OnLeftClick(Vector2 position)
+        public void ChangeState(BaseState<T> nextState)
         {
-            CurrentState.OnLeftClick(position);
+            if (CurrentState != null)
+                CurrentState.OnExit();
+            CurrentState = nextState;
+            CurrentState.RefObj = RefObj;
+            CurrentState.OnEnter();
         }
 
         public void Update(float delta)
@@ -27,11 +29,13 @@ namespace Duality.states
             BaseState<T> nextState = CurrentState.Update(delta);
             if (nextState != null)
             {
-                CurrentState.OnExit();
-                CurrentState = nextState;
-                CurrentState.RefObj = RefObj;
-                CurrentState.OnEnter();
+                ChangeState(nextState);
             }
+        }
+        
+        public void OnLeftClick(Vector2 position)
+        {
+            CurrentState.OnLeftClick(position);
         }
     }
 }
