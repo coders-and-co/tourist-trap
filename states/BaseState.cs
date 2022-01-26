@@ -6,6 +6,7 @@ namespace Duality.states
     {
         public T RefObj;
         public virtual string GetName() { return "BaseState"; }
+        public virtual string GetDebugState() { return ""; }
         
         public BaseState()
         {

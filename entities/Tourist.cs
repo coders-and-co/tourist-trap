@@ -1,96 +1,105 @@
 using Godot;
 using System;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Duality.states;
-using Duality.states.player;
 using Duality.states.tourist;
 using Godot.Collections;
+using Collections = System.Collections.Generic;
+using Priority_Queue;
+using Object = Godot.Object;
 
-public class Tourist : RigidBody2D, IAttractive
+public class Tourist : RigidBody2D
 {
-	// Node References
+	// Resources and nodes
 	public Node2D Sprites;
 	public AnimatedSprite BodySprite;
 	public AnimatedSprite FaceSprite;
 	public AnimatedSprite CameraSprite;
 	public Sprite PointSprite;
 	public Area2D Vision;
-	public Label Label;
 	
-	// Finite State Machine
+	// State variables
+	private bool _debug;
 	public FiniteStateMachine<Tourist> StateMachine;
-	public Array<int> FeaturesPhotographed = new Array<int>();
-	
+	public Array<ulong> FeaturesPhotographed = new Array<ulong>();
+	public SimplePriorityQueue<Node2D, float> Targets = new SimplePriorityQueue<Node2D, float>();
+
+	// Tunables
+	[Export]
+	public bool Debug
+	{
+		get { return _debug; }
+		set { SetDebug(value); }
+	}
 	[Export] public int Speed = 100;
 	[Export] public int SpeedFollow = 150;
 	[Export] public int SpeedFollowExcited = 200;
-
-	public float FollowPollingInterval = 1.0f;
+	[Export] public float FollowPollingInterval = 1.0f;
 
 	// Target attraction values 
 	private readonly Dictionary<string, int> _target = new Dictionary<string, int>()
 	{
 		// {"Tourist", 4},
-		{"Flag", 8},
-		{"Player", 12},
-		{"Bus", 24},
-		{"Feature", 60}
+		{"Flag", 5000},
+		{"Player", 8000},
+		{"Bus", 16000},
+		{"Feature", 32000}
 	};
 
-	public float GetBaseAttraction() { return 4; }
-	
+	private void SetDebug(bool debug)
+	{
+		_debug = debug;
+		GetNode<TouristDebug>("Debug").Visible = debug;
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		// bail out unless it's a key down event
+		if (!(@event is InputEventKey key) || !key.Pressed) return;
+		switch ((KeyList) key.Scancode)
+		{
+			case KeyList.Tab:
+				Debug = !Debug; // turn tourist debug on/off
+				break;
+		}
+	}
+
 	public override void _Ready()
 	{
-		GD.Randomize();
-		
 		// lookup node references
-		Label = GetNode<Label>("Label");
 		Vision = GetNode<Area2D>("Vision");
 		Sprites = GetNode<Node2D>("Sprites");
 		BodySprite = GetNode<AnimatedSprite>("Sprites/Body");
 		FaceSprite = GetNode<AnimatedSprite>("Sprites/Face");
 		CameraSprite = GetNode<AnimatedSprite>("Sprites/Camera");
 		PointSprite = GetNode<Sprite>("Sprites/Point");
-		var outfitSprite = GetNode<AnimatedSprite>("Sprites/Outfit");
-		var bodyAccessorySprite = GetNode<AnimatedSprite>("Sprites/Body Accessory");
-		var headAccessorySprite = GetNode<AnimatedSprite>("Sprites/Head Accessory");
 		
 		// randomize tourist outfit
-		// PickRandomFrame(FaceSprite, "happy");
-		PickRandomFrame(outfitSprite);
-		PickRandomFrame(bodyAccessorySprite);
-		PickRandomFrame(headAccessorySprite);
-
-		// var rootNode = GetTree().Root.GetNode<Game>("Game"); 
+		PickRandomFrame(GetNode<AnimatedSprite>("Sprites/Outfit"));
+		PickRandomFrame(GetNode<AnimatedSprite>("Sprites/Body Accessory"));
+		PickRandomFrame(GetNode<AnimatedSprite>("Sprites/Head Accessory"));
+		
+		// create state machine
 		StateMachine = new FiniteStateMachine<Tourist>(this, new TouristIdleState());
+
+		// connect signals
+		Vision.Connect("body_entered", this, "TargetSpotted");
+		Vision.Connect("area_entered", this, "TargetSpotted");
+		Vision.Connect("body_exited", this, "TargetLost");
+		Vision.Connect("area_exited", this, "TargetLost");
 	}
 
 	public void PickRandomFrame(AnimatedSprite sprite, string anim="default") {
 		sprite.Frame = (int) GD.Randi() % sprite.Frames.GetFrameCount(anim);
 	}
-
-
-	// public override void _IntegrateForces(Physics2DDirectBodyState state)
-	// {
-	// 	StateMachine.Update(delta);
-	// }
-
+	
 	public override void _PhysicsProcess(float delta)
 	{
-		
 		StateMachine.Update(delta);
-		Label.Text = StateMachine.CurrentState.GetName();
-		
 		// Flip sprites if moving right
 		if (LinearVelocity.x > 5)
 			Sprites.Scale = new Vector2(-1, 1);
 		else if (LinearVelocity.x < -5)
 			Sprites.Scale = new Vector2(1, 1);
-		
-		// if(LinearVelocity.LengthSquared() > 0)
-		// 	BodySprite.Play("walk");
-		
 	}
 	
 	public string FindGroup(Node2D body)
@@ -108,49 +117,66 @@ public class Tourist : RigidBody2D, IAttractive
 		else 
 			return "";
 	}
+
+
+	public void TargetSpotted(Node2D target)
+	{
+		// Don't re-add any objects that we've photographed
+		if (FeaturesPhotographed.Contains(target.GetInstanceId()))
+			return;
+			
+		switch (FindGroup(target))
+		{
+			case "Player":
+			case "Flag":
+			case "Bus":
+			case "Feature":
+				Targets.EnqueueWithoutDuplicates(target, GetPotentialScoreFor(target) * -1);
+				break;
+		}
+	}
+	
+	public void TargetLost(Node2D target) 
+	{
+		Targets.TryRemove(target);
+	}
+
+	public void AddPhoto(Node2D target)
+	{
+		FeaturesPhotographed.Add(target.GetInstanceId());
+		Targets.TryRemove(target);
+	}
+
+	public float GetPotentialScoreFor(Node2D t)
+	{
+		var group = FindGroup(t);
+		var dist = t.Position.DistanceTo(Position);
+
+		switch (FindGroup(t))
+		{
+			case "Player":
+			case "Flag":
+				// ignore player/flag if close by
+				if (dist <= 64)
+					return 0;
+				break;
+		}
+		return _target[group] / dist;
+	}
 	
 	public Node2D FindTarget()
 	{
-		Array<Node2D> targetList = new Array<Node2D>();
-		Node2D currentTarget = null;
-		float currentScore = 0;
+		if (Targets.Count == 0)
+			return null;
 		
-		// Get overlapping bodies
-		foreach (PhysicsBody2D body in Vision.GetOverlappingBodies()) {
-			// typeof(IAttractive).IsAssignableFrom()
-			if (!FeaturesPhotographed.Contains((int) body.GetInstanceId()))
-				targetList.Add(body);
-		}
-
-		// Area check
-		foreach (Area2D area in Vision.GetOverlappingAreas())
+		// recalculate the scores in the priority queue before we return the best
+		foreach (var target in Targets)
 		{
-			// Only consider a feature for target if it has not been photographed 
-			if (area.IsInGroup("Feature") && !FeaturesPhotographed.Contains((int) area.GetInstanceId()))
-				targetList.Add(area);
+			var score = GetPotentialScoreFor(target);
+			Targets.UpdatePriority(target, score * -1);
 		}
-		
-		// Compare targets
-		foreach (Node2D t in targetList)
-		{
-			String group = FindGroup(t);
-			if (group != "")
-			{
-				// calculate potential score!
-				var dist = t.Position.DistanceTo(Position);
-				
-				// ignore player/flag if close by
-				if ((group == "Player" || group == "Flag") && dist <= 64)
-					continue;
-				
-				float potentialScore = _target[group] / dist;
-				if (potentialScore > currentScore)
-				{
-					currentTarget = t;
-					currentScore = potentialScore;
-				}
-			}
-		}
-		return currentTarget;
+		// return the best score from Targets
+		return Targets.First;
 	}
+
 }

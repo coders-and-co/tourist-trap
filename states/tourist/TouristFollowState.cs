@@ -13,6 +13,16 @@ namespace Duality.states.tourist
         {
             _target = target;
         }
+
+        public override string GetDebugState()
+        {
+            return _target.Name;
+        }
+
+        public Node2D GetDebugTarget()
+        {
+            return _target;
+        }
         
         public override void OnEnter()
         {

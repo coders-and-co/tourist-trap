@@ -1,7 +1,8 @@
-[gd_scene load_steps=94 format=2]
+[gd_scene load_steps=96 format=2]
 
 [ext_resource path="res://assets/sprites/Tourist Spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/point.png" type="Texture" id=2]
+[ext_resource path="res://entities/TouristDebug.cs" type="Script" id=3]
 [ext_resource path="res://entities/Tourist.cs" type="Script" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -426,6 +427,17 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=48]
 radius = 315.0
 
+[sub_resource type="StyleBoxFlat" id=97]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 2.0
+bg_color = Color( 1, 0.960784, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
 [node name="Tourist" type="RigidBody2D" groups=["Tourist"]]
 collision_layer = 2
 collision_mask = 3
@@ -442,7 +454,6 @@ position = Vector2( 0, -48 )
 [node name="Body" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 7 )
 animation = "walk"
-frame = 3
 playing = true
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
@@ -480,15 +491,35 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+visible = false
 shape = SubResource( 48 )
 
-[node name="Label" type="Label" parent="."]
-margin_left = -24.0
+[node name="Debug" type="Node2D" parent="."]
+visible = false
+z_index = 4096
+z_as_relative = false
+script = ExtResource( 3 )
+
+[node name="Lines" type="Node2D" parent="Debug"]
+
+[node name="PanelContainer" type="PanelContainer" parent="Debug"]
+anchor_left = 0.5
+anchor_right = 0.5
 margin_top = -88.0
-margin_right = 24.0
-margin_bottom = -74.0
-text = "Idle"
-align = 1
+margin_bottom = -73.0
+grow_horizontal = 2
+custom_styles/panel = SubResource( 97 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label" type="Label" parent="Debug/PanelContainer"]
+margin_left = 10.0
+margin_top = 2.0
+margin_right = 35.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 0
+text = "Idle"
+align = 1
+valign = 1

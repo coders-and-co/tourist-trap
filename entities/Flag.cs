@@ -1,9 +1,8 @@
 using Godot;
 using System;
 
-public class Flag : KinematicBody2D, IAttractive
+public class Flag : KinematicBody2D
 {
-
     private AnimatedSprite _flagSprite;
     
     public bool Moving = false; 
@@ -11,8 +10,6 @@ public class Flag : KinematicBody2D, IAttractive
     private Vector2? _target;
     private float _dist;
     private float _t = 0.0f;
-    
-    public float GetBaseAttraction() { return 8; }
     
     public override void _Ready()
     {
@@ -26,8 +23,6 @@ public class Flag : KinematicBody2D, IAttractive
             // interpolate position along vector
             Position = _origin.Value.LinearInterpolate(_target.Value, _t);
             _t += 0.1f;
-
-
             if (_t >= 1)
             {
                 Position = _target.Value;

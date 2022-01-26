@@ -16,7 +16,8 @@ namespace Duality.states.tourist
         public override void OnEnter()
         {
             RefObj.LinearVelocity = Vector2.Zero;
-            RefObj.FeaturesPhotographed.Add((int) _target.GetInstanceId());
+            RefObj.AddPhoto(_target);
+            
             RefObj.BodySprite.Play("idle");
             RefObj.CameraSprite.Visible = true;
             RefObj.CameraSprite.Play("take_picture");
