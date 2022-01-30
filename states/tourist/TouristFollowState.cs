@@ -26,8 +26,15 @@ namespace Duality.states.tourist
         public override void OnEnter()
         {
             _timer = RefObj.FollowPollingInterval;
-            _excited = _target.IsInGroup("Feature") || _target.IsInGroup("Bus");
-            
+            _excited = _target switch
+            {
+                NPC {Type: NPC.NPCType.Barista} => true,
+                NPC {Type: NPC.NPCType.Sketchy} => true,
+                var f when f.IsInGroup("Feature") => true,
+                var b when b.IsInGroup("Bus") => true,
+                _ => false
+            };
+
             if (_excited)
             {
                 RefObj.FaceSprite.Play("excite");
@@ -82,6 +89,10 @@ namespace Duality.states.tourist
                     return new TouristTakePictureState(b);
                 case var f when f.IsInGroup("Feature") && dist <= RefObj.ComfortDistance:
                     return new TouristTakePictureState(f);
+                case var s when s.IsInGroup("Statue") && dist <= RefObj.ComfortDistance:
+                    return new TouristTakePictureState(s);
+                case NPC n when dist < RefObj.ComfortDistance / 2:
+                    return new TouristIdleState();
                 case var t when dist <= RefObj.ComfortDistance / 2 && _score < RefObj.MaxStopFollowScore:
                     return new TouristIdleState();    
             }
