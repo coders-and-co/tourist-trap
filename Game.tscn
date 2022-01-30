@@ -68,10 +68,12 @@ position = Vector2( 632, 3448 )
 [node name="NPC" parent="Entities/NPCs" instance=ExtResource( 9 )]
 position = Vector2( 952, 3400 )
 Type = 2
+Speed = 75
 
 [node name="NPC2" parent="Entities/NPCs" instance=ExtResource( 9 )]
 position = Vector2( 1088, 3536 )
 Type = 1
+Speed = 75
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )

@@ -131,3 +131,12 @@ position = Vector2( 3264, 2688 )
 
 [node name="Statue" type="Node2D" parent="Objects"]
 position = Vector2( 3734, 688 )
+
+[node name="Blocker" type="Node2D" parent="Objects"]
+position = Vector2( 3357.33, 993.333 )
+
+[node name="Blocker" type="Node2D" parent="Objects"]
+position = Vector2( 3357.33, 1058.67 )
+
+[node name="Blocker" type="Node2D" parent="Objects"]
+position = Vector2( 3358.67, 1112 )
