@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.cs" type="Script" id=2]
@@ -6,7 +6,9 @@
 [ext_resource path="res://entities/Tourist.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/maps/tutorial-city-01.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/TrafficFlow.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/NPC.cs" type="Script" id=7]
 [ext_resource path="res://entities/Map.cs" type="Script" id=8]
+[ext_resource path="res://entities/NPC.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -75,3 +77,29 @@ NumberCarsBehind = 8
 
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 632, 3448 )
+
+[node name="NPCs" type="YSort" parent="Entities"]
+
+[node name="NPC 1" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 872, 3648 )
+script = ExtResource( 7 )
+
+[node name="NPC 2" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 969, 3648 )
+script = ExtResource( 7 )
+
+[node name="NPC 3" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 934, 3576 )
+script = ExtResource( 7 )
+
+[node name="NPC 4" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 1024, 3592 )
+script = ExtResource( 7 )
+
+[node name="NPC 5" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 1121, 3592 )
+script = ExtResource( 7 )
+
+[node name="NPC 6" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 1086, 3520 )
+script = ExtResource( 7 )
