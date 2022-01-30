@@ -26,8 +26,15 @@ namespace Duality.states.tourist
         public override void OnEnter()
         {
             _timer = RefObj.FollowPollingInterval;
-            _excited = _target.IsInGroup("Feature") || _target.IsInGroup("Bus");
-            
+            _excited = _target switch
+            {
+                NPC {Type: NPC.NPCType.Barista} => true,
+                NPC {Type: NPC.NPCType.Sketchy} => true,
+                var f when f.IsInGroup("Feature") => true,
+                var b when b.IsInGroup("Bus") => true,
+                _ => false
+            };
+
             if (_excited)
             {
                 RefObj.FaceSprite.Play("excite");

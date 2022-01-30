@@ -13,7 +13,7 @@ namespace Duality.states.npc
             _timer = (float) GD.RandRange(1, 2); // 1 to 2 seconds
             RefObj.LinearVelocity = Vector2.Zero;
             RefObj.BodySprite.Play("idle");
-            RefObj.FaceSprite.Play("default");
+            // RefObj.FaceSprite.Play("default");
             // RefObj.PickRandomFrame(RefObj.FaceSprite);
         }
 

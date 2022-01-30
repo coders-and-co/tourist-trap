@@ -184,8 +184,9 @@ public class Traffic : Node2D
 
     public override void _PhysicsProcess(float delta)
     {
+        // don't animate in the editor
         if (Engine.EditorHint)
-            return; // don't animate in the editor
+            return; 
         
         Vector2 respawnAt = GetRespawnPoint();
         Vector2 despawnAt = GetDespawnPoint();

@@ -173,6 +173,7 @@ public class Tourist : RigidBody2D
 		{
 			case Player _:
 			case Flag _: 
+			case NPC npc when npc.Influence > 0:
 			case var feature when feature.IsInGroup("Feature"): 
 			case var bus when bus.IsInGroup("Bus"):
 				var score = GetScore(target) * -1;
