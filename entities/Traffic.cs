@@ -1,5 +1,6 @@
 using Godot;
-using System;
+// using Godot.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Godot.Collections;
 
@@ -22,10 +23,14 @@ public class Traffic : Node2D
     private int _numberCarsAhead = 5;
     private int _numberCarsBehind = 5;
     private Array<KinematicBody2D> _cars = new Array<KinematicBody2D>();
-    // private Vector2 _respawnBoundary;
     
-    [Export]
-    private TrafficDirection Direction
+    private float _speed = 10;
+    private float _currentSpeed = 10;
+    private bool _stopped = false;
+
+    public Array Lights;
+
+    [Export] private TrafficDirection Direction
     {
         get => _direction;
         set => SetDirection(value);
@@ -81,7 +86,6 @@ public class Traffic : Node2D
 
     public Vector2 GetRespawnPoint()
     {
-         
         return (GetTrafficVector() * 192) + GetTrafficVector() * _numberCarsBehind * -384;
     }
     
@@ -90,18 +94,33 @@ public class Traffic : Node2D
         return (GetTrafficVector() * -192) + GetTrafficVector() * _numberCarsAhead * 384;
     }
     
+    
+    
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        // if (Engine.EditorHint)
+        Lights = GetTree().Root.GetNode<YSort>("Game/Entities/Lights").GetChildren();
+        GD.Print(Lights);
         SpawnCars();
-        
         GD.Print("respawnAt: ", GetRespawnPoint());
         GD.Print("despawnAt: ", GetDespawnPoint());
+    }
+
+    public void Toggle()
+    {
+        GD.Print("Toggle!");
+        _stopped = !_stopped;
+        foreach (StaticBody2D light in Lights)
+        {
+            var sprite = light.GetNode<AnimatedSprite>("AnimatedSprite");
+            sprite.Frame = 0;
+            if (_stopped)
+                sprite.Play();
+            else
+                sprite.Stop();
+        }
         
     }
-    
-    
 
     public void ClearCars()
     {
@@ -214,10 +233,47 @@ public class Traffic : Node2D
             DespawnCar(front);
         else if (_direction == TrafficDirection.Down && front.Position.y >= despawnAt.y)
             DespawnCar(front);
-        
+
+
+        if (_stopped)
+        {
+            if (_currentSpeed > 0)
+                _currentSpeed -= 0.05f;
+            // if (_currentSpeed < 0.1)
+            //     _currentSpeed = 0;
+        }
+        else
+        {
+            if (_currentSpeed < _speed)
+                _currentSpeed += 0.05f;
+            // if (_currentSpeed > _speed * 0.95)
+            //     _currentSpeed = _speed;
+        }
+
         foreach (var car in _cars)
         {
-            car.Position += GetTrafficVector() * 10;
+            if (_stopped && _direction == TrafficDirection.Left && car.Position.x <= 0)
+                car.Position += GetTrafficVector() * _speed;
+            else if (_stopped && _direction == TrafficDirection.Right && car.Position.x >= 0)
+                car.Position += GetTrafficVector() * _speed;
+            else if (_stopped && _direction == TrafficDirection.Up && car.Position.y <= 0)
+                car.Position += GetTrafficVector() * _speed;
+            else if (_stopped && _direction == TrafficDirection.Down && car.Position.y >= 0)
+                car.Position += GetTrafficVector() * _speed;
+            else
+                car.Position += GetTrafficVector() * _currentSpeed;
+            
         }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey key && key.Pressed)
+            switch ((KeyList) key.Scancode)
+            {
+                case KeyList.Z:
+                    _stopped = !_stopped;
+                    break;
+            }
     }
 }

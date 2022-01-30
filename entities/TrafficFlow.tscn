@@ -2,6 +2,6 @@
 
 [ext_resource path="res://entities/Traffic.cs" type="Script" id=1]
 
-[node name="TrafficFlow" type="Node2D"]
+[node name="TrafficFlow" type="YSort"]
 position = Vector2( -104, 1216 )
 script = ExtResource( 1 )

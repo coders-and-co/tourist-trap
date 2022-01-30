@@ -14,7 +14,7 @@ namespace Duality.states.player
         
         public override void OnExit()
         {
-            GD.Print("Interact Done!");
+            RefObj.Interact();
         }
 
         public override BaseState<Player> Update(float delta)
