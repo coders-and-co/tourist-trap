@@ -69,7 +69,7 @@ __meta__ = {
 }
 
 [node name="L1" parent="Entities/Lights" instance=ExtResource( 10 )]
-position = Vector2( 1824, 2848 )
+position = Vector2( 1824, 3488 )
 
 [node name="Light" parent="Entities/Lights" instance=ExtResource( 11 )]
 position = Vector2( 1440, 928 )
@@ -79,15 +79,67 @@ position = Vector2( 632, 3448 )
 
 [node name="NPCs" type="YSort" parent="Entities"]
 
-[node name="NPC" parent="Entities/NPCs" instance=ExtResource( 9 )]
-position = Vector2( 952, 3400 )
+[node name="Barista" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 664, 2352 )
 Type = 2
-Speed = 75
+
+[node name="Sketchy Ed" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 3744, 2352 )
+Type = 1
+
+[node name="NPC1" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 2784, 1696 )
 
 [node name="NPC2" parent="Entities/NPCs" instance=ExtResource( 9 )]
-position = Vector2( 1088, 3536 )
-Type = 1
-Speed = 75
+position = Vector2( 2840, 1656 )
+
+[node name="NPC3" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 2904, 1672 )
+
+[node name="NPC4" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 2960, 1640 )
+
+[node name="NPC5" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 2984, 1680 )
+
+[node name="NPC6" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 3040, 1672 )
+
+[node name="NPC7" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 3032, 1632 )
+
+[node name="NPC8" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 2784, 1624 )
+
+[node name="NPC9" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 2760, 1744 )
+
+[node name="NPC10" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 3112, 1680 )
+
+[node name="NPC11" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 3080, 1624 )
+
+[node name="NPC12" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 3024, 1744 )
+
+[node name="NPC13" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 1968, 2568 )
+
+[node name="NPC14" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 2080, 3496 )
+
+[node name="NPC15" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 2592, 3680 )
+
+[node name="NPC16" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 2784, 3360 )
+
+[node name="NPC17" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 1184, 3096 )
+
+[node name="NPC18" parent="Entities/NPCs" instance=ExtResource( 9 )]
+position = Vector2( 480, 2528 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
