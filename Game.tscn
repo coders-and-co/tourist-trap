@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.cs" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://assets/music/Tourist_Trap_Song2.mp3" type="AudioStream" id=7]
 [ext_resource path="res://entities/Map.cs" type="Script" id=8]
 [ext_resource path="res://entities/NPC.tscn" type="PackedScene" id=9]
+[ext_resource path="res://entities/TrafficLightN.tscn" type="PackedScene" id=10]
+[ext_resource path="res://entities/TrafficLightS.tscn" type="PackedScene" id=11]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -51,14 +53,26 @@ position = Vector2( 736, 3944 )
 position = Vector2( 880, 3960 )
 
 [node name="Cars" type="YSort" parent="Entities"]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TrafficFlow" parent="Entities/Cars" instance=ExtResource( 6 )]
-position = Vector2( 1536, 2864 )
+position = Vector2( 1552, 1456 )
 Direction = 3
-NumberCarsAhead = 4
-NumberCarsBehind = 8
+NumberCarsAhead = 8
+NumberCarsBehind = 4
 
 [node name="Lights" type="YSort" parent="Entities"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="L1" parent="Entities/Lights" instance=ExtResource( 10 )]
+position = Vector2( 1824, 2848 )
+
+[node name="Light" parent="Entities/Lights" instance=ExtResource( 11 )]
+position = Vector2( 1440, 928 )
 
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 632, 3448 )
