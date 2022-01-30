@@ -6,10 +6,6 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.0
 
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 640, 64, 128 )
-
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 1 )
 region = Rect2( 64, 640, 64, 128 )
@@ -26,18 +22,34 @@ region = Rect2( 192, 640, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 256, 640, 64, 128 )
 
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 640, 64, 128 )
+
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 31 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 31 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
 } ]
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 256, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 1 )
+region = Rect2( 384, 256, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 1 )
+region = Rect2( 448, 256, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=36]
 atlas = ExtResource( 1 )
@@ -59,25 +71,8 @@ region = Rect2( 192, 256, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 256, 256, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 1 )
-region = Rect2( 320, 256, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 1 )
-region = Rect2( 384, 256, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 1 )
-region = Rect2( 448, 256, 64, 128 )
-
 [sub_resource type="SpriteFrames" id=30]
 animations = [ {
-"frames": [ SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ) ],
-"loop": false,
-"name": "default",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 42 ), SubResource( 43 ) ],
 "loop": true,
 "name": "sketchy",
@@ -87,19 +82,12 @@ animations = [ {
 "loop": true,
 "name": "barista",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
 } ]
-
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 1 )
-region = Rect2( 320, 640, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=45]
-atlas = ExtResource( 1 )
-region = Rect2( 448, 640, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 1 )
-region = Rect2( 512, 640, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=50]
 atlas = ExtResource( 1 )
@@ -117,18 +105,20 @@ region = Rect2( 320, 768, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 448, 768, 64, 128 )
 
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 1 )
+region = Rect2( 448, 640, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 1 )
+region = Rect2( 512, 640, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 640, 64, 128 )
+
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ SubResource( 44 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 45 ), SubResource( 46 ) ],
-"loop": true,
-"name": "sketchy_laugh",
-"speed": 7.5
-}, {
 "frames": [ SubResource( 50 ) ],
 "loop": true,
 "name": "sketchy",
@@ -138,6 +128,16 @@ animations = [ {
 "loop": true,
 "name": "barista",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 45 ), SubResource( 46 ) ],
+"loop": true,
+"name": "sketchy_laugh",
+"speed": 7.5
+}, {
+"frames": [ SubResource( 44 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
 } ]
 
 [node name="NPC" type="RigidBody2D" groups=["Tourist"]]
@@ -163,6 +163,7 @@ playing = true
 
 [node name="Outfit" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 30 )
+frame = 4
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 19 )

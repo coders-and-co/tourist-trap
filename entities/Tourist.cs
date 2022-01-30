@@ -74,7 +74,7 @@ public class Tourist : RigidBody2D
 		Vision.Connect("area_exited", this, "TargetLost");
 
 		Connect("body_entered", this, "OnCollided");
-		Game.TouristCount++;
+		Map.TouristCount++;
 	}
 
 	public void PickRandomFrame(AnimatedSprite sprite, string anim="default") {

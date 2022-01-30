@@ -23,10 +23,10 @@ __meta__ = {
 }
 
 [node name="Player" parent="Entities" instance=ExtResource( 1 )]
-position = Vector2( 3630, 989 )
+position = Vector2( 3629, 988 )
 
 [node name="Camera2D" type="Camera2D" parent="Entities/Player"]
-position = Vector2( 12, 6 )
+position = Vector2( 5, -3 )
 current = true
 
 [node name="Tourists" type="YSort" parent="Entities"]
@@ -35,10 +35,10 @@ __meta__ = {
 }
 
 [node name="T1" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 3611, 878 )
+position = Vector2( 3610, 877 )
 
 [node name="T2" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 3309, 1018 )
+position = Vector2( 3308, 1017 )
 
 [node name="T10" parent="Entities/Tourists" instance=ExtResource( 4 )]
 position = Vector2( 3908, 964 )
@@ -52,6 +52,7 @@ NumberCarsAhead = 4
 NumberCarsBehind = 8
 
 [node name="Lights" type="YSort" parent="Entities"]
+position = Vector2( 7, 20 )
 
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 632, 3448 )

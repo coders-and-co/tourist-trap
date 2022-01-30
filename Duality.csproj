@@ -8,6 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="entities\Blocker.tscn" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="C5" Version="3.0.0-rc" />

@@ -17,8 +17,8 @@ namespace Duality.states.tourist
 		{
 			if (_target.Name == "Statue")
 			{
-				Game.TouristsCompletedStatuePhoto.Add(RefObj.Name);
-				Game.CheckStatueWinCondition();
+				Map.TouristsCompletedStatuePhoto.Add(RefObj.Name);
+				Map.CheckStatueWinCondition();
 			}
 			RefObj.LinearVelocity = Vector2.Zero;
 			RefObj.AddPhoto(_target);
