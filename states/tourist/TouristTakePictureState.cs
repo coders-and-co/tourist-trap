@@ -15,9 +15,13 @@ namespace Duality.states.tourist
 		
 		public override void OnEnter()
 		{
+			if (_target.Name == "Statue")
+			{
+				Game.TouristsCompletedStatuePhoto.Add(RefObj.Name);
+				Game.CheckStatueWinCondition();
+			}
 			RefObj.LinearVelocity = Vector2.Zero;
 			RefObj.AddPhoto(_target);
-			
 			RefObj.BodySprite.Play("idle");
 			RefObj.CameraSprite.Visible = true;
 			RefObj.CameraSprite.Play("take_picture");
