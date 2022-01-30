@@ -12,10 +12,7 @@ namespace Duality.states.tourist
         private bool _excited;
         private float _speed;
         private Vector2 _force;
-        public Vector2 Force
-        {
-            get => _force;
-        }
+        public Vector2 Force { get => _force; }
 
         public TouristFollowState(Node2D target, float score)
         {

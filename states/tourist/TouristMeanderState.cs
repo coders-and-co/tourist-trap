@@ -7,10 +7,7 @@ namespace Duality.states.tourist
         public override string GetName() { return "Meander"; }
         private float _timer;
         private Vector2 _force;
-        public Vector2 Force
-        {
-            get => _force;
-        }
+        public Vector2 Force { get => _force; }
         public override void OnEnter()
         {
             _timer = (float) GD.RandRange(1, 2); // 1 to 2 seconds
