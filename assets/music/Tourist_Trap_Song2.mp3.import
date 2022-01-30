@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Tourist_Trap_Song2.mp3-45e53d1dd4342dbef75e8ea1be0982fa.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Tourist_Trap_Song2.mp3"
+dest_files=[ "res://.import/Tourist_Trap_Song2.mp3-45e53d1dd4342dbef75e8ea1be0982fa.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
