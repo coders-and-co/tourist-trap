@@ -30,7 +30,7 @@ public class NPC : RigidBody2D, IEntity
     int IEntity.Influence { get => Influence; }
     
     // Tunables
-    [Export] public int Speed = 75;
+    [Export] public int Speed = 3750;
     [Export] public NPCType Type
     {
         get => _type;
@@ -61,12 +61,18 @@ public class NPC : RigidBody2D, IEntity
         };
         
         // randomize NPC outfit
-        if (_type == NPCType.Normal)
-            OutfitSprite.Frame = (int) GD.Randi() % 5;
-        
+        switch (_type)
+        {
+            case NPCType.Normal:
+                OutfitSprite.Frame = (int) GD.Randi() % 5;
+                break;
+            case NPCType.Sketchy:
+                OutfitSprite.Play();
+                break;
+            
+        }
     }
     
-
     public override void _Ready()
     {
         // lookup node references

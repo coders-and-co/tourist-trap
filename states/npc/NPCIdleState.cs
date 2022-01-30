@@ -13,14 +13,18 @@ namespace Duality.states.npc
             _timer = (float) GD.RandRange(1, 2); // 1 to 2 seconds
             RefObj.LinearVelocity = Vector2.Zero;
             RefObj.BodySprite.Play("idle");
-            // RefObj.FaceSprite.Play("default");
-            // RefObj.PickRandomFrame(RefObj.FaceSprite);
+
+            if (RefObj.Type == NPC.NPCType.Sketchy) 
+                if (GD.Randf() > 0.5)
+                   RefObj.FaceSprite.Play("sketchy_laugh");
+                else
+                   RefObj.FaceSprite.Play("sketchy");
         }
 
         public override void OnExit()
         {
-            // RefObj.FaceSprite.Play("default");
-            // RefObj.PickRandomFrame(RefObj.FaceSprite);
+            if (RefObj.Type == NPC.NPCType.Sketchy) 
+                RefObj.FaceSprite.Play("sketchy");
         }
 
         public override BaseState<NPC>? Update(float delta)

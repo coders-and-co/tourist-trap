@@ -10,7 +10,7 @@ namespace Duality.states.npc
         public Vector2 Force { get => _force; }
         public override void OnEnter()
         {
-            _timer = (float) GD.RandRange(1, 2); // 1 to 2 seconds
+            _timer = (float) GD.RandRange(0.5, 1.5); // 0.5 to 1.5 seconds
             _force = new Vector2(RefObj.Speed, 0);
             _force = _force.Rotated(GD.Randf() * Mathf.Pi * 2); 
             RefObj.BodySprite.Play("walk");
