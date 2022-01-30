@@ -29,7 +29,9 @@ namespace Duality.states.tourist
             if (_timer <= 0)
             {
                 var (target, score) = RefObj.FindTarget(); 
-                if (target != null && score > RefObj.MinFollowScore && target.Position.DistanceTo(RefObj.Position) > RefObj.ComfortDistance)
+                if (target != null && Map.BusTakeMeHome && target.Name == "Bus")
+                    return new TouristLoadBusState(target);
+                if (target != null && score > RefObj.MinFollowScore && target.Position.DistanceTo(RefObj.Position) > RefObj.ComfortDistance && target.Name != "Bus")
                     return new TouristFollowState(target, score);
                 else
                     return new TouristIdleState();

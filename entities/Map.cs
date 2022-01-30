@@ -6,18 +6,24 @@ public class Map : Node2D
 {
     public static Array<string> TouristsCompletedStatuePhoto = new Array<string>();
     public static int TouristCount = 0;
+    public static bool BusTakeMeHome = false;
 
     public override void _Ready()
     {
         spawn_interest_points();
+        BusTakeMeHome = true;
     }
 
     public override void _PhysicsProcess(float delta)
     {
         if (TouristsCompletedStatuePhoto.Count == TouristCount)
         {
-            GD.Print("before spawn blockers");
             spawn_blockers();
+        }
+        if (BusTakeMeHome && TouristCount == 0)
+        {
+            GD.Print("WONNNNN");
+            Game.Win = true;
         }
     }
 
@@ -29,7 +35,6 @@ public class Map : Node2D
         
          foreach (Node2D obj in mapBits.GetChildren())
          {
-             GD.Print(obj.Name);
              Area2D structure = obj.Name switch
              {
                  "Statue" => statueScene.Instance<Area2D>(),
@@ -47,17 +52,13 @@ public class Map : Node2D
     
     public void spawn_blockers()
     {
-        GD.Print("in spawn blockers");
         PackedScene blockerScene = GD.Load<PackedScene>("entities/Blocker.tscn");
-        GD.Print("1");
 
         Node2D mapBits = GetNode<Node2D>("Objects");
-        GD.Print("2");
 
         foreach (Node2D obj in mapBits.GetChildren())
         {
             Node2D blocker;
-            GD.Print(obj.Name, obj);
             if (obj.Name == "Blocker")
             {
                 blocker = blockerScene.Instance<Node2D>();
@@ -70,11 +71,4 @@ public class Map : Node2D
         }
     }
     
-    public static void CheckStatueWinCondition()
-    {
-        if (TouristsCompletedStatuePhoto.Count == TouristCount)
-        {
-            
-        }
-    }
 }

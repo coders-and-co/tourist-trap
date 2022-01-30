@@ -110,6 +110,10 @@ public class Tourist : RigidBody2D
 				LinearDamp = 20;
 				AppliedForce = st.Force * 20;
 				break;
+			case TouristLoadBusState st:
+				LinearDamp = 20;
+				AppliedForce = st.Force * 15;
+				break;
 			default:
 				AppliedForce = Vector2.Zero;
 				LinearDamp = 2000;
@@ -146,8 +150,10 @@ public class Tourist : RigidBody2D
 				return entity.Influence; // 50
 			case Flag flag:
 				return 40;
-			case var bus when bus.IsInGroup("Bus"):
+			case var bus when bus.IsInGroup("Bus") && !Map.BusTakeMeHome:
 				return 60;
+			case var bus when bus.IsInGroup("Bus") && Map.BusTakeMeHome:
+				return 100;
 			case var statue when statue.IsInGroup("Statue"):
 				return 110;
 			case var feature when feature.IsInGroup("Feature"):

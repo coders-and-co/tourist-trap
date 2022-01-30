@@ -6,12 +6,12 @@
 collision_layer = 3
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -41 )
+position = Vector2( 120, -40.644 )
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 0, 3.20001 )
+position = Vector2( 117, -21 )
 polygon = PoolVector2Array( -144, -8, -96, -8, -96, 48, 176, 48, 176, -48, -176, -48, -176, 48, -144, 48 )
