@@ -7,8 +7,6 @@ namespace Duality.states.tourist
         public override string GetName() { return "GET ON BUS"; }
         
         private readonly Node2D _target;
-        private float _score;
-        private bool _excited;
         private float _speed;
         private Vector2 _force;
         public Vector2 Force { get => _force; }
@@ -26,13 +24,9 @@ namespace Duality.states.tourist
          
             RefObj.BodySprite.Play("walk");
         }
-
-      
-
+        
         public override BaseState<Tourist>? Update(float delta)
         {
-            
-            
             // calculate delta vector and distance
             Vector2 d = _target.Position - RefObj.Position;
             var dist = d.Length();
@@ -43,7 +37,7 @@ namespace Duality.states.tourist
             }
 
             // Adjust speed based on target score
-            _speed = 50;
+            _speed = 80;
             
             // Follow the thing!
             _force = d.Normalized() * _speed;

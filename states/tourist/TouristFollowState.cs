@@ -74,6 +74,8 @@ namespace Duality.states.tourist
                 // check for new target
                 if (t != _target && t.Name != "Bus")
                     return new TouristFollowState(t, score);
+                if (t != _target && t.Name == "Bus")
+                    return new TouristLoadBusState(t);
                 _score = score; // update score
                 _timer = RefObj.FollowPollingInterval; // reset timer
             }

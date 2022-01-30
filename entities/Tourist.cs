@@ -153,7 +153,7 @@ public class Tourist : RigidBody2D
 			case var bus when bus.IsInGroup("Bus") && !Map.BusTakeMeHome:
 				return 60;
 			case var bus when bus.IsInGroup("Bus") && Map.BusTakeMeHome:
-				return 100;
+				return 80;
 			case var statue when statue.IsInGroup("Statue"):
 				return 110;
 			case var feature when feature.IsInGroup("Feature"):
