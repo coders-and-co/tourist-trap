@@ -34,16 +34,34 @@ __meta__ = {
 }
 
 [node name="T1" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 800, 3880 )
+position = Vector2( 776, 3888 )
 
 [node name="T2" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 840, 3928 )
+position = Vector2( 816, 3936 )
 
 [node name="T3" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 880, 3872 )
+position = Vector2( 856, 3880 )
 
 [node name="T4" parent="Entities/Tourists" instance=ExtResource( 4 )]
-position = Vector2( 760, 3936 )
+position = Vector2( 736, 3944 )
+
+[node name="T5" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 880, 3960 )
+
+[node name="T6" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 920, 4008 )
+
+[node name="T7" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 944, 3944 )
+
+[node name="T8" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 824, 4008 )
+
+[node name="T9" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 992, 3984 )
+
+[node name="T10" parent="Entities/Tourists" instance=ExtResource( 4 )]
+position = Vector2( 872, 4048 )
 
 [node name="Cars" type="YSort" parent="Entities"]
 

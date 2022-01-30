@@ -72,6 +72,8 @@ public class Tourist : RigidBody2D
 		Vision.Connect("area_entered", this, "TargetSpotted");
 		Vision.Connect("body_exited", this, "TargetLost");
 		Vision.Connect("area_exited", this, "TargetLost");
+
+		Connect("body_entered", this, "OnCollided");
 	}
 
 	public void PickRandomFrame(AnimatedSprite sprite, string anim="default") {
@@ -94,7 +96,26 @@ public class Tourist : RigidBody2D
 					break;
 			}
 	}
-	
+
+	public override void _IntegrateForces(Physics2DDirectBodyState state)
+	{
+		switch (StateMachine.CurrentState)
+		{
+			case TouristMeanderState st:
+				LinearDamp = 20;
+				AppliedForce = st.Force * 20;
+				break;
+			case TouristFollowState st:
+				LinearDamp = 20;
+				AppliedForce = st.Force * 20;
+				break;
+			default:
+				AppliedForce = Vector2.Zero;
+				LinearDamp = 2000;
+				break;
+		}
+	}
+
 	public override void _PhysicsProcess(float delta)
 	{
 		StateMachine.Update(delta);
@@ -103,6 +124,17 @@ public class Tourist : RigidBody2D
 			Sprites.Scale = new Vector2(-1, 1);
 		else if (LinearVelocity.x < -5)
 			Sprites.Scale = new Vector2(1, 1);
+	}
+
+	public void OnCollided(Node2D body)
+	{
+		switch (body)
+		{
+			case var car when car.IsInGroup("Car"):
+				GD.Print("CAR!");
+				// ApplyCentralImpulse((Position - car.Position) * 50);
+				break;
+		}
 	}
 	
 	private float GetInfluence(Node2D t)
@@ -145,10 +177,9 @@ public class Tourist : RigidBody2D
 			case var bus when bus.IsInGroup("Bus"):
 				var score = GetScore(target) * -1;
 				Targets.EnqueueWithoutDuplicates(target, score);
-				// GD.Print($"Adding {target.Name} at {score}!");
 				break;
 			default:
-				GD.Print("Ignoring ", target.Name);
+				GD.Print("> Ignoring ", target.Name);
 				break;
 		}
 	}
@@ -170,11 +201,11 @@ public class Tourist : RigidBody2D
 	{
 		if (Targets.Count == 0)
 			return (null, 0);
-		
+		// loop through each target and update the priority
 		foreach(var t in Targets)
 			Targets.UpdatePriority(t, GetScore(t) * -1);
-
-		var score = GetScore(Targets.First);
+		// try to find the best score
+		var score = Targets.GetPriority(Targets.First) * -1;
 		if (score != 0)
 			return (Targets.First, score);
 		else

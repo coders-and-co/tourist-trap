@@ -5,6 +5,9 @@
 [ext_resource path="res://assets/sprites/White Car Vert.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/Black Car Vert.png" type="Texture" id=4]
 
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 64, 192 )
+
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 128, 320 )
@@ -184,16 +187,13 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 64, 192 )
+[node name="Car" type="KinematicBody2D" groups=["Car"]]
 
-[node name="CarHorizontal" type="AnimatedSprite"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 8 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 7 )
 animation = "running_down_white"
 frame = 1
 playing = true
-
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-shape = SubResource( 8 )

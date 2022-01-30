@@ -5,25 +5,8 @@
 [ext_resource path="res://assets/sprites/Black Car Hori.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/White Car Hori.png" type="Texture" id=4]
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 4 )
-region = Rect2( 320, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 4 )
-region = Rect2( 640, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 2 )
-region = Rect2( 320, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
-region = Rect2( 640, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 320, 128 )
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 192, 48 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
@@ -33,16 +16,8 @@ region = Rect2( 320, 0, 320, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 640, 0, 320, 128 )
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 320, 128 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 320, 128 )
 
 [sub_resource type="AtlasTexture" id=1]
@@ -53,16 +28,39 @@ region = Rect2( 320, 0, 320, 128 )
 atlas = ExtResource( 3 )
 region = Rect2( 640, 0, 320, 128 )
 
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 4 )
+region = Rect2( 320, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 4 )
+region = Rect2( 640, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 320, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 640, 0, 320, 128 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 320, 128 )
+
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
-"name": "running_white",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 9 ), SubResource( 10 ) ],
-"loop": true,
-"name": "running_red",
+"name": "running_blue",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 12 ) ],
@@ -70,19 +68,9 @@ animations = [ {
 "name": "parked_black",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
 "loop": true,
-"name": "running_blue",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 6 ) ],
-"loop": true,
-"name": "parked_white",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 11 ) ],
-"loop": true,
-"name": "parked_red",
+"name": "running_black",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 3 ) ],
@@ -90,25 +78,37 @@ animations = [ {
 "name": "parked_blue",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
-"name": "running_black",
+"name": "running_white",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "parked_white",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "running_red",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 11 ) ],
+"loop": true,
+"name": "parked_red",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 192, 48 )
+[node name="Car" type="KinematicBody2D" groups=["Car"]]
 
-[node name="CarHorizontal" type="AnimatedSprite"]
-position = Vector2( -16, -16 )
-frames = SubResource( 13 )
-animation = "parked_black"
-playing = true
-
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -16, -16 )
+frames = SubResource( 13 )
+animation = "parked_black"
+playing = true

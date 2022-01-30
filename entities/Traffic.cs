@@ -21,7 +21,7 @@ public class Traffic : Node2D
     private TrafficDirection _direction = TrafficDirection.Right;
     private int _numberCarsAhead = 5;
     private int _numberCarsBehind = 5;
-    private Array<AnimatedSprite> _cars = new Array<AnimatedSprite>();
+    private Array<KinematicBody2D> _cars = new Array<KinematicBody2D>();
     // private Vector2 _respawnBoundary;
     
     [Export]
@@ -114,7 +114,7 @@ public class Traffic : Node2D
         _cars.Clear();
     }
 
-    public void DespawnCar(AnimatedSprite car)
+    public void DespawnCar(KinematicBody2D car)
     {
         // GD.Print("Despawning car ", car);
         _cars.Remove(car);
@@ -139,8 +139,8 @@ public class Traffic : Node2D
     public void SpawnCar(Vector2 position = default)
     {
         PackedScene carScene;
-        AnimatedSprite car;
-        
+        KinematicBody2D car;
+        AnimatedSprite carSprite;
         // pick a random color
         string colorSuffix = "_" + Colors[GD.Randi() % Colors.Length];
         
@@ -148,25 +148,29 @@ public class Traffic : Node2D
         {
             case TrafficDirection.Left:
                 carScene = GD.Load<PackedScene>("entities/CarHorizontal.tscn");
-                car = carScene.Instance<AnimatedSprite>();
-                car.FlipH = true;
-                car.Play("running" + colorSuffix);
+                car = carScene.Instance<KinematicBody2D>();
+                carSprite = car.GetNode<AnimatedSprite>("AnimatedSprite");
+                carSprite.FlipH = true;
+                carSprite.Play("running" + colorSuffix);
                 break;
             case TrafficDirection.Right:
                 carScene = GD.Load<PackedScene>("entities/CarHorizontal.tscn");
-                car = carScene.Instance<AnimatedSprite>();
-                car.FlipH = false;
-                car.Play("running" + colorSuffix);
+                car = carScene.Instance<KinematicBody2D>();
+                carSprite = car.GetNode<AnimatedSprite>("AnimatedSprite");
+                carSprite.FlipH = false;
+                carSprite.Play("running" + colorSuffix);
                 break;
             case TrafficDirection.Up:
                 carScene = GD.Load<PackedScene>("entities/CarVertical.tscn");
-                car = carScene.Instance<AnimatedSprite>();
-                car.Play("running_up" + colorSuffix);
+                car = carScene.Instance<KinematicBody2D>();
+                carSprite = car.GetNode<AnimatedSprite>("AnimatedSprite");
+                carSprite.Play("running_up" + colorSuffix);
                 break;
             case TrafficDirection.Down:
                 carScene = GD.Load<PackedScene>("entities/CarVertical.tscn");
-                car = carScene.Instance<AnimatedSprite>();
-                car.Play("running_down" + colorSuffix);
+                car = carScene.Instance<KinematicBody2D>();
+                carSprite = car.GetNode<AnimatedSprite>("AnimatedSprite");
+                carSprite.Play("running_down" + colorSuffix);
                 break;
             default:
                 return;

@@ -11,6 +11,11 @@ namespace Duality.states.tourist
         private float _score;
         private bool _excited;
         private float _speed;
+        private Vector2 _force;
+        public Vector2 Force
+        {
+            get => _force;
+        }
 
         public TouristFollowState(Node2D target, float score)
         {
@@ -99,7 +104,7 @@ namespace Duality.states.tourist
             
             // Follow the thing!
             _timer -= delta;
-            RefObj.LinearVelocity = d.Normalized() * _speed;
+            _force = d.Normalized() * _speed;
             return null;
         }
 

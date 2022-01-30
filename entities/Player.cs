@@ -90,13 +90,13 @@ public class Player : KinematicBody2D, IEntity
         GetTree().Root.AddChild(tween);
         // AddChild(tween);
         tween.InterpolateProperty(inf, "shape:radius", 32, 256, 1.0f);
-        tween.InterpolateProperty(this, "Influence", 50, 120, 1.0f);
+        tween.InterpolateProperty(this, "Influence", 50, 150, 1.0f);
         tween.InterpolateProperty(inf, "shape:radius", 256, 32, 5.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 2.5f);
-        tween.InterpolateProperty(this, "Influence", 120, 50, 5.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 2.5f);
+        tween.InterpolateProperty(this, "Influence", 150, 50, 5.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 2.5f);
         tween.Start();
         // tween.Connect()
         // inf.Radius = 
-        // EmitSignal(nameof(PlayerShout), this);
+        // EmitSignal(nameof(PlayerShout), this);   
     }
 
     public void ThrowFlag(Vector2 to)
