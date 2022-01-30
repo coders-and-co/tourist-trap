@@ -74,6 +74,7 @@ public class Tourist : RigidBody2D
 		Vision.Connect("area_exited", this, "TargetLost");
 
 		Connect("body_entered", this, "OnCollided");
+		Game.TouristCount++;
 	}
 
 	public void PickRandomFrame(AnimatedSprite sprite, string anim="default") {
@@ -147,6 +148,8 @@ public class Tourist : RigidBody2D
 				return 40;
 			case var bus when bus.IsInGroup("Bus"):
 				return 60;
+			case var statue when statue.IsInGroup("Statue"):
+				return 110;
 			case var feature when feature.IsInGroup("Feature"):
 				return 100;
 			default:
@@ -174,6 +177,7 @@ public class Tourist : RigidBody2D
 			case Player _:
 			case Flag _: 
 			case NPC npc when npc.Influence > 0:
+			case var statue when statue.IsInGroup("Statue"):
 			case var feature when feature.IsInGroup("Feature"): 
 			case var bus when bus.IsInGroup("Bus"):
 				var score = GetScore(target) * -1;

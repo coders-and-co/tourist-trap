@@ -89,6 +89,8 @@ namespace Duality.states.tourist
                     return new TouristTakePictureState(b);
                 case var f when f.IsInGroup("Feature") && dist <= RefObj.ComfortDistance:
                     return new TouristTakePictureState(f);
+                case var s when s.IsInGroup("Statue") && dist <= RefObj.ComfortDistance:
+                    return new TouristTakePictureState(s);
                 case NPC n when dist < RefObj.ComfortDistance / 2:
                     return new TouristIdleState();
                 case var t when dist <= RefObj.ComfortDistance / 2 && _score < RefObj.MaxStopFollowScore:
