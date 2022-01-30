@@ -126,19 +126,7 @@ tile_data = PoolIntArray( 327737, 0, 8, 327738, 0, 9, 327739, 0, 10, 393273, 0, 
 position = Vector2( 2368, 2688 )
 
 [node name="Feature" type="Node2D" parent="Objects"]
-position = Vector2( 1120, 2096 )
-
-[node name="Feature" type="Node2D" parent="Objects"]
 position = Vector2( 2880, 1600 )
-
-[node name="Feature" type="Node2D" parent="Objects"]
-position = Vector2( 1312, 2664 )
-
-[node name="Feature" type="Node2D" parent="Objects"]
-position = Vector2( 416, 2736 )
-
-[node name="Feature" type="Node2D" parent="Objects"]
-position = Vector2( 1448, 3520 )
 
 [node name="Feature" type="Node2D" parent="Objects"]
 position = Vector2( 2816, 2688 )

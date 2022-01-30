@@ -163,7 +163,7 @@ playing = true
 
 [node name="Outfit" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 30 )
-frame = 4
+frame = 1
 
 [node name="Face" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 19 )

@@ -31,7 +31,7 @@ namespace Duality.states.tourist
                 NPC {Type: NPC.NPCType.Barista} => true,
                 NPC {Type: NPC.NPCType.Sketchy} => true,
                 var f when f.IsInGroup("Feature") => true,
-                var b when b.IsInGroup("Bus") => true,
+                var s when s.IsInGroup("Statue") => true,
                 _ => false
             };
 
@@ -72,7 +72,7 @@ namespace Duality.states.tourist
                 if (t is null || score == 0)
                     return new TouristIdleState();
                 // check for new target
-                if (t != _target)
+                if (t != _target && t.Name != "Bus")
                     return new TouristFollowState(t, score);
                 _score = score; // update score
                 _timer = RefObj.FollowPollingInterval; // reset timer
@@ -85,8 +85,6 @@ namespace Duality.states.tourist
             // check if reached the target
             switch (_target)
             {
-                case var b when b.IsInGroup("Bus") && dist <= RefObj.ComfortDistance * 1.5f:
-                    return new TouristTakePictureState(b);
                 case var f when f.IsInGroup("Feature") && dist <= RefObj.ComfortDistance:
                     return new TouristTakePictureState(f);
                 case var s when s.IsInGroup("Statue") && dist <= RefObj.ComfortDistance:

@@ -15,6 +15,7 @@ __meta__ = {
 }
 
 [node name="Map" parent="." instance=ExtResource( 5 )]
+position = Vector2( -122, -29 )
 script = ExtResource( 8 )
 
 [node name="Entities" type="YSort" parent="."]
@@ -55,4 +56,4 @@ NumberCarsBehind = 8
 position = Vector2( 7, 20 )
 
 [node name="Bus" parent="Entities" instance=ExtResource( 3 )]
-position = Vector2( 632, 3448 )
+position = Vector2( 4342, 401 )

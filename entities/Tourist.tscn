@@ -8,10 +8,6 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.0
 
-[sub_resource type="AtlasTexture" id=49]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 64, 128 )
-
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 64, 128 )
@@ -28,34 +24,22 @@ region = Rect2( 128, 0, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 192, 0, 64, 128 )
 
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 64, 128 )
+
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 49 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 49 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
 } ]
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 1 )
-region = Rect2( 320, 0, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 1 )
-region = Rect2( 384, 0, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 1 )
-region = Rect2( 512, 0, 64, 128 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 1 )
-region = Rect2( 704, 0, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=85]
 atlas = ExtResource( 1 )
@@ -253,13 +237,24 @@ region = Rect2( 704, 128, 64, 128 )
 atlas = ExtResource( 1 )
 region = Rect2( 768, 128, 64, 128 )
 
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 0, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 384, 0, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 512, 0, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 704, 0, 64, 128 )
+
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 15 ), SubResource( 18 ) ],
-"loop": true,
-"name": "default",
-"speed": 0.5
-}, {
 "frames": [ SubResource( 85 ), SubResource( 85 ), SubResource( 86 ), SubResource( 87 ), SubResource( 88 ), SubResource( 89 ) ],
 "loop": true,
 "name": "talk 2",
@@ -294,6 +289,11 @@ animations = [ {
 "loop": false,
 "name": "talk 6",
 "speed": 12.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 15 ), SubResource( 18 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.5
 } ]
 
 [sub_resource type="AtlasTexture" id=98]
