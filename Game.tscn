@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.cs" type="Script" id=2]
@@ -7,9 +7,15 @@
 [ext_resource path="res://assets/maps/tutorial-city-01.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/TrafficFlow.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/music/Tourist_Trap_Song2.mp3" type="AudioStream" id=7]
+[ext_resource path="res://assets/sprites/street light 2.png" type="Texture" id=8]
 [ext_resource path="res://entities/NPC.tscn" type="PackedScene" id=9]
 [ext_resource path="res://entities/TrafficLightN.tscn" type="PackedScene" id=10]
 [ext_resource path="res://entities/TrafficLightS.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/sprites/stop sign.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/tree.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/fire hydrant.png" type="Texture" id=14]
+
+[sub_resource type="CircleShape2D" id=1]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -138,6 +144,378 @@ position = Vector2( 1184, 3096 )
 
 [node name="NPC18" parent="Entities/NPCs" instance=ExtResource( 9 )]
 position = Vector2( 480, 2528 )
+
+[node name="CityDecor" type="YSort" parent="Entities"]
+
+[node name="Stopsign" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 941, 1724 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Stopsign"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Stopsign"]
+position = Vector2( 0, -60 )
+texture = ExtResource( 12 )
+
+[node name="Stopsign2" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1858, 1528 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Stopsign2"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Stopsign2"]
+position = Vector2( 0, -60 )
+texture = ExtResource( 12 )
+
+[node name="Stopsign3" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2499, 1846 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Stopsign3"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Stopsign3"]
+position = Vector2( 0, -60 )
+texture = ExtResource( 12 )
+
+[node name="Stopsign4" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2575, 1616 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Stopsign4"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Stopsign4"]
+position = Vector2( 0, -60 )
+texture = ExtResource( 12 )
+
+[node name="Stopsign5" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1860, 2771 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Stopsign5"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Stopsign5"]
+position = Vector2( 0, -60 )
+texture = ExtResource( 12 )
+
+[node name="Tree" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2606, 3335 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Tree"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Tree"]
+position = Vector2( 0, -60 )
+texture = ExtResource( 13 )
+
+[node name="Tree2" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1251, 2042 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Tree2"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Tree2"]
+position = Vector2( -1, -117 )
+texture = ExtResource( 13 )
+
+[node name="Hydrant" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1402, 2955 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Hydrant"]
+position = Vector2( 0, -2 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Hydrant"]
+position = Vector2( 1, -35 )
+texture = ExtResource( 14 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Hydrant2" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1437, 1412 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Hydrant2"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Hydrant2"]
+position = Vector2( 0, -60 )
+texture = ExtResource( 14 )
+
+[node name="Hydrant3" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 3358, 2853 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Hydrant3"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Hydrant3"]
+position = Vector2( 1, -29 )
+texture = ExtResource( 14 )
+
+[node name="Hydrant4" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2209, 2850 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Hydrant4"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Hydrant4"]
+position = Vector2( 1, -32 )
+texture = ExtResource( 14 )
+
+[node name="Hydrant5" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2293, 3624 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Hydrant5"]
+position = Vector2( 0, -2 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Hydrant5"]
+position = Vector2( 0, -22 )
+texture = ExtResource( 14 )
+
+[node name="Lamp" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1403, 3270 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp2" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1396, 3804 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp2"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp2"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp3" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1412, 2776 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp3"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp3"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp4" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 415, 2935 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp4"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp4"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp5" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 415, 3440 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp5"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp5"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp6" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1418, 1952 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp6"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp6"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp7" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1434, 1516 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp7"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp7"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp8" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1117, 928 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp8"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp8"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp9" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2210, 1622 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp9"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp9"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp10" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 3418, 2848 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp10"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp10"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp11" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2980, 2850 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp11"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp11"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp12" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2455, 2852 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp12"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp12"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp13" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2022, 2856 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp13"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp13"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp14" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2465, 3237 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp14"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp14"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Lamp15" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 2149, 3481 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Lamp15"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Lamp15"]
+position = Vector2( 31, -109 )
+texture = ExtResource( 8 )
+
+[node name="Tree4" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1831, 2542 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Tree4"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Tree4"]
+position = Vector2( 0, -60 )
+texture = ExtResource( 13 )
+
+[node name="Tree3" type="StaticBody2D" parent="Entities/CityDecor"]
+position = Vector2( 1086, 1876 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Tree3"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Entities/CityDecor/Tree3"]
+position = Vector2( 1, -122 )
+texture = ExtResource( 13 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
