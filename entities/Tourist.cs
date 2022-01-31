@@ -154,6 +154,8 @@ public class Tourist : RigidBody2D
 				return 60;
 			case var bus when bus.IsInGroup("Bus") && Map.BusTakeMeHome:
 				return 80;
+			case var statue when statue.IsInGroup("Dog"):
+				return 90;
 			case var statue when statue.IsInGroup("Statue"):
 				return 110;
 			case var feature when feature.IsInGroup("Feature"):
@@ -183,6 +185,7 @@ public class Tourist : RigidBody2D
 			case Player _:
 			case Flag _: 
 			case NPC npc when npc.Influence > 0:
+			case var dog when dog.IsInGroup("Dog"):
 			case var statue when statue.IsInGroup("Statue"):
 			case var feature when feature.IsInGroup("Feature"): 
 			case var bus when bus.IsInGroup("Bus"):

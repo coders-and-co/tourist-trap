@@ -10,7 +10,7 @@ namespace Duality.states.npc
         
         public override void OnEnter()
         {
-            _timer = (float) GD.RandRange(1, 2); // 1 to 2 seconds
+            _timer = (float) GD.RandRange(3, 9); // 3 to 9 seconds
             RefObj.LinearVelocity = Vector2.Zero;
             RefObj.BodySprite.Play("idle");
 

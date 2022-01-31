@@ -32,6 +32,7 @@ namespace Duality.states.tourist
                 NPC {Type: NPC.NPCType.Sketchy} => true,
                 var f when f.IsInGroup("Feature") => true,
                 var s when s.IsInGroup("Statue") => true,
+                var s when s.IsInGroup("Dog") => true,
                 _ => false
             };
 
@@ -91,6 +92,8 @@ namespace Duality.states.tourist
                     return new TouristTakePictureState(f);
                 case var s when s.IsInGroup("Statue") && dist <= RefObj.ComfortDistance:
                     return new TouristTakePictureState(s);
+                case var dog when dog.IsInGroup("Dog") && dist <= RefObj.ComfortDistance / 2:
+                    return new TouristTakePictureState(dog);
                 case NPC n when dist < RefObj.ComfortDistance / 2:
                     return new TouristIdleState();
                 case var t when dist <= RefObj.ComfortDistance / 2 && _score < RefObj.MaxStopFollowScore:
