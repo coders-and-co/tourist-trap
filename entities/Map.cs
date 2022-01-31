@@ -11,7 +11,6 @@ public class Map : Node2D
     public override void _Ready()
     {
         spawn_interest_points();
-        BusTakeMeHome = true;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -52,6 +51,7 @@ public class Map : Node2D
     
     public void spawn_blockers()
     {
+        BusTakeMeHome = true;
         PackedScene blockerScene = GD.Load<PackedScene>("entities/Blocker.tscn");
 
         Node2D mapBits = GetNode<Node2D>("Objects");
