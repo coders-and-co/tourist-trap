@@ -30,6 +30,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 15.0
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 21 )
@@ -45,7 +46,6 @@ motion_offset = Vector2( 0, 70 )
 
 [node name="Sprite" type="AnimatedSprite" parent="ParallaxBackground/ParallaxLayer"]
 frames = SubResource( 2 )
-frame = 1
 playing = true
 
 [node name="Map" parent="." instance=ExtResource( 5 )]
@@ -284,23 +284,17 @@ position = Vector2( 0, -2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Entities/CityDecor/Hydrant"]
-position = Vector2( 1, -35 )
+position = Vector2( 1, -20 )
 texture = ExtResource( 14 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Hydrant2" type="StaticBody2D" parent="Entities/CityDecor"]
 position = Vector2( 1437, 1412 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CityDecor/Hydrant2"]
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Entities/CityDecor/Hydrant2"]
-position = Vector2( 0, -60 )
+position = Vector2( 0, -20 )
 texture = ExtResource( 14 )
 
 [node name="Hydrant3" type="StaticBody2D" parent="Entities/CityDecor"]
@@ -568,20 +562,20 @@ position = Vector2( 2464, 3512 )
 
 [node name="AnimatedSprite" parent="Entities/Dogs/Dog2" index="1"]
 animation = "pom"
-frame = 2
+frame = 3
 
 [node name="Dog3" parent="Entities/Dogs" instance=ExtResource( 19 )]
 position = Vector2( 2160, 3656 )
 
 [node name="AnimatedSprite" parent="Entities/Dogs/Dog3" index="1"]
 animation = "pood"
-frame = 0
 
 [node name="Dog4" parent="Entities/Dogs" instance=ExtResource( 19 )]
 position = Vector2( 2408, 3712 )
 
 [node name="AnimatedSprite" parent="Entities/Dogs/Dog4" index="1"]
 animation = "shib"
+frame = 0
 
 [node name="Dog5" parent="Entities/Dogs" instance=ExtResource( 19 )]
 position = Vector2( 2368, 3392 )
