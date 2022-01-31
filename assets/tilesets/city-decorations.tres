@@ -1,15 +1,42 @@
-[gd_resource type="TileSet" load_steps=5 format=2]
+[gd_resource type="TileSet" load_steps=3 format=2]
 
 [ext_resource path="res://assets/tiles/City Decoration Spritesheet.png" type="Texture" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=28]
-points = PoolVector2Array( 16, 31, 68, 31, 68, 62, 16, 62 )
+points = PoolVector2Array( 45.29505582137162, 30.74960127591707, 33.046251993620416, 0.5103668261563001, 22.58373205741627, 6.634768740031898, 20.925039872408295, 21.435406698564595, 23.60446570972887, 30.49441786283892 )
+
+[sub_resource type="ConvexPolygonShape2D" id=28]
+points = PoolVector2Array( 25.90111642743222, 33.301435406698566, 25.263157894736846, 59.96810207336524, 57.16108452950559, 64.17862838915471, 61.62679425837322, 53.33333333333334, 61.116427432216916, 42.48803827751197, 57.67145135566189, 37.38437001594897, 53.205741626794264, 33.939393939393945, 44.40191387559809, 32.918660287081345, 44.91228070175439, 30.74960127591707, 22.58373205741627, 29.72886762360447 )
 
 [sub_resource type="ConvexPolygonShape2D" id=29]
 points = PoolVector2Array( -7, 22, 85, 22, 85, 61, -7, 61 )
 
+[sub_resource type="ConvexPolygonShape2D" id=29]
+points = PoolVector2Array( 6.507177033492824, 20.287081339712923, 9.059011164274324, 4.8484848484848495, 58.819776714513566, 4.593301435406699, 61.116427432216916, 14.545454545454547, 57.033492822966515, 20.287081339712923 )
+
 [sub_resource type="ConvexPolygonShape2D" id=30]
-points = PoolVector2Array( 0, 28, 64, 28, 64, 63, 0, 63 )
+points = PoolVector2Array( 4.7208931419457745, 33.046251993620416, 21.56299840510367, 31.642743221690594, 30.366826156299844, 3.9553429027113225, 33.301435406698566, 1.9138755980861255, 38.40510366826157, 5.358851674641148, 40.95693779904307, 15.055821371610847, 42.36044657097289, 26.41148325358852, 41.59489633173844, 36.10845295055822, 37.767145135566196, 44.01913875598087, 32.408293460925044, 47.33652312599682, 30.239234449760765, 58.94736842105264, 32.791068580542266, 62.26475279106859, 29.601275917065394, 64.30622009569379, 23.85964912280702, 63.92344497607657, 22.32854864433812, 62.51993620414674, 18.883572567783098, 61.49920255183414, 16.076555023923447, 61.371610845295066, 9.824561403508774, 62.00956937799044, 3.9553429027113243, 64.05103668261565, 3.1897926634768745, 59.96810207336524, 2.6794258373205744, 55.88516746411484, 1.9138755980861246, 54.481658692185015, 0.25518341307815007, 52.56778309409889, 1.9138755980861246, 37.767145135566196 )
+
+[sub_resource type="ConvexPolygonShape2D" id=101]
+points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
+
+[sub_resource type="ConvexPolygonShape2D" id=101]
+points = PoolVector2Array( 27.94258373205742, 6.889952153110049, 62.64752791068582, 6.889952153110049, 62.64752791068582, 64.05103668261565, 27.94258373205742, 64.05103668261565 )
+
+[sub_resource type="ConvexPolygonShape2D" id=119]
+points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
+
+[sub_resource type="ConvexPolygonShape2D" id=119]
+points = PoolVector2Array( 1.0207336523126003, 1.0207336523125998, 38.532695374800646, 1.0207336523125998, 38.532695374800646, 53.460925039872414, 1.0207336523126003, 53.460925039872414 )
+
+[sub_resource type="ConvexPolygonShape2D" id=137]
+points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
+
+[sub_resource type="ConvexPolygonShape2D" id=137]
+points = PoolVector2Array( 33.811802232854866, 9.696969696969699, 40.3189792663477, 9.696969696969699, 40.3189792663477, 62.77511961722489, 33.811802232854866, 62.77511961722489 )
+
+[sub_resource type="ConvexPolygonShape2D" id=137]
+points = PoolVector2Array( 33.301435406698566, 0.637958532695375, 39.298245614035096, 0.637958532695375, 39.298245614035096, 8.931419457735249, 33.301435406698566, 8.931419457735249 )
 
 [resource]
 0/name = "city-decorations 0"
@@ -29,10 +56,16 @@ points = PoolVector2Array( 0, 28, 64, 28, 64, 63, 0, 63 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 28 )
+0/shape = 0
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
+"autotile_coord": Vector2( 10, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 28 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
 "autotile_coord": Vector2( 10, 1 ),
 "one_way": false,
 "one_way_margin": 1.0,
@@ -45,10 +78,58 @@ points = PoolVector2Array( 0, 28, 64, 28, 64, 63, 0, 63 )
 "shape": SubResource( 29 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
+"autotile_coord": Vector2( 11, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 29 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
 "autotile_coord": Vector2( 12, 1 ),
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": SubResource( 30 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 11, 5 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 101 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 11, 5 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 101 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 11, 6 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 119 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 11, 6 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 119 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 11, 7 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 137 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 11, 7 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 137 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 11, 7 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 137 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0

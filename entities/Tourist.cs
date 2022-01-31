@@ -149,12 +149,12 @@ public class Tourist : RigidBody2D
 			case IEntity entity:
 				return entity.Influence; // 50
 			case Flag flag:
-				return 40;
+				return 50;
 			case var bus when bus.IsInGroup("Bus") && !Map.BusTakeMeHome:
 				return 60;
 			case var bus when bus.IsInGroup("Bus") && Map.BusTakeMeHome:
 				return 80;
-			case var statue when statue.IsInGroup("Dog"):
+			case var dog when dog.IsInGroup("Dog"):
 				return 90;
 			case var statue when statue.IsInGroup("Statue"):
 				return 110;
