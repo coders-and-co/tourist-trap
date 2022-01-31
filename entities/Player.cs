@@ -90,7 +90,7 @@ public class Player : KinematicBody2D, IEntity
 			{
 				case var b when b.IsInGroup("Lights"):
 					var traffic = GetTree().Root.GetNode<Traffic>("Game/Entities/Cars/TrafficFlow");
-					traffic.Toggle();
+					traffic.Toggle(null);
 					break;
 				default:
 					break;

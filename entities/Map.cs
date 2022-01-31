@@ -15,9 +15,11 @@ public class Map : Node2D
 
     public override void _PhysicsProcess(float delta)
     {
-        if (TouristsCompletedStatuePhoto.Count == TouristCount)
+        if (TouristsCompletedStatuePhoto.Count == TouristCount && !BusTakeMeHome)
         {
             spawn_blockers();
+            var traffic = GetTree().Root.GetNode<Traffic>("Game/Entities/Cars/TrafficFlow");
+            traffic.Toggle(false);
         }
         if (BusTakeMeHome && TouristCount == 0)
         {

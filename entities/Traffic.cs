@@ -106,10 +106,13 @@ public class Traffic : Node2D
         GD.Print("despawnAt: ", GetDespawnPoint());
     }
 
-    public void Toggle()
+    public void Toggle(bool? value)
     {
         GD.Print("Toggle!");
-        _stopped = !_stopped;
+        if (value.HasValue)
+            _stopped = value.Value;
+        else
+            _stopped = !_stopped;
         foreach (StaticBody2D light in Lights)
         {
             var sprite = light.GetNode<AnimatedSprite>("AnimatedSprite");
