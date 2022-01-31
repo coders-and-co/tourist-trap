@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=2]
 
-[ext_resource path="res://D:/Documents/GitHub/tourist-trap/assets/tiles/City Decoration Spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/tiles/City Decoration Spritesheet.png" type="Texture" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=28]
 points = PoolVector2Array( 16, 31, 68, 31, 68, 62, 16, 62 )
