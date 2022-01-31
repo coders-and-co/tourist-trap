@@ -2,7 +2,7 @@
 
   # Tourist Trap
 
-  ![align="left" height="48" width="48"](https://github.com/sixthgear/tourist-trap/blob/ef9cf5fc574c5cd35d82affe8b5b20a029bfed00/assets/sprites/Store%20Page%20Logo.png)
+  ![align="center" height="48" width="48"](https://github.com/sixthgear/tourist-trap/blob/ef9cf5fc574c5cd35d82affe8b5b20a029bfed00/assets/sprites/Store%20Page%20Logo.png)
   
 
 You are a Tour Guide for the esteemed GlobeTour Family! Your job is to bring your Tourists from the bus, to a famous statue in the city, and back to the bus... but they won't be easy to wrangle! Good thing your enthusiasm and positivity will keep the tour on-track! 
