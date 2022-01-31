@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.5" tiledversion="1.7.2" name="tourist-city" tilewidth="64" tileheight="64" tilecount="324" columns="18">
  <editorsettings>
-  <export target="" format="Godot"/>
+  <export target="../maps/tourist-city.tres" format="Godot"/>
  </editorsettings>
  <properties>
   <property name="projectRoot" value="../.."/>
  </properties>
  <image source="../tiles/City Spritesheet.png" width="1152" height="1152"/>
+ <tile id="0">
+  <properties>
+   <property name="projectRoot" value="../.."/>
+  </properties>
+ </tile>
  <tile id="62">
   <objectgroup draworder="index" id="2">
    <object id="1" x="16" y="16" width="48" height="40"/>
