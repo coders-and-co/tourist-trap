@@ -101,18 +101,24 @@ public class Player : KinematicBody2D, IEntity
 
     public void Shout()
     {
-        var inf = InfluenceArea.GetChild<CollisionShape2D>(0); // .Shape;
+	    
+	    var inf = InfluenceArea.GetChild<CollisionShape2D>(0); // .Shape;
+	    var circle = (CircleShape2D) inf.Shape;
+	    Influence = 60;
+	    // circle.Radius
+	    
+	    
         Tween tween = new Tween();
         GetTree().Root.AddChild(tween);
-        tween.InterpolateProperty(inf, "shape:radius", 32, 256, 1.0f);
-        tween.InterpolateProperty(this, "Influence", 50, 150, 1.0f);
-        tween.InterpolateProperty(inf, "shape:radius", 256, 32, 5.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 2.5f);
-        tween.InterpolateProperty(this, "Influence", 150, 50, 5.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 2.5f);
+        // tween.InterpolateProperty(inf, "shape:radius", 32, 256, 1.0f);
+        // tween.InterpolateProperty(this, "Influence", 50, 60, 1.0f);
+        // tween.InterpolateProperty(inf, "shape:radius", 256, 32, 5.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 2.5f);
+        tween.InterpolateProperty(this, "Influence", 60, 50, 3.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 0f);
         tween.Start();
 
         foreach (Tourist t in GetTree().Root.GetNode<YSort>("Game/Entities/Tourists").GetChildren())
         {
-            t.StateMachine.ChangeState(new TouristIdleState());
+            t.StateMachine.ChangeState(new TouristFollowState(this, 100));
         };
     }
 

@@ -44,8 +44,8 @@ public class NPC : RigidBody2D, IEntity
         Influence = _type switch
         {
             NPCType.Normal => 0,
-            NPCType.Sketchy => 60,
-            NPCType.Barista => 60,
+            NPCType.Sketchy => 65,
+            NPCType.Barista => 65,
             _ => 0
         };
         
