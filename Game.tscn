@@ -45,7 +45,6 @@ motion_offset = Vector2( 0, 70 )
 
 [node name="Sprite" type="AnimatedSprite" parent="ParallaxBackground/ParallaxLayer"]
 frames = SubResource( 2 )
-frame = 1
 playing = true
 
 [node name="Map" parent="." instance=ExtResource( 5 )]
@@ -574,6 +573,7 @@ position = Vector2( 2160, 3656 )
 
 [node name="AnimatedSprite" parent="Entities/Dogs/Dog3" index="1"]
 animation = "pood"
+frame = 0
 
 [node name="Dog4" parent="Entities/Dogs" instance=ExtResource( 19 )]
 position = Vector2( 2408, 3712 )
@@ -586,7 +586,6 @@ position = Vector2( 2368, 3392 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-autoplay = true
 
 [node name="HUD" parent="." instance=ExtResource( 18 )]
 position = Vector2( 888, 3520 )
