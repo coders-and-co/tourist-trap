@@ -37,7 +37,7 @@ namespace Duality.states.tourist
             }
 
             // Adjust speed based on target score
-            _speed = 80;
+            _speed = 120;
             
             // Follow the thing!
             _force = d.Normalized() * _speed;

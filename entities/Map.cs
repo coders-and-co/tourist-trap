@@ -21,10 +21,10 @@ public class Map : Node2D
             var traffic = GetTree().Root.GetNode<Traffic>("Game/Entities/Cars/TrafficFlow");
             traffic.Toggle(false);
         }
-        if (BusTakeMeHome && TouristCount == 0)
+        if (BusTakeMeHome && TouristCount <= 0)
         {
-            GD.Print("WONNNNN");
             Game.Win = true;
+            GetTree().Root.GetNode<Node2D>("Game/Entities/Player/Camera2D/WinScreen").Visible = true;
         }
     }
 
