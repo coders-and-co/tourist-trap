@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.5" tiledversion="1.7.2" name="city-decorations" tilewidth="64" tileheight="64" tilecount="324" columns="18">
+ <editorsettings>
+  <export target="city-decorations.tres" format="Godot"/>
+ </editorsettings>
  <properties>
   <property name="projectRoot" value="../.."/>
  </properties>
@@ -17,6 +20,21 @@
  <tile id="30">
   <objectgroup draworder="index" id="3">
    <object id="2" x="0" y="28" width="64" height="35"/>
+  </objectgroup>
+ </tile>
+ <tile id="101">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="64" height="64"/>
+  </objectgroup>
+ </tile>
+ <tile id="119">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="64" height="64"/>
+  </objectgroup>
+ </tile>
+ <tile id="137">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
 </tileset>

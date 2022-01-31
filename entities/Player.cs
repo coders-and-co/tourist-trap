@@ -2,6 +2,7 @@ using Godot;
 using System;
 using Duality.states;
 using Duality.states.player;
+using Duality.states.tourist;
 
 public class Player : KinematicBody2D, IEntity
 {
@@ -108,6 +109,11 @@ public class Player : KinematicBody2D, IEntity
         tween.InterpolateProperty(inf, "shape:radius", 256, 32, 5.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 2.5f);
         tween.InterpolateProperty(this, "Influence", 150, 50, 5.0f, Tween.TransitionType.Linear, Tween.EaseType.InOut, 2.5f);
         tween.Start();
+
+        foreach (Tourist t in GetTree().Root.GetNode<YSort>("Game/Entities/Tourists").GetChildren())
+        {
+            t.StateMachine.ChangeState(new TouristIdleState());
+        };
     }
 
     public void ThrowFlag(Vector2 to)
