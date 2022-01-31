@@ -113,7 +113,7 @@ position = Vector2( 632, 3448 )
 [node name="NPCs" type="YSort" parent="Entities"]
 
 [node name="Barista" parent="Entities/NPCs" instance=ExtResource( 9 )]
-position = Vector2( 664, 2352 )
+position = Vector2( 896, 2432 )
 Type = 2
 
 [node name="Sketchy Ed" parent="Entities/NPCs" instance=ExtResource( 9 )]
