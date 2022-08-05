@@ -569,13 +569,13 @@ position = Vector2( 2160, 3656 )
 
 [node name="AnimatedSprite" parent="Entities/Dogs/Dog3" index="1"]
 animation = "pood"
+frame = 0
 
 [node name="Dog4" parent="Entities/Dogs" instance=ExtResource( 19 )]
 position = Vector2( 2408, 3712 )
 
 [node name="AnimatedSprite" parent="Entities/Dogs/Dog4" index="1"]
 animation = "shib"
-frame = 0
 
 [node name="Dog5" parent="Entities/Dogs" instance=ExtResource( 19 )]
 position = Vector2( 2368, 3392 )
