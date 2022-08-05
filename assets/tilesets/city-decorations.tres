@@ -3,13 +3,13 @@
 [ext_resource path="res://assets/tiles/City Decoration Spritesheet.png" type="Texture" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=28]
-points = PoolVector2Array( 45.2951, 30.7496, 33.0463, 0.510367, 22.5837, 6.63477, 20.925, 21.4354, 23.6045, 30.4944 )
+points = PoolVector2Array( 16, 31, 68, 31, 68, 62, 16, 62 )
 
 [sub_resource type="ConvexPolygonShape2D" id=29]
 points = PoolVector2Array( -7, 22, 85, 22, 85, 61, -7, 61 )
 
 [sub_resource type="ConvexPolygonShape2D" id=30]
-points = PoolVector2Array( 4.72089, 33.0463, 21.563, 31.6427, 30.3668, 3.95534, 33.3014, 1.91388, 38.4051, 5.35885, 40.9569, 15.0558, 42.3604, 26.4115, 41.5949, 36.1085, 37.7671, 44.0191, 32.4083, 47.3365, 30.2392, 58.9474, 32.7911, 62.2648, 29.6013, 64.3062, 23.8596, 63.9234, 22.3285, 62.5199, 18.8836, 61.4992, 16.0766, 61.3716, 9.82456, 62.0096, 3.95534, 64.051, 3.18979, 59.9681, 2.67943, 55.8852, 1.91388, 54.4817, 0.255183, 52.5678, 1.91388, 37.7671 )
+points = PoolVector2Array( 0, 28, 64, 28, 64, 63, 0, 63 )
 
 [sub_resource type="ConvexPolygonShape2D" id=101]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
